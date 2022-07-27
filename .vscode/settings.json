@@ -1,0 +1,23 @@
+{
+  // Set the default
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // "[javascript]": {
+  //   "editor.formatOnSave": true
+  // },  
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  // "[javascriptreact]": {
+  //   "editor.formatOnSave": true
+  // },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+
+  "eslint.validate": ["typescript", "typescriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
