@@ -38,6 +38,17 @@
   ]
 },
 ```
+## index 파일 생성
+```javascript
+"Create React Index": {
+  "prefix": ">cri",
+  "description": ">CreateReactIndex",
+  "body": [
+    "export { default } from './${1:${TM_DIRECTORY/^.+\\/(.*)$/$1/}}';",
+    ""
+  ]
+},
+```
 
 # eslint options
 
