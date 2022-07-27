@@ -10,6 +10,7 @@
     "@types/node": "^16.11.45",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -20,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:css": "stylelint --ignore-path .gitignore --fix './src/**/*.ts'",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -37,9 +40,19 @@
           "**/*.ts?(x)"
         ],
         "rules": {
-          "prettier/prettier": ["error"],
+          "prettier/prettier": [
+            "error"
+          ],
           "react/react-in-jsx-scope": "off",
-          "react/jsx-filename-extension": [2,{"extensions": [".ts",".tsx"]}]
+          "react/jsx-filename-extension": [
+            "error",
+            {
+              "extensions": [
+                ".ts",
+                ".tsx"
+              ]
+            }
+          ]
         }
       }
     ]
@@ -57,8 +70,26 @@
     ]
   },
   "devDependencies": {
+    "@stylelint/postcss-css-in-js": "^0.38.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "postcss-syntax": "^0.36.2",
+    "prettier": "^2.7.1",
+    "stylelint": "^14.9.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^5.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "stylelint --fix"
+    ],
+    "*.postcss-less": "stylelint --fix"
   }
 }
