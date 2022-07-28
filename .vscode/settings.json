@@ -7,17 +7,18 @@
   //   "editor.formatOnSave": true
   // },  
   "[typescript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   // "[javascriptreact]": {
   //   "editor.formatOnSave": true
   // },
   "[typescriptreact]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
 
   "eslint.validate": ["typescript", "typescriptreact"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
+  
 }

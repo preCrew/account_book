@@ -25,38 +25,6 @@
     "lint:css": "stylelint --ignore-path .gitignore --fix './src/**/*.ts'",
     "prepare": "husky install"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:react/recommended",
-      "plugin:prettier/recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "rules": {},
-    "overrides": [
-      {
-        "files": [
-          "**/*.ts?(x)"
-        ],
-        "rules": {
-          "prettier/prettier": [
-            "error"
-          ],
-          "react/react-in-jsx-scope": "off",
-          "react/jsx-filename-extension": [
-            "error",
-            {
-              "extensions": [
-                ".ts",
-                ".tsx"
-              ]
-            }
-          ]
-        }
-      }
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -67,6 +35,30 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:prettier/recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {},
+    "overrides": [
+      {
+        "files": ["**/*.ts?(x)"],
+        "rules": {
+          "react/react-in-jsx-scope": "off",
+          "react/jsx-filename-extension": [
+            "error",{"extensions": [".ts",".tsx"]}
+          ],
+          "react/function-component-definition": ["error", { "namedComponents": "arrow-function" }],
+          "react/hook-use-state": "error",
+          "react/jsx-boolean-value": ["error", "never"]
+        }
+      }
     ]
   },
   "devDependencies": {
