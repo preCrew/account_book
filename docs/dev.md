@@ -58,24 +58,28 @@
   - jsx 문법을 쓰는 파일의 확장자는 ts 혹은 tsx
 - `getter-return`: error
   - getter 사용시 return값 필수
+- `react/hook-use-state`: error
+  - useState 사용시 [value, setValue] = useState() 형식으로 사용해야함
+- `react/jsx-boolean-value`: ["error", "never"]
+  - prop 으로 boolean값을 넣을시 true를 넣어줄 필요가 없음
 # prettier options
 - `useTabs`: false 
   - tab 사용하지 않음  
 - `trailingComma`: all
   - 가능하면 콤마 붙이기  
-- `endOfLine`:` lf 
+- `endOfLine`: lf 
   - eol el로 설정  
-- `printWidth`:` 80 
+- `printWidth`: 80 
   - 길이 80 넘으면 줄넘김  
-- `tabWidth`:` 2  
+- `tabWidth`: 2  
   - tab = 스페이스 2칸  
-- `singleQuote`:` true  
+- `singleQuote`: true  
   - 작은따옴표만 사용가능  
-- `jsxSingleQuote`:` false  
+- `jsxSingleQuote`: false  
   - jsx문법의 속성은 큰따옴표만 가능  
-- `semi`:` true  
+- `semi`: true  
   - 세미콜론 필수  
-- `singleAttributePerLine`:` true  
+- `singleAttributePerLine`: true  
   - jsx 속성은 한줄에 하나만 입력  
-- `arrowParens`:` avoid 
+- `arrowParens`: avoid 
   - 가능하면 함수 인자에 () 생략
