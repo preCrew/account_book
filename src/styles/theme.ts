@@ -3,8 +3,8 @@ import { DefaultTheme } from 'styled-components';
 const theme: DefaultTheme = {
   font: {
     style: {
-      regular: 'NotoSansKR-R',
-      bold: 'NotoSansKR-B',
+      regular: 'appleR',
+      bold: 'appleB',
     },
     size: {
       fs18: '18px',
