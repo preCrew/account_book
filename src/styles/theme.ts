@@ -1,29 +1,37 @@
 import { DefaultTheme } from 'styled-components';
 
-const theme: DefaultTheme = {
-  font: {
-    style: {
-      regular: 'appleR',
-      bold: 'appleB',
-    },
-    size: {
-      fs14: '1.4rem',
-      fs16: '1.6rem',
-      fs20: '2rem',
-    },
-    weight: {
-      fw700: 700,
-    },
+const fonts = {
+  style: {
+    regular: 'appleR',
+    bold: 'appleB',
   },
-  color: {
-    color1: 'rgb(0,0,0)',
-    color2: 'rgb(255,255,255)',
+  size: {
+    fs18: '18px',
+    fs22: '22px',
+    fs60: '60px',
   },
-  backgroundColor: {
-    primary1:
-      'linear-gradient(to right, rgb(164,101,208), 60%, rgb(246,181,207))',
+  weight: {
+    fw700: 700,
   },
   deviceSize: '960px',
 };
+const colors = {
+  primary1: 'rgb(0,0,0)',
+};
+const deviceSizes = {
+  mobile: '320px',
+  tablet: '768px',
+  desktop: '1240px',
+};
 
-export { theme };
+export type FontsTypes = typeof fonts;
+export type ColorsTypes = typeof colors;
+export type DevicesSizesType = typeof deviceSizes;
+
+const theme: DefaultTheme = {
+  fonts,
+  colors,
+  deviceSizes,
+};
+
+export default theme;
