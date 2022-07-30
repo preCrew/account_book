@@ -16,7 +16,8 @@ const fonts = {
   deviceSize: '960px',
 };
 const colors = {
-  primary1: 'rgb(0,0,0)',
+  primaryPurple: '#A464D1',
+  primaryPink: '#FDB9D1',
 };
 const deviceSizes = {
   mobile: '320px',
