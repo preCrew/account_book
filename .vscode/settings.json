@@ -19,6 +19,7 @@
   "eslint.validate": ["typescript", "typescriptreact"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "files.eol": "\n",
   
 }
