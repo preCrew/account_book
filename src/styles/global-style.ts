@@ -4,9 +4,11 @@ import './fonts/fonts.css';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  html {
+    font-size: 150%;
+  }
   body {
       font-family: appleR;
-      font-size:10px;
   }
   *{
       box-sizing: border-box;

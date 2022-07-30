@@ -6,9 +6,9 @@ const fonts = {
     bold: 'appleB',
   },
   size: {
-    fs18: '18px',
-    fs22: '22px',
-    fs60: '60px',
+    small: '0.7rem',
+    medium: '1rem',
+    large: '1.3rem',
   },
   weight: {
     fw700: 700,
