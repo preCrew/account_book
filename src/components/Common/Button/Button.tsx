@@ -14,6 +14,7 @@ const Button = ({ itemColor, size, onClick, children }: ButtonProps) => {
     <ButtonWrapper
       className={size}
       onClick={onClick}
+      itemColor={itemColor}
     >
       {children}
     </ButtonWrapper>
