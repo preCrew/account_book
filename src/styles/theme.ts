@@ -13,6 +13,7 @@ const fonts = {
   weight: {
     fw700: 700,
   },
+  deviceSize: '960px',
 };
 const colors = {
   primary1: 'rgb(0,0,0)',
