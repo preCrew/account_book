@@ -9,7 +9,7 @@ export const NavWrap = styled.nav`
   left: 0;
   right: 0;
   margin: auto;
-  max-width: ${({ theme }) => theme.deviceSize};
+  max-width: ${({ theme }) => theme.deviceSizes.mobile};
   height: ${navHeightVal};
   background: rgb(255, 255, 255);
 `;
