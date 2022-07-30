@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   ${reset}
   body {
       font-family: appleR;
+      font-size:10px;
   }
   *{
       box-sizing: border-box;
