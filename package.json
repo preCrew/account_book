@@ -68,6 +68,7 @@
           "**/*.ts?(x)"
         ],
         "rules": {
+          "@typescript-eslint/no-empty-interface": "warn",
           "react/react-in-jsx-scope": "off",
           "react/jsx-filename-extension": [
             "error",
