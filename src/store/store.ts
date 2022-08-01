@@ -1,15 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import accountBookReducer from './accoutBook-Slice';
-import modalReducer from './modal-Slice';
-
 import { useSelector } from 'react-redux';
 import { TypedUseSelectorHook, useDispatch } from 'react-redux';
-// import { AppDispatch, RootState } from './reduxStore';
+
+import accountBookReducer from './accoutBook-Slice';
 
 export const store = configureStore({
   reducer: {
     accountBook: accountBookReducer,
-    modal: modalReducer,
   },
 });
 
