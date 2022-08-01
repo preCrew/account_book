@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   addReceiptAction,
   changeLoadMonthAction,
@@ -8,9 +7,10 @@ import {
   TLoadDate,
   TReceipt,
 } from 'store/accoutBook-Slice';
+import { useAppDispatch } from 'store/store';
 
 const useAccountBook = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const addReceipt = useCallback((receipt: TReceipt) => {
     dispatch(addReceiptAction(receipt));
