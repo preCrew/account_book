@@ -1,6 +1,4 @@
 import Layout from 'components/Common/Layout/Layout';
-import Button from 'components/Common/Button';
-import styled from 'styled-components';
 import MonthSelector from 'components/Common/MonthSelector';
 
 const App = () => {
