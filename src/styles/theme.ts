@@ -20,7 +20,7 @@ const colors = {
   primaryPink: '#FDB9D1',
 };
 const deviceSizes = {
-  mobile: '320px',
+  mobile: '480px',
   tablet: '768px',
   desktop: '1240px',
 };
