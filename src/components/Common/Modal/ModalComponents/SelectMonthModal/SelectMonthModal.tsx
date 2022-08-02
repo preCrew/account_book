@@ -1,3 +1,4 @@
+import ButtonX from 'components/Common/Button/ButtonX';
 import { SelectMonthModalS } from './SelectMonthModal.style';
 
 interface SelectMonthModalProps {}
@@ -8,7 +9,10 @@ const SelectMonthModal = ({}: SelectMonthModalProps) => {
   return (
     <>
       <Wrapper>
-        <Header>월 선택하기</Header>
+        <Header>
+          {'월 선택하기'}
+          <ButtonX />
+        </Header>
         <Body>body</Body>
       </Wrapper>
     </>
