@@ -5,7 +5,7 @@ import { Keyframes } from 'styled-components';
 const useModal = (
   openAnime?: Keyframes,
   closeAnime?: Keyframes,
-  animeTimeMs?: number,
+  animeTimeMs = 300,
 ) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUnmount, setIsUnmount] = useState(false);
@@ -15,7 +15,7 @@ const useModal = (
 
     setTimeout(() => {
       setIsOpen(false);
-    }, 300);
+    }, animeTimeMs);
   };
 
   const showModal = () => {
