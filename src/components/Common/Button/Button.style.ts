@@ -40,4 +40,6 @@ export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
     background: none;
     color: black;
   }
+  cursor: pointer;
+  user-select: none;
 `;
