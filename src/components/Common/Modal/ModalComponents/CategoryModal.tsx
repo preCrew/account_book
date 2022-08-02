@@ -16,18 +16,15 @@ const BottomUpModal = styled.div`
 `;
 
 const CategoryModal = ({}: CategoryModalProps) => {
-  const { closeModal, isOpen, openModal } = useModal();
+  const { Modal, showModal } = useModal();
   const handleClickButton = () => {
-    openModal();
+    showModal();
   };
   return (
     <BottomUpModal>
       222
       <button onClick={handleClickButton}>2번째 모달 띄우기</button>
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-      >
+      <Modal>
         <CommonReceiptModal />
       </Modal>
     </BottomUpModal>
