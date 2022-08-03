@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { BeSmaller } from 'styles/animations';
 
 interface ButtonWrapperStyle {
   itemColor?: string;
+  beSmall?: boolean;
 }
 
 export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
@@ -45,6 +47,24 @@ export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
     background: none;
     color: black;
   }
+
+  /* pc에서 클릭 */
+  @media (hover: hover) {
+    &:hover {
+      ${({ beSmall }) => (beSmall ? BeSmaller : '')}
+    }
+    &:active {
+      filter: brightness(95%);
+    }
+  }
+  /* 모바일에서 클릭 */
+  @media (hover: none) {
+    &:active {
+      ${({ beSmall }) => (beSmall ? BeSmaller : '')}
+      filter: brightness(95%);
+    }
+  }
+
   cursor: pointer;
   user-select: none;
 `;
