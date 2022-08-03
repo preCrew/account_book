@@ -1,7 +1,7 @@
 import { ButtonWrapper } from './Button.style';
 import './Button.style.ts';
 
-export type TButtonSize = 'large' | 'medium' | 'small' | 'no';
+export type TButtonSize = 'large' | 'medium' | 'small' | 'full' | 'no';
 interface ButtonProps {
   itemColor?: string;
   size: TButtonSize;

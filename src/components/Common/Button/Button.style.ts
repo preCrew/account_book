@@ -34,6 +34,11 @@ export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
     font-size: ${props => props.theme.fonts.size.medium};
   }
 
+  &.full {
+    width: 100%;
+    font-size: ${props => props.theme.fonts.size.medium};
+  }
+
   &.no {
     width: 100%;
     height: 100%;
