@@ -1,8 +1,8 @@
-import { TMonthYear } from 'components/Common/Button/SelectDateButton/SelectDateButton';
+import { TLoadDate } from 'store/accoutBook-Slice';
 
 export const dateGenerator = (beforeMonth: number) => {
   const nowDate = new Date();
-  const monthYearArr: TMonthYear[] = [];
+  const monthYearArr: TLoadDate[] = [];
 
   for (let i = 0; i < beforeMonth; i++) {
     const year = nowDate.getFullYear();
