@@ -6,10 +6,9 @@ export const StyledMonthSelector = styled.div`
   font-size: ${({ theme }) => theme.fonts.size.medium};
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
-  background-color: red;
+  cursor: pointer;
+  user-select: none;
 `;
-
-export const MonthButtonWrapper = styled.div``;
