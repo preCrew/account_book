@@ -5,7 +5,7 @@ export type TButtonSize = 'large' | 'medium' | 'small' | 'full' | 'no';
 interface ButtonProps {
   itemColor?: string;
   beSmall?: boolean; // hover 혹은 클릭시 작아지는 애니메이션
-  size: TButtonSize;
+  size?: TButtonSize;
   onClick?: () => void;
   children: React.ReactNode;
 }
@@ -13,7 +13,7 @@ interface ButtonProps {
 const Button = ({
   itemColor,
   beSmall,
-  size,
+  size = 'no',
   onClick,
   children,
 }: ButtonProps) => {

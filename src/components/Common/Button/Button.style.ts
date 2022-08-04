@@ -43,9 +43,9 @@ export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
 
   &.no {
     width: 100%;
-    height: 100%;
-    background: none;
+    background: white;
     color: black;
+    display: block;
   }
 
   /* pc에서 클릭 */
