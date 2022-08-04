@@ -3,6 +3,7 @@ import Flex from 'components/Common/Flex';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { TLoadDate } from 'store/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
+import { StyledSelectDateBox } from './SelectDateBox.style';
 
 interface SelectDateButtonProps {
   date: TLoadDate;
@@ -17,7 +18,7 @@ const SelectDateBox = ({ date, onClick }: SelectDateButtonProps) => {
   };
 
   return (
-    <>
+    <StyledSelectDateBox>
       <Button
         onClick={handleClickButton}
         beSmall
@@ -32,7 +33,7 @@ const SelectDateBox = ({ date, onClick }: SelectDateButtonProps) => {
           <AiOutlineCheck strokeWidth={30} />
         </Flex>
       )}
-    </>
+    </StyledSelectDateBox>
   );
 };
 
