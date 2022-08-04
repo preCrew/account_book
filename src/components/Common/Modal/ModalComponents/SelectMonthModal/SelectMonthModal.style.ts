@@ -10,12 +10,12 @@ const SelectMonthModalContainer = styled.div`
 
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  padding-bottom: 20px;
+  padding-bottom: 75px;
 
   word-break: keep-all;
   user-select: none;
 
-  /* overflow-y: hidden; */
+  overflow-y: visible;
 `;
 
 const SelectMonthModalHeader = styled.div`
@@ -32,9 +32,10 @@ const SelectMonthModalHeader = styled.div`
 `;
 
 const SelectMonthModalBody = styled.div`
+  width: 100%;
+  height: 100%;
   padding: 0 20px 20px 20px;
   font-size: ${props => props.theme.fonts.size.medium};
-  height: 100%;
 
   overflow-y: auto;
   padding-bottom: 20px;
