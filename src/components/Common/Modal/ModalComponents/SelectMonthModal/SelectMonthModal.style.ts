@@ -15,7 +15,7 @@ const SelectMonthModalContainer = styled.div`
   word-break: keep-all;
   user-select: none;
 
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 `;
 
 const SelectMonthModalHeader = styled.div`
@@ -38,6 +38,10 @@ const SelectMonthModalBody = styled.div`
 
   overflow-y: auto;
   padding-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const SelectMonthModalS = {
