@@ -14,22 +14,22 @@ const Nav = () => {
     <NavWrap>
       <NavInner>
         <li>
-          <Link to="./">
+          <Link to="./home">
             <AiFillHome style={iconStyle} />
           </Link>
         </li>
         <li>
-          <Link to="./">
+          <Link to="./statistics">
             <AiFillPieChart style={iconStyle} />
           </Link>
         </li>
         <li>
-          <Link to="./">
+          <Link to="./calander">
             <AiOutlineCalendar style={iconStyle} />
           </Link>
         </li>
         <li>
-          <Link to="./">
+          <Link to="./settings">
             <AiOutlineUser style={iconStyle} />
           </Link>
         </li>
