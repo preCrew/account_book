@@ -1,12 +1,9 @@
 import Button from 'components/Common/Button';
+import { TLoadDate } from 'store/accoutBook-Slice';
 
-export interface TMonthYear {
-  year: number;
-  month: number;
-}
 interface SelectDateButtonProps {
-  date: TMonthYear;
-  onClick: (date: TMonthYear) => void;
+  date: TLoadDate;
+  onClick: (date: TLoadDate) => void;
 }
 
 const SelectDateButton = ({ date, onClick }: SelectDateButtonProps) => {
