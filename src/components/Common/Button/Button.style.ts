@@ -37,12 +37,10 @@ export const ButtonWrapper = styled.div<ButtonWrapperStyle>`
   }
 
   &.full {
-    width: 100%;
     font-size: ${props => props.theme.fonts.size.medium};
   }
 
   &.no {
-    width: 100%;
     background: white;
     color: black;
     display: block;
