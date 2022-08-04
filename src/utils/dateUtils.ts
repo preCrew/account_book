@@ -1,16 +1,17 @@
 import { TLoadDate } from 'store/accoutBook-Slice';
 
-export const dateGenerator = (beforeMonth: number) => {
-  const nowDate = new Date();
-  const monthYearArr: TLoadDate[] = [];
+export const dateGenerator = (nowDate: Date, firstDate: Date) => {
+  const dates: TLoadDate[] = [];
+  // 월이 0 ~ 11까지므로 이를 보정하기위해 2달을 빼줌.
+  firstDate.setMonth(firstDate.getMonth() - 2);
 
-  for (let i = 0; i < beforeMonth; i++) {
-    const year = nowDate.getFullYear();
-    const month = nowDate.getMonth() + 1;
-
-    monthYearArr.push({ year, month });
-
+  while (nowDate.getTime() >= firstDate.getTime()) {
+    dates.push({
+      year: nowDate.getFullYear(),
+      month: nowDate.getMonth() + 1,
+    });
     nowDate.setMonth(nowDate.getMonth() - 1);
   }
-  return monthYearArr;
+
+  return dates;
 };
