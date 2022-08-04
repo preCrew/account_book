@@ -1,13 +1,13 @@
 import { css, keyframes } from 'styled-components';
 
 export const Up100 = keyframes`
-  0% {bottom: -100%; }
-  100% {bottom: 0; }
+  0% {transform: translateY(100%); }
+  100% {transform: translateY(0); }
 `;
 
 export const Down100 = keyframes`
-  0% {bottom: 0%; }
-  100% {bottom: -100%; }
+  0% {transform: translateY(0%); }
+  100% {transform: translateY(100%); }
 `;
 
 export const BeSmaller = css`
