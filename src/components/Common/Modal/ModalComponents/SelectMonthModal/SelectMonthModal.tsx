@@ -1,20 +1,38 @@
 import ButtonX from 'components/Common/Button/ButtonX';
+import { TLoadDate } from 'store/accoutBook-Slice';
+import { dateGenerator } from 'utils/dateUtils';
+import SelectDateButton from '../../../Button/SelectDateButton';
 import { SelectMonthModalS } from './SelectMonthModal.style';
 
-interface SelectMonthModalProps {}
+interface SelectMonthModalProps {
+  onClose?: () => void;
+}
 
-const SelectMonthModal = ({}: SelectMonthModalProps) => {
-  const { Wrapper, Header, Body } = SelectMonthModalS;
+const SelectMonthModal = ({ onClose }: SelectMonthModalProps) => {
+  const { Container, Header, Body } = SelectMonthModalS;
+  const dates = dateGenerator(20);
+
+  const handleClickDateButton = (date: TLoadDate) => {
+    console.log(date);
+  };
 
   return (
     <>
-      <Wrapper>
+      <Container>
         <Header>
           {'월 선택하기'}
-          <ButtonX />
+          <ButtonX onClick={onClose} />
         </Header>
-        <Body>body</Body>
-      </Wrapper>
+        <Body>
+          {dates.map(date => (
+            <SelectDateButton
+              key={`${date.year}${date.month}`}
+              date={date}
+              onClick={handleClickDateButton}
+            />
+          ))}
+        </Body>
+      </Container>
     </>
   );
 };

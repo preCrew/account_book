@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledSelectMonthModalWrapper = styled.div`
+const SelectMonthModalContainer = styled.div`
   width: 100%;
   height: 70%;
   background-color: white;
@@ -10,24 +10,34 @@ const StyledSelectMonthModalWrapper = styled.div`
 
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 
   word-break: keep-all;
+  user-select: none;
+
+  overflow-y: hidden;
 `;
-const StyledSelectMonthModalHeader = styled.div`
-  font-size: ${props => props.theme.fonts.size.large};
+const SelectMonthModalHeader = styled.div`
+  width: 100%;
+  height: 75px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  overflow-y: hidden;
+  font-size: ${props => props.theme.fonts.size.large};
 `;
-const StyledSelectMonthModalBody = styled.div`
+const SelectMonthModalBody = styled.div`
   font-size: ${props => props.theme.fonts.size.medium};
-  padding-top: 20px;
+  height: 100%;
+
+  overflow-y: auto;
+  padding-bottom: 20px;
 `;
 
 export const SelectMonthModalS = {
-  Wrapper: StyledSelectMonthModalWrapper,
-  Header: StyledSelectMonthModalHeader,
-  Body: StyledSelectMonthModalBody,
+  Container: SelectMonthModalContainer,
+  Header: SelectMonthModalHeader,
+  Body: SelectMonthModalBody,
 };
