@@ -56,6 +56,21 @@ const accountBookSlice = createSlice({
     deleteReceiptAction(state: TAccountBook, action: PayloadAction<number>) {
       state.receipts.filter(receipt => receipt.id !== action.payload);
     },
+    changeSelectDateOneMonthAction(
+      state: TAccountBook,
+      action: PayloadAction<1 | -1>,
+    ) {
+      const sum = state.selectDate.month + action.payload;
+      if (sum === 13) {
+        state.selectDate.year += 1;
+        state.selectDate.month = 1;
+      } else if (sum === 0) {
+        state.selectDate.year -= 1;
+        state.selectDate.month = 12;
+      } else {
+        state.selectDate.month += action.payload;
+      }
+    },
     // 서버에서 불러올 월년을 변경
     changeSelectDateAction(
       state: TAccountBook,
@@ -77,5 +92,6 @@ export const {
   deleteReceiptAction,
   changeSelectDateAction,
   changeFirstDateAction,
+  changeSelectDateOneMonthAction,
 } = accountBookSlice.actions;
 export default accountBookSlice.reducer;

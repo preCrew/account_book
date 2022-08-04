@@ -5,6 +5,7 @@ import {
   changeFirstDateAction,
   changeSelectDateAction,
   deleteReceiptAction,
+  changeSelectDateOneMonthAction,
   TLoadDate,
   TReceipt,
 } from 'store/accoutBook-Slice';
@@ -29,7 +30,17 @@ const useAccountBook = () => {
     dispatch(changeFirstDateAction(loadDate));
   }, []);
 
-  return { addReceipt, deleteReceipt, changeSelectDate, changeFirstDate };
+  const changeSelectDateOneMonth = useCallback((month: 1 | -1) => {
+    dispatch(changeSelectDateOneMonthAction(month));
+  }, []);
+
+  return {
+    addReceipt,
+    deleteReceipt,
+    changeSelectDate,
+    changeFirstDate,
+    changeSelectDateOneMonth,
+  };
 };
 
 export default useAccountBook;

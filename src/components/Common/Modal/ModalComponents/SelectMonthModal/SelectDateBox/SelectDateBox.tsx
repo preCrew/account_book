@@ -1,6 +1,6 @@
 import Button from 'components/Common/Button';
 import Flex from 'components/Common/Flex';
-import { forwardRef, useEffect, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { TLoadDate } from 'store/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
@@ -28,13 +28,13 @@ const SelectDateBox = forwardRef(
 
     return (
       // 현재 선택한 년, 월이 맞을경우 ref를 부모에게 넘겨줌.
-      <StyledSelectDateBox ref={isSelectDate ? ref : null}>
+      <StyledSelectDateBox
+        ref={isSelectDate ? ref : null}
+        onClick={handleClickButton}
+      >
         <SelectDateButton>
-          <Button
-            onClick={handleClickButton}
-            beSmall
-          >
-            {date.year}년 {date.month}월
+          <Button beSmall>
+            {date.year}년 {date.month}월{/* </Button> */}
           </Button>
         </SelectDateButton>
         {isSelectDate && (
