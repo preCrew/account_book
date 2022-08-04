@@ -1,5 +1,6 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import Flex from 'components/Common/Flex';
+import { useEffect, useRef } from 'react';
 import { TLoadDate } from 'store/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
 import SelectDateBox from './SelectDateBox';
@@ -12,7 +13,12 @@ interface SelectMonthModalProps {
 
 const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
   const { Container, Header, Body } = SelectMonthModalS;
+  const goRef = useRef<HTMLDivElement>(null);
   const { changeSelectDate } = useAccountBook();
+
+  useEffect(() => {
+    goRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   const handleClickDateButton = (date: TLoadDate) => {
     changeSelectDate(date);
@@ -28,15 +34,12 @@ const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
         </Header>
         <Body>
           {dates.map(date => (
-            <Flex
+            <SelectDateBox
+              ref={goRef}
               key={`${date.year}${date.month}`}
-              justifyContents="space-between"
-            >
-              <SelectDateBox
-                date={date}
-                onClick={handleClickDateButton}
-              />
-            </Flex>
+              date={date}
+              onClick={handleClickDateButton}
+            />
           ))}
         </Body>
       </Container>
