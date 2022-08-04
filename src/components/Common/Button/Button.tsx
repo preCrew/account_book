@@ -1,4 +1,4 @@
-import { ButtonWrapper } from './Button.style';
+import { ButtonInner, ButtonWrapper } from './Button.style';
 import './Button.style.ts';
 
 export type TButtonSize = 'large' | 'medium' | 'small' | 'full' | 'no';
@@ -21,10 +21,9 @@ const Button = ({
     <ButtonWrapper
       className={size}
       onClick={onClick}
-      beSmall={beSmall}
       itemColor={itemColor}
     >
-      {children}
+      <ButtonInner beSmall={beSmall}> {children}</ButtonInner>
     </ButtonWrapper>
   );
 };
