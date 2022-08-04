@@ -2,7 +2,8 @@
 import { useCallback } from 'react';
 import {
   addReceiptAction,
-  changeLoadMonthAction,
+  changeFirstDateAction,
+  changeSelectDateAction,
   deleteReceiptAction,
   TLoadDate,
   TReceipt,
@@ -15,14 +16,20 @@ const useAccountBook = () => {
   const addReceipt = useCallback((receipt: TReceipt) => {
     dispatch(addReceiptAction(receipt));
   }, []);
+
   const deleteReceipt = useCallback((id: number) => {
     dispatch(deleteReceiptAction(id));
   }, []);
-  const changeLoadMonth = useCallback((loadDate: TLoadDate) => {
-    dispatch(changeLoadMonthAction(loadDate));
+
+  const changeSelectDate = useCallback((loadDate: TLoadDate) => {
+    dispatch(changeSelectDateAction(loadDate));
   }, []);
 
-  return { addReceipt, deleteReceipt, changeLoadMonth };
+  const changeFirstDate = useCallback((loadDate: TLoadDate) => {
+    dispatch(changeFirstDateAction(loadDate));
+  }, []);
+
+  return { addReceipt, deleteReceipt, changeSelectDate, changeFirstDate };
 };
 
 export default useAccountBook;
