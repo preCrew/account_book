@@ -28,16 +28,21 @@ interface TAccountBook {
   receipts: TReceipt[];
   income: number; //소득
   spending: number; // 지출
-  loadDate: TLoadDate;
+  selectDate: TLoadDate; // 선택한 년, 월
+  firstDate: TLoadDate; // 가계부에 등록된 첫번쨰 영수증의 년, 월
 }
 
 const initialAccountBookState: TAccountBook = {
   receipts: [],
   income: 0,
   spending: 0,
-  loadDate: {
+  selectDate: {
     month: 1,
     year: 2022,
+  },
+  firstDate: {
+    month: 1,
+    year: 2020,
   },
 };
 
@@ -52,15 +57,16 @@ const accountBookSlice = createSlice({
       state.receipts.filter(receipt => receipt.id !== action.payload);
     },
     // 서버에서 불러올 월년을 변경
-    changeLoadMonthAction(
+    changeSelectDateAction(
       state: TAccountBook,
       action: PayloadAction<TLoadDate>,
     ) {
-      state.loadDate = action.payload;
+      state.selectDate = action.payload;
     },
+    // change,
   },
 });
 
-export const { addReceiptAction, deleteReceiptAction, changeLoadMonthAction } =
+export const { addReceiptAction, deleteReceiptAction, changeSelectDateAction } =
   accountBookSlice.actions;
 export default accountBookSlice.reducer;

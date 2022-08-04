@@ -1,19 +1,21 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import { TLoadDate } from 'store/accoutBook-Slice';
-import { dateGenerator } from 'utils/dateUtils';
+import useAccountBook from 'store/hooks/useAccountBook';
 import SelectDateButton from '../../../Button/SelectDateButton';
 import { SelectMonthModalS } from './SelectMonthModal.style';
 
 interface SelectMonthModalProps {
   onClose?: () => void;
+  dates: TLoadDate[];
 }
 
-const SelectMonthModal = ({ onClose }: SelectMonthModalProps) => {
+const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
   const { Container, Header, Body } = SelectMonthModalS;
-  const dates = dateGenerator(20);
+  const { changeSelectDate } = useAccountBook();
+  // const dates = dateGenerator(20);
 
   const handleClickDateButton = (date: TLoadDate) => {
-    console.log(date);
+    changeSelectDate(date);
   };
 
   return (
