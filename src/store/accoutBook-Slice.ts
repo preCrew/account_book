@@ -63,10 +63,19 @@ const accountBookSlice = createSlice({
     ) {
       state.selectDate = action.payload;
     },
-    // change,
+    changeFirstDateAction(
+      state: TAccountBook,
+      action: PayloadAction<TLoadDate>,
+    ) {
+      state.firstDate = action.payload;
+    },
   },
 });
 
-export const { addReceiptAction, deleteReceiptAction, changeSelectDateAction } =
-  accountBookSlice.actions;
+export const {
+  addReceiptAction,
+  deleteReceiptAction,
+  changeSelectDateAction,
+  changeFirstDateAction,
+} = accountBookSlice.actions;
 export default accountBookSlice.reducer;
