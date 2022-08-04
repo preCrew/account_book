@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+const HeaderHeight = `${75}px`;
+
 const SelectMonthModalContainer = styled.div`
   width: 100%;
   height: 70%;
@@ -10,7 +12,6 @@ const SelectMonthModalContainer = styled.div`
 
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  padding-bottom: 75px;
 
   word-break: keep-all;
   user-select: none;
@@ -21,28 +22,29 @@ const SelectMonthModalContainer = styled.div`
 const SelectMonthModalHeader = styled.div`
   padding: 20px;
   width: 100%;
-  height: 75px;
+  height: ${HeaderHeight};
+
+  font-size: ${props => props.theme.fonts.size.large};
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   overflow-y: hidden;
-  font-size: ${props => props.theme.fonts.size.large};
 `;
 
 const SelectMonthModalBody = styled.div`
   width: 100%;
-  height: 100%;
-  padding: 0 20px 20px 20px;
-  font-size: ${props => props.theme.fonts.size.medium};
+  height: calc(100% - ${HeaderHeight}); /* IE */
+  height: -webkit-calc(100% - ${HeaderHeight}); /* for Chrome, Safari */
+  height: -moz-calc(100% - ${HeaderHeight}); /* for Firefox */
 
-  overflow-y: auto;
-  padding-bottom: 20px;
+  padding: 0 20px; /* 상하 / 좌우 */
+  font-size: ${props => props.theme.fonts.size.medium};
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
 `;
 
 export const SelectMonthModalS = {
