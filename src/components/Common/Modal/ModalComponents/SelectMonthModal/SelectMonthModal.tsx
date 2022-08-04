@@ -1,21 +1,22 @@
 import ButtonX from 'components/Common/Button/ButtonX';
+import Flex from 'components/Common/Flex';
 import { TLoadDate } from 'store/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
-import SelectDateButton from '../../../Button/SelectDateButton';
+import SelectDateBox from './SelectDateBox';
 import { SelectMonthModalS } from './SelectMonthModal.style';
 
 interface SelectMonthModalProps {
-  onClose?: () => void;
+  onClose: () => void;
   dates: TLoadDate[];
 }
 
 const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
   const { Container, Header, Body } = SelectMonthModalS;
   const { changeSelectDate } = useAccountBook();
-  // const dates = dateGenerator(20);
 
   const handleClickDateButton = (date: TLoadDate) => {
     changeSelectDate(date);
+    onClose();
   };
 
   return (
@@ -27,11 +28,15 @@ const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
         </Header>
         <Body>
           {dates.map(date => (
-            <SelectDateButton
+            <Flex
               key={`${date.year}${date.month}`}
-              date={date}
-              onClick={handleClickDateButton}
-            />
+              justifyContents="space-between"
+            >
+              <SelectDateBox
+                date={date}
+                onClick={handleClickDateButton}
+              />
+            </Flex>
           ))}
         </Body>
       </Container>
