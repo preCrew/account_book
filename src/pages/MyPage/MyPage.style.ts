@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Dollar from '../../assets/Icon/dollar-sign-solid.svg';
+import Dollar from '../../styles/Icon/dollar-sign-solid.svg';
 import { contentsMinHeight } from '../../components/Common/Layout/Layout.style';
 
 export const MyPageContainer = styled.div`
