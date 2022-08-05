@@ -86,7 +86,7 @@ const accountBookSlice = createSlice({
     ) {
       state.firstDate = action.payload;
     },
-    changeAmount(state: TAccountBook, action: PayloadAction<number>) {
+    changeAmountAction(state: TAccountBook, action: PayloadAction<number>) {
       state.amount = action.payload;
     },
   },
@@ -98,6 +98,6 @@ export const {
   changeSelectDateAction,
   changeFirstDateAction,
   changeSelectDateOneMonthAction,
-  changeAmount,
+  changeAmountAction,
 } = accountBookSlice.actions;
 export default accountBookSlice.reducer;

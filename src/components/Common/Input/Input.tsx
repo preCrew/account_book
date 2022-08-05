@@ -10,12 +10,23 @@ interface InputProps {
 
 // eslint-disable-next-line react/display-name
 const Input = React.forwardRef(
-  ({ type, value, accept, onChange }: InputProps) => {
+  (
+    { type, value, accept, onChange }: InputProps,
+    ref: React.ForwardedRef<HTMLInputElement>,
+  ) => {
+    //예외 처리
+    // value 값으로 NaN이 들어올경우 text로 타입변환
+    if (!value) {
+      value = value + ' ';
+    }
+
     return (
       <InputField
+        ref={ref}
         type={type}
         value={value}
         accept={accept}
+        placeholder={'0'}
         onChange={onChange}
       ></InputField>
     );

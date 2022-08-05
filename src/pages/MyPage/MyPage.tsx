@@ -24,19 +24,24 @@ import {
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 const MyPage = () => {
-  const MAX_AMOUNT = 10000000000;
-  const MIN_AMOUNT = 0;
+  const MAX_AMOUNT = 9999999999;
 
   const dispatch = useAppDispatch();
   const accountBook = useAppSelector(state => state.accountBook);
   const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {
-    console.log('handle: ' + e.target.valueAsNumber);
-    const amount = e.target.valueAsNumber;
-    if (amount <= MAX_AMOUNT && amount >= MIN_AMOUNT) {
-      dispatch.changeAmount2(e.target.valueAsNumber);
+    let amount = e.target.valueAsNumber;
+    //Amount유효성 검사
+    if (amount) {
+      if (amount > MAX_AMOUNT || amount < 0) {
+        alert('입력할 수 있는 단위가 아닙니다.');
+        amount = NaN;
+      } else {
+        dispatch.changeAmount(amount);
+      }
     } else {
+      dispatch.changeAmount(0);
     }
   };
 

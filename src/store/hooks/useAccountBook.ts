@@ -8,7 +8,7 @@ import {
   changeSelectDateOneMonthAction,
   TLoadDate,
   TReceipt,
-  changeAmount,
+  changeAmountAction,
 } from 'store/accoutBook-Slice';
 import { useAppDispatch } from 'store/store';
 
@@ -34,9 +34,9 @@ const useAccountBook = () => {
   const changeSelectDateOneMonth = useCallback((month: 1 | -1) => {
     dispatch(changeSelectDateOneMonthAction(month));
   }, []);
-  const changeAmount2 = useCallback((amount: number) => {
+  const changeAmount = useCallback((amount: number) => {
     console.log('changeAmount2 : ' + amount);
-    dispatch(changeAmount(amount));
+    dispatch(changeAmountAction(amount));
   }, []);
 
   return {
@@ -45,7 +45,7 @@ const useAccountBook = () => {
     changeSelectDate,
     changeFirstDate,
     changeSelectDateOneMonth,
-    changeAmount2,
+    changeAmount,
   };
 };
 
