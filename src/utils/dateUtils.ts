@@ -1,4 +1,4 @@
-import { TLoadDate } from 'store/accoutBook-Slice';
+import { TLoadDate } from 'store/reducers/accoutBook-Slice';
 
 export const dateGenerator = (nowDate: Date, firstDate: Date) => {
   const dates: TLoadDate[] = [];

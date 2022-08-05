@@ -8,7 +8,7 @@ import {
   changeSelectDateOneMonthAction,
   TLoadDate,
   TReceipt,
-} from 'store/accoutBook-Slice';
+} from 'store/reducers/accoutBook-Slice';
 import { useAppDispatch } from 'store/store';
 
 const useAccountBook = () => {
