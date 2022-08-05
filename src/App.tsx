@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import CalanderPage from 'pages/CalanderPage';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { useEffect } from 'react';
+import Profile from 'components/Profile';
 
 const App = () => {
   const { changeSelectDate } = useAccountBook();
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <>
       <Layout>
+        <Profile />
         <Routes>
           <Route
             path="/calander"
