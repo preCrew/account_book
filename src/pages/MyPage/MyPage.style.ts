@@ -42,9 +42,16 @@ export const Name = styled.div`
 
 export const Emaile = styled.div`
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 18px;
   color: #b0b0b0;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+`;
+
+export const SubTitle = styled.div`
+  margin-top: 10px;
+  font-size: 14px;
+  color: #b0b0b0;
+  margin-bottom: 10px;
 `;
 
 export const AmountBox = styled.div`

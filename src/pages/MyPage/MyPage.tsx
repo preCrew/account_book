@@ -11,6 +11,7 @@ import {
   Profile,
   Name,
   Emaile,
+  SubTitle,
   AmountIcon,
   AmountBox,
   MyPageContainer,
@@ -55,6 +56,7 @@ const MyPage = () => {
           <Profile onClick={showModal}></Profile>
           <Name>Name</Name>
           <Emaile>csa2676@naver.com</Emaile>
+          <SubTitle>예산을 입력해주세요</SubTitle>
           <AmountBox>
             <AmountIcon></AmountIcon>
             <AmountInputBox>

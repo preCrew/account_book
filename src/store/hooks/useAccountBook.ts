@@ -35,7 +35,6 @@ const useAccountBook = () => {
     dispatch(changeSelectDateOneMonthAction(month));
   }, []);
   const changeAmount = useCallback((amount: number) => {
-    console.log('changeAmount2 : ' + amount);
     dispatch(changeAmountAction(amount));
   }, []);
 
