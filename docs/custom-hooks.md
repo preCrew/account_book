@@ -3,21 +3,21 @@
 
 
 # useModal
-```tsx
+```typescript
 type Keyframse = (alias) function keyframes(strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]): Keyframes
 
-const useModal = (
+declare const useModal = (
   openAnime?: Keyframes,
   closeAnime?: Keyframes,
   animeTimeMs = 300
-) => {
+):{
   Modal: JSX.Element,
   showModal: () => void,
   closeModal: () => void
 };
 ```
 
-- **작성일자**: 2022.08.22 / 17:37
+- **작성일자**: 2022.08.22 / 17:45
 - **작성자**: 송민형  
 - **기능**  
   - 화면 제일 상단에 모달을 띄우는 커스텀 훅
