@@ -33,8 +33,13 @@ interface TFlex {
   justifyContents?: TJustifyContents;
   alignItems?: TAlignItems;
   direction: 'row' | 'column';
+  width?: string;
+  height?: string;
 }
 export const StyledFlex = styled.div<TFlex>`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+
   display: flex;
   ${({ justifyContents, alignItems, direction }) => css`
     justify-content: ${justifyContents};
