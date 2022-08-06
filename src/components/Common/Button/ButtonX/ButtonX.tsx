@@ -8,12 +8,7 @@ interface ButtonXProps {
 const ButtonX = ({ onClick }: ButtonXProps) => {
   return (
     <StyledButtonX>
-      <Button
-        size="no"
-        onClick={onClick}
-      >
-        X
-      </Button>
+      <Button onClick={onClick}>X</Button>
     </StyledButtonX>
   );
 };

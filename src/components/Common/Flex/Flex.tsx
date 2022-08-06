@@ -3,14 +3,18 @@ import { StyledFlex, TAlignItems, TJustifyContents } from './Flex.style';
 import './Flex.style.ts';
 
 interface FlexProps {
-  children: React.ReactNode;
   direction?: 'row' | 'column';
+  width?: string;
+  height?: string;
   justifyContents?: TJustifyContents;
   alignItems?: TAlignItems;
+  children: React.ReactNode;
 }
 
 const Flex = ({
   direction = 'row',
+  width,
+  height,
   justifyContents,
   alignItems,
   children,
@@ -18,6 +22,8 @@ const Flex = ({
   return (
     <StyledFlex
       direction={direction}
+      width={width}
+      height={height}
       justifyContents={justifyContents}
       alignItems={alignItems}
     >

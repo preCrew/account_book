@@ -1,29 +1,40 @@
-import { ButtonInner, ButtonWrapper } from './Button.style';
+import { TAlignItems, TJustifyContents } from '../Flex/Flex.style';
+import { ButtonS, ButtonWrapper } from './Button.style';
 import './Button.style.ts';
 
-export type TButtonSize = 'large' | 'medium' | 'small' | 'full' | 'no';
+export type TButtonSize = 'large' | 'medium' | 'small' | 'full';
 interface ButtonProps {
+  className?: string;
   itemColor?: string;
   beSmall?: boolean; // hover 혹은 클릭시 작아지는 애니메이션
   size?: TButtonSize;
+  justifyContent?: TJustifyContents;
+  alignItems?: TAlignItems;
   onClick?: () => void;
   children: React.ReactNode;
 }
 
 const Button = ({
-  itemColor,
+  className,
   beSmall,
-  size = 'no',
+  size,
+  justifyContent,
+  alignItems,
   onClick,
   children,
 }: ButtonProps) => {
   return (
     <ButtonWrapper
-      className={size}
+      className={`${className} ${size}`}
       onClick={onClick}
-      itemColor={itemColor}
     >
-      <ButtonInner beSmall={beSmall}> {children}</ButtonInner>
+      <ButtonS
+        beSmall={beSmall}
+        justifyContent={justifyContent}
+        alignItems={alignItems}
+      >
+        {children}
+      </ButtonS>
     </ButtonWrapper>
   );
 };

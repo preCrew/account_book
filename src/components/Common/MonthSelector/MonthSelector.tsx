@@ -1,10 +1,15 @@
-import useModal from 'hooks/useModal';
 import { useMemo } from 'react';
+
+import useModal from 'hooks/useModal';
+
 import useAccountBook from 'store/hooks/useAccountBook';
 import { useAppSelector } from 'store/store';
+
 import { Down100, Up100 } from 'styles/animations';
 import { dateGenerator } from 'utils/dateUtils';
+
 import Button from '../Button';
+import ArrowButton from '../Button/ArrowButton';
 import SelectMonthModal from '../Modal/ModalComponents/SelectMonthModal';
 import { StyledMonthSelector } from './MonthSelector.style';
 
@@ -31,13 +36,18 @@ const MonthSelector = () => {
   return (
     <>
       <StyledMonthSelector>
-        <div>
-          <Button onClick={handleClickLeft}>◂</Button>
-        </div>
-        <div onClick={handleClickMonth}>{month}월 </div>
-        <div>
-          <Button onClick={handleClickRight}>▸</Button>
-        </div>
+        <ArrowButton
+          direction="left"
+          onClick={handleClickLeft}
+        />
+        <Button onClick={handleClickMonth}>
+          <span>{month}</span>
+          <span>{'월'}</span>
+        </Button>
+        <ArrowButton
+          direction="right"
+          onClick={handleClickRight}
+        />
       </StyledMonthSelector>
       <Modal>
         <SelectMonthModal

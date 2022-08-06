@@ -1,6 +1,6 @@
 import styled, { Keyframes } from 'styled-components';
 
-const HeaderHeight = `${75}px`;
+const HeaderHeight = `${100}px`;
 
 const SelectModalContainer = styled.div`
   width: 100%;
@@ -35,8 +35,8 @@ const SelectModalHeader = styled.div`
 const SelectModalBody = styled.div`
   width: 100%;
   height: calc(100% - ${HeaderHeight}); /* IE */
-  height: -webkit-calc(100% - ${HeaderHeight}); /* for Chrome, Safari */
   height: -moz-calc(100% - ${HeaderHeight}); /* for Firefox */
+  height: -webkit-calc(100% - ${HeaderHeight}); /* for Chrome, Safari */
 
   padding: 0 20px; /* 상하 / 좌우 */
   font-size: ${props => props.theme.fonts.size.medium};
