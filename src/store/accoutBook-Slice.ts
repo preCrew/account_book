@@ -30,6 +30,7 @@ interface TAccountBook {
   spending: number; // 지출
   selectDate: TLoadDate; // 선택한 년, 월
   firstDate: TLoadDate; // 가계부에 등록된 첫번쨰 영수증의 년, 월
+  amount: number; //기준금액
 }
 
 const initialAccountBookState: TAccountBook = {
@@ -44,6 +45,7 @@ const initialAccountBookState: TAccountBook = {
     month: 1,
     year: 2020,
   },
+  amount: 0,
 };
 
 const accountBookSlice = createSlice({
@@ -84,6 +86,9 @@ const accountBookSlice = createSlice({
     ) {
       state.firstDate = action.payload;
     },
+    changeAmountAction(state: TAccountBook, action: PayloadAction<number>) {
+      state.amount = action.payload;
+    },
   },
 });
 
@@ -93,5 +98,6 @@ export const {
   changeSelectDateAction,
   changeFirstDateAction,
   changeSelectDateOneMonthAction,
+  changeAmountAction,
 } = accountBookSlice.actions;
 export default accountBookSlice.reducer;
