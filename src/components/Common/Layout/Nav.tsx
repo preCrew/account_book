@@ -24,7 +24,7 @@ const Nav = () => {
           </Link>
         </li>
         <li>
-          <Link to="./calander">
+          <Link to="./calendar">
             <AiOutlineCalendar style={iconStyle} />
           </Link>
         </li>

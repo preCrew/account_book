@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from 'components/Common/Layout/Layout';
 import Profile from 'components/Profile';
 
-import CalanderPage from 'pages/CalanderPage';
+import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
@@ -34,8 +34,8 @@ const App = () => {
             element={<></>}
           />
           <Route
-            path="/calander"
-            element={<CalanderPage />}
+            path="/calendar"
+            element={<CalendarPage />}
           />
           <Route
             path="/settings"
