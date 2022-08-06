@@ -4,6 +4,7 @@ import CalanderPage from 'pages/CalanderPage';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { useEffect } from 'react';
 import Mypage from 'pages/MyPage';
+import Profile from 'components/Profile';
 
 const App = () => {
   const { changeSelectDate } = useAccountBook();
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <>
       <Layout>
+        <Profile />
         <>
           <Routes>
             <Route
@@ -29,8 +31,18 @@ const App = () => {
         </>
         <Routes>
           <Route
-            path="/calander"
-            element={<CalanderPage />}
+            path="/home"
+            element={<></>}
+          />
+        </Routes>
+        <Route
+          path="/calander"
+          element={<CalanderPage />}
+        />
+        <Routes>
+          <Route
+            path="/settings"
+            element={<Mypage />}
           />
         </Routes>
         <>

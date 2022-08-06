@@ -1,6 +1,6 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import { useEffect, useRef } from 'react';
-import { TLoadDate } from 'store/accoutBook-Slice';
+import { TLoadDate } from 'store/reducers/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
 import SelectDateBox from './SelectDateBox';
 import { SelectModalS } from '../Modal_Inner.style';
