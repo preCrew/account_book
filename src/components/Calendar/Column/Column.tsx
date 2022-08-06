@@ -3,7 +3,7 @@ import './Column.style.ts';
 interface ColumnProps {}
 
 const Column = ({}: ColumnProps) => {
-  console.log('1');
+  console.log('2');
   return <></>;
 };
 
