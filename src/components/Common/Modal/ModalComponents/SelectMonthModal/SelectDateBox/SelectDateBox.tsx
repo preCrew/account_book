@@ -1,4 +1,3 @@
-import Button from 'components/Common/Button';
 import Flex from 'components/Common/Flex';
 import { forwardRef, useMemo } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
@@ -32,11 +31,13 @@ const SelectDateBox = forwardRef(
         ref={isSelectDate ? ref : null}
         onClick={handleClickButton}
       >
-        <SelectDateButton>
-          <Button beSmall>
-            {date.year}년 {date.month}월{/* </Button> */}
-          </Button>
+        <SelectDateButton
+          justifyContent="flex-start"
+          beSmall
+        >
+          {date.year}년 {date.month}월
         </SelectDateButton>
+
         {isSelectDate && (
           <Flex
             justifyContents="center"
