@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import Button from '../Button';
 
 export const StyledMonthSelector = styled.div`
-  width: 3.5rem;
+  width: 4rem;
   height: 1.5rem;
   font-size: ${({ theme }) => theme.fonts.size.medium};
 
