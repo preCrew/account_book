@@ -20,6 +20,8 @@ import {
   SaveButton,
 } from './MyPage.style';
 
+import AvatarImg from 'components/Profile/Avatar/AvatarImg';
+
 // interface MyPageProps {}
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
@@ -53,7 +55,9 @@ const MyPage = () => {
           <Modal>
             <SelectCharacterModal onClose={closeModal} />
           </Modal>
-          <Profile onClick={showModal}></Profile>
+          <Profile onClick={showModal}>
+            <AvatarImg />
+          </Profile>
           <Name>Name</Name>
           <Emaile>csa2676@naver.com</Emaile>
           <SubTitle>예산을 입력해주세요</SubTitle>
