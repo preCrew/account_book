@@ -29,7 +29,7 @@ const Nav = () => {
           </Link>
         </li>
         <li>
-          <Link to="./settings">
+          <Link to="./mypage">
             <AiOutlineUser style={iconStyle} />
           </Link>
         </li>

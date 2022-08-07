@@ -23,7 +23,6 @@ const App = () => {
   return (
     <>
       <Layout>
-        {/* <Profile /> */}
         <Routes>
           <Route
             path="/home"
@@ -38,7 +37,7 @@ const App = () => {
             element={<CalendarPage />}
           />
           <Route
-            path="/settings"
+            path="/mypage"
             element={<Mypage />}
           />
         </Routes>
