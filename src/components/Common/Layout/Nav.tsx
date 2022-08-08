@@ -14,7 +14,7 @@ const Nav = () => {
     <NavWrap>
       <NavInner>
         <li>
-          <Link to="./home">
+          <Link to="./">
             <AiFillHome style={iconStyle} />
           </Link>
         </li>
