@@ -1,13 +1,13 @@
 import Flex from 'components/Common/Flex';
 import { forwardRef, useMemo } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { TLoadDate } from 'store/reducers/accoutBook-Slice';
+import { TYearMonth } from 'store/reducers/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
 import { SelectDateButton, StyledSelectDateBox } from './SelectDateBox.style';
 
 interface SelectDateButtonProps {
-  date: TLoadDate;
-  onClick: (date: TLoadDate) => void;
+  date: TYearMonth;
+  onClick: (date: TYearMonth) => void;
 }
 
 const SelectDateBox = forwardRef(

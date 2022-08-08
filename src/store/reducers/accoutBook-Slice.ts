@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 서버에서 불러올 년도, 월
-export interface TLoadDate {
+export interface TYearMonth {
   month: number;
   year: number;
 }
@@ -25,18 +25,16 @@ export interface TReceipt {
 }
 
 interface TAccountBook {
-  receipts: TReceipt[];
-  income: number; //소득
-  spending: number; // 지출
-  selectDate: TLoadDate; // 선택한 년, 월
-  firstDate: TLoadDate; // 가계부에 등록된 첫번쨰 영수증의 년, 월
-  amount: number; //기준금액
+  receipts: TReceipt[]; // 영수증들
+  selectDate: TYearMonth; // 선택한 년, 월
+  firstDate: TYearMonth; // 가계부에 등록된 첫번쨰 영수증의 년, 월
+  totalIncome: number; // 선택한 달의 총 수입
+  totalSpending: number; // 선택한 달의 총 지출
+  amount: number; // 선택한 달의 기준금액
 }
 
 const initialAccountBookState: TAccountBook = {
   receipts: [],
-  income: 0,
-  spending: 0,
   selectDate: {
     month: 1,
     year: 2022,
@@ -45,6 +43,8 @@ const initialAccountBookState: TAccountBook = {
     month: 1,
     year: 2020,
   },
+  totalIncome: 0,
+  totalSpending: 0,
   amount: 0,
 };
 
@@ -76,13 +76,13 @@ const accountBookSlice = createSlice({
     // 서버에서 불러올 월년을 변경
     changeSelectDateAction(
       state: TAccountBook,
-      action: PayloadAction<TLoadDate>,
+      action: PayloadAction<TYearMonth>,
     ) {
       state.selectDate = action.payload;
     },
     changeFirstDateAction(
       state: TAccountBook,
-      action: PayloadAction<TLoadDate>,
+      action: PayloadAction<TYearMonth>,
     ) {
       state.firstDate = action.payload;
     },

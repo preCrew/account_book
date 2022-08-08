@@ -1,13 +1,13 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import { useEffect, useRef } from 'react';
-import { TLoadDate } from 'store/reducers/accoutBook-Slice';
+import { TYearMonth } from 'store/reducers/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
 import SelectDateBox from './SelectDateBox';
 import { SelectModalS } from '../Modal_Inner.style';
 
 interface SelectMonthModalProps {
   onClose: () => void;
-  dates: TLoadDate[];
+  dates: TYearMonth[];
 }
 
 const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
@@ -19,7 +19,7 @@ const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
     goRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const handleClickDateButton = (date: TLoadDate) => {
+  const handleClickDateButton = (date: TYearMonth) => {
     changeSelectDate(date);
     onClose();
   };
