@@ -1,7 +1,7 @@
 import Flex from 'components/Common/Flex';
 import React, { forwardRef } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { SelectDateButton, StyledSelectDateBox } from './CheckList.style';
+import { SelectableListButton, SelectableListS } from './SelectableList.style';
 
 interface SelectDateButtonProps {
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -16,16 +16,16 @@ const SelectDateBox = forwardRef(
   ) => {
     return (
       // 현재 조건이 맞을경우 ref를 부모에게 넘겨줌.
-      <StyledSelectDateBox
+      <SelectableListS
         ref={selectCondition ? ref : null}
         onClick={onClick}
       >
-        <SelectDateButton
+        <SelectableListButton
           justifyContent="flex-start"
           beSmall
         >
           {children}
-        </SelectDateButton>
+        </SelectableListButton>
 
         {/* 조건에 부합하다면 체크박스를 생성함 */}
         {selectCondition && (
@@ -36,7 +36,7 @@ const SelectDateBox = forwardRef(
             <AiOutlineCheck strokeWidth={30} />
           </Flex>
         )}
-      </StyledSelectDateBox>
+      </SelectableListS>
     );
   },
 );

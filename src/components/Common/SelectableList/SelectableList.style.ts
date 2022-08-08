@@ -1,7 +1,7 @@
 import Button from 'components/Common/Button';
 import styled from 'styled-components';
 
-export const StyledSelectDateBox = styled.div`
+export const SelectableListS = styled.div`
   width: 100%;
   height: 100%;
 
@@ -9,7 +9,7 @@ export const StyledSelectDateBox = styled.div`
   justify-content: space-between;
 `;
 
-export const SelectDateButton = styled(Button)`
+export const SelectableListButton = styled(Button)`
   width: 100%;
   height: 2rem;
   padding: 0 0.3rem;
