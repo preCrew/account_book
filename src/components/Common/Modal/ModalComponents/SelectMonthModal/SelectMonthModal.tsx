@@ -2,7 +2,7 @@ import ButtonX from 'components/Common/Button/ButtonX';
 import { useEffect, useRef } from 'react';
 import { TLoadDate } from 'store/reducers/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
-import SelectDateBox from '../../../CheckList';
+import SelectDateBox from '../../../SelectableList';
 import { SelectModalS } from '../Modal_Inner.style';
 import { useAppSelector } from 'store/store';
 
