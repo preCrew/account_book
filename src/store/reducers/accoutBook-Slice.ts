@@ -19,6 +19,8 @@ export interface TReceipt {
   category: string; // 카테고리
   account: string; //거래처
   timeDate: TReceipTimeDate;
+  income: number; // 수입
+  spending: number; //지출
   memo: string; // 메모
   paymentMethod: string; // 지불방법
   isExcept?: boolean; // 제외여부
