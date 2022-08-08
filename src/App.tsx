@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from 'components/Common/Layout/Layout';
-import Profile from 'components/Profile';
 
+import Home from 'pages/index';
 import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
 
@@ -23,14 +23,13 @@ const App = () => {
   return (
     <>
       <Layout>
-        {/* <Profile /> */}
         <Routes>
           <Route
-            path="/home"
-            element={<></>}
+            path="/"
+            element={<Home />}
           />
           <Route
-            path="/home"
+            path="/statistics"
             element={<></>}
           />
           <Route
@@ -38,7 +37,7 @@ const App = () => {
             element={<CalendarPage />}
           />
           <Route
-            path="/settings"
+            path="/mypage"
             element={<Mypage />}
           />
         </Routes>

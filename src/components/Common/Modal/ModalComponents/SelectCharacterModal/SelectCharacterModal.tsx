@@ -14,7 +14,12 @@ const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
           {'캐릭터 선택하기'}
           <ButtonX onClick={onClose} />
         </Header>
-        <Body>body</Body>
+        <Body>
+          <ul>
+            <li>외쿡인</li>
+            <li>루피</li>
+          </ul>
+        </Body>
       </Container>
     </>
   );

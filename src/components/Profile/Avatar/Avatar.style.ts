@@ -1,15 +1,8 @@
 import styled from 'styled-components';
 
-export const AvatarWrap = styled.div<{ styleBg?: string }>`
-  width: 2rem;
-  height: 2rem;
+export const AvatarWrap = styled.div<{ size?: number }>`
+  width: ${props => (props.size ? `${props.size}px` : '80px')};
+  height: ${props => (props.size ? `${props.size}px` : '80px')};
   overflow: hidden;
   border-radius: 100%;
-  & a {
-    display: block;
-    height: 100%;
-    background: url(${props => props.styleBg});
-    background-size: cover;
-    background-position: center;
-  }
 `;

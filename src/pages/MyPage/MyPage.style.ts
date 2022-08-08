@@ -32,6 +32,7 @@ export const Profile = styled.div`
   height: 100px;
   border-radius: 50%;
   background-color: skyblue;
+  overflow: hidden;
   cursor: pointer;
 `;
 
@@ -75,7 +76,7 @@ export const AmountInputBox = styled.div`
 `;
 
 export const AmountIcon = styled.div`
-  background-image: url(${Dollar});
+  /* background-image: url(${Dollar}); */
   background-repeat: no-repeat;
   background-position: 15px center;
 
