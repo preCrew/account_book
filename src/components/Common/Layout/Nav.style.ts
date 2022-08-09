@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { navHeightVal } from './Layout.style';
 
-export const iconStyle = { color: 'black', fontSize: '1.2rem' };
+export const iconStyle = { color: 'black', fontSize: '0.8rem' };
 
 export const NavWrap = styled.nav`
   position: fixed;
@@ -11,6 +11,7 @@ export const NavWrap = styled.nav`
   margin: auto;
   max-width: ${({ theme }) => theme.deviceSizes.mobile};
   height: ${navHeightVal};
+  border-top: 1px solid rgb(242, 242, 242);
   background: rgb(255, 255, 255);
 `;
 export const NavInner = styled.ul`
