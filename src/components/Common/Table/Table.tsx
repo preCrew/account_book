@@ -1,12 +1,6 @@
 import React from 'react';
+import { TTableData } from '.';
 
-export interface TTableData {
-  id: string;
-  columns: {
-    render: React.ReactNode;
-    key: string;
-  }[];
-}
 interface TableProps {
   headers: string[];
   rows: TTableData[];
