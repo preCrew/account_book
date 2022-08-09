@@ -34,16 +34,9 @@ const SelectModalHeader = styled.div`
 
 const SelectModalBody = styled.div`
   width: 100%;
-  height: calc(100% - ${HeaderHeight}); /* IE */
-  height: -moz-calc(100% - ${HeaderHeight}); /* for Firefox */
-  height: -webkit-calc(100% - ${HeaderHeight}); /* for Chrome, Safari */
-
+  height: calc(100% - ${HeaderHeight});
   padding: 0 20px; /* 상하 / 좌우 */
   font-size: ${props => props.theme.fonts.size.medium};
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   overflow-y: auto;
 `;
 
