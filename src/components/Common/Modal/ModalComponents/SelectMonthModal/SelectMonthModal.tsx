@@ -2,8 +2,9 @@ import ButtonX from 'components/Common/Button/ButtonX';
 import { useEffect, useRef } from 'react';
 import { TYearMonth } from 'store/reducers/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
-import SelectDateBox from './SelectDateBox';
+import SelectDateBox from '../../../SelectableList';
 import { SelectModalS } from '../Modal_Inner.style';
+import { useAppSelector } from 'store/store';
 
 interface SelectMonthModalProps {
   onClose: () => void;
@@ -12,6 +13,7 @@ interface SelectMonthModalProps {
 
 const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
   const { Container, Header, Body } = SelectModalS;
+  const { year, month } = useAppSelector(state => state.accountBook.selectDate);
   const goRef = useRef<HTMLDivElement>(null);
   const { changeSelectDate } = useAccountBook();
 
@@ -36,9 +38,13 @@ const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
             <SelectDateBox
               ref={goRef}
               key={`${date.year}${date.month}`}
-              date={date}
-              onClick={handleClickDateButton}
-            />
+              onClick={() => {
+                handleClickDateButton(date);
+              }}
+              selectCondition={month === date.month && year === date.year}
+            >
+              {date.year}년 {date.month}월
+            </SelectDateBox>
           ))}
         </Body>
       </Container>

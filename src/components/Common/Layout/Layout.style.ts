@@ -14,8 +14,7 @@ export const LayoutWrap = styled.div`
 
 export const ContentsBox = styled.section`
   min-height: ${contentsMinHeight};
-  padding-bottom: ${navHeightVal};
-
+  padding: 0 20px ${navHeightVal};
   height: calc(100% - 40px);
   height: -webkit-calc(100% - 40px); /* for Chrome, Safari */
   height: -moz-calc(100% - 40px); /* for Firefox */

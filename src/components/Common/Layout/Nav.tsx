@@ -14,7 +14,7 @@ const Nav = () => {
     <NavWrap>
       <NavInner>
         <li>
-          <Link to="./home">
+          <Link to="./">
             <AiFillHome style={iconStyle} />
           </Link>
         </li>
@@ -29,7 +29,7 @@ const Nav = () => {
           </Link>
         </li>
         <li>
-          <Link to="./settings">
+          <Link to="./mypage">
             <AiOutlineUser style={iconStyle} />
           </Link>
         </li>
