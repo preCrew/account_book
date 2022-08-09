@@ -6,9 +6,7 @@ interface ArrowButtonProps {
 }
 
 const ArrowButton = ({ onClick, direction }: ArrowButtonProps) => {
-  return (
-    <Button onClick={onClick}>{direction === 'left' ? '◀︎' : '▶︎'}</Button>
-  );
+  return <Button onClick={onClick}>{direction === 'left' ? '◂' : '▸'}</Button>;
 };
 
 export default ArrowButton;

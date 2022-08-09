@@ -6,7 +6,7 @@ import {
   changeSelectDateAction,
   deleteReceiptAction,
   changeSelectDateOneMonthAction,
-  TLoadDate,
+  TYearMonth,
   TReceipt,
   changeAmountAction,
 } from 'store/reducers/accoutBook-Slice';
@@ -23,11 +23,11 @@ const useAccountBook = () => {
     dispatch(deleteReceiptAction(id));
   }, []);
 
-  const changeSelectDate = useCallback((loadDate: TLoadDate) => {
+  const changeSelectDate = useCallback((loadDate: TYearMonth) => {
     dispatch(changeSelectDateAction(loadDate));
   }, []);
 
-  const changeFirstDate = useCallback((loadDate: TLoadDate) => {
+  const changeFirstDate = useCallback((loadDate: TYearMonth) => {
     dispatch(changeFirstDateAction(loadDate));
   }, []);
 

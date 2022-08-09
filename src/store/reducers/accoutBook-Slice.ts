@@ -1,42 +1,70 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 서버에서 불러올 년도, 월
-export interface TLoadDate {
+export interface TYearMonth {
   month: number;
   year: number;
 }
 // 영수증 내역의 시간
 interface TReceipTimeDate {
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
+  year?: number;
+  month?: number;
+  day?: number;
+  hour?: number;
+  minute?: number;
 }
 // 영수증 내역
 export interface TReceipt {
   id: number;
-  category: string; // 카테고리
-  account: string; //거래처
-  timeDate: TReceipTimeDate;
-  memo: string; // 메모
-  paymentMethod: string; // 지불방법
+  category?: string; // 카테고리
+  account?: string; //거래처
+  timeDate?: TReceipTimeDate;
+  income?: number; // 수입
+  spending?: number; //지출
+  memo?: string; // 메모
+  paymentMethod?: string; // 지불방법
   isExcept?: boolean; // 제외여부
 }
 
 interface TAccountBook {
-  receipts: TReceipt[];
-  income: number; //소득
-  spending: number; // 지출
-  selectDate: TLoadDate; // 선택한 년, 월
-  firstDate: TLoadDate; // 가계부에 등록된 첫번쨰 영수증의 년, 월
-  amount: number; //기준금액
+  receipts: TReceipt[]; // 영수증들
+  selectDate: TYearMonth; // 선택한 년, 월
+  firstDate: TYearMonth; // 가계부에 등록된 첫번쨰 영수증의 년, 월
+  totalIncome: number; // 선택한 달의 총 수입
+  totalSpending: number; // 선택한 달의 총 지출
+  amount: number; // 선택한 달의 기준금액
 }
 
 const initialAccountBookState: TAccountBook = {
-  receipts: [],
-  income: 0,
-  spending: 0,
+  receipts: [
+    {
+      id: 1,
+      income: 100000,
+      spending: -1022044,
+      timeDate: {
+        month: 8,
+        day: 30,
+      },
+    },
+    {
+      id: 2,
+      income: 10000000,
+      spending: -20000000,
+      timeDate: {
+        month: 8,
+        day: 29,
+      },
+    },
+    {
+      id: 3,
+      income: 10000000,
+      spending: -20000000,
+      timeDate: {
+        month: 8,
+        day: 16,
+      },
+    },
+  ],
   selectDate: {
     month: 1,
     year: 2022,
@@ -45,6 +73,8 @@ const initialAccountBookState: TAccountBook = {
     month: 1,
     year: 2020,
   },
+  totalIncome: 0,
+  totalSpending: 0,
   amount: 0,
 };
 
@@ -76,13 +106,13 @@ const accountBookSlice = createSlice({
     // 서버에서 불러올 월년을 변경
     changeSelectDateAction(
       state: TAccountBook,
-      action: PayloadAction<TLoadDate>,
+      action: PayloadAction<TYearMonth>,
     ) {
       state.selectDate = action.payload;
     },
     changeFirstDateAction(
       state: TAccountBook,
-      action: PayloadAction<TLoadDate>,
+      action: PayloadAction<TYearMonth>,
     ) {
       state.firstDate = action.payload;
     },
