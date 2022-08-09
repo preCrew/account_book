@@ -1,5 +1,8 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import { SelectModalS } from '../Modal_Inner.style';
+import SelectDataBox from '../../../SelectableList/CheckList';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import useUser from '../../../../../store/hooks/useUser';
 
 interface SelectCharacterModalProps {
   onClose: () => void;
@@ -7,6 +10,13 @@ interface SelectCharacterModalProps {
 
 const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
   const { Container, Header, Body } = SelectModalS;
+  const { avatar, userInfo } = useAppSelector(state => state.user);
+  const { chageCaracter } = useUser();
+
+  const onClickCharacter = () => {
+    chageCaracter(0);
+  };
+
   return (
     <>
       <Container>
@@ -15,10 +25,15 @@ const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
           <ButtonX onClick={onClose} />
         </Header>
         <Body>
-          <ul>
-            <li>외쿡인</li>
-            <li>루피</li>
-          </ul>
+          {avatar.map((character, i) => (
+            <SelectDataBox
+              key={i}
+              selectCondition={i === userInfo.character}
+              onClick={onClickCharacter}
+            >
+              {character.name}
+            </SelectDataBox>
+          ))}
         </Body>
       </Container>
     </>

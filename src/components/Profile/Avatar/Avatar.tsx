@@ -1,7 +1,6 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import { useAppSelector } from 'store/store';
 
-import { BsPersonCircle } from 'react-icons/bs';
 import { AvatarWrap } from './Avatar.style';
 import AvatarImg from './AvatarImg';
 import Mypage from '../../../pages/MyPage';
@@ -21,12 +20,7 @@ const Avatar = ({}: AvatarProps) => {
           </Link>
         </AvatarWrap>
       ) : (
-        <Link to="/login">
-          <BsPersonCircle
-            fontSize={40}
-            color="gray"
-          />
-        </Link>
+        <Link to="/login"></Link>
       )}
       <Routes>
         <Route
