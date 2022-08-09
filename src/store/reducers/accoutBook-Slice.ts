@@ -7,22 +7,22 @@ export interface TYearMonth {
 }
 // 영수증 내역의 시간
 interface TReceipTimeDate {
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
+  year?: number;
+  month?: number;
+  day?: number;
+  hour?: number;
+  minute?: number;
 }
 // 영수증 내역
 export interface TReceipt {
   id: number;
-  category: string; // 카테고리
-  account: string; //거래처
-  timeDate: TReceipTimeDate;
-  income: number; // 수입
-  spending: number; //지출
-  memo: string; // 메모
-  paymentMethod: string; // 지불방법
+  category?: string; // 카테고리
+  account?: string; //거래처
+  timeDate?: TReceipTimeDate;
+  income?: number; // 수입
+  spending?: number; //지출
+  memo?: string; // 메모
+  paymentMethod?: string; // 지불방법
   isExcept?: boolean; // 제외여부
 }
 
@@ -36,7 +36,35 @@ interface TAccountBook {
 }
 
 const initialAccountBookState: TAccountBook = {
-  receipts: [],
+  receipts: [
+    {
+      id: 1,
+      income: 100000,
+      spending: -1022044,
+      timeDate: {
+        month: 8,
+        day: 30,
+      },
+    },
+    {
+      id: 2,
+      income: 10000000,
+      spending: -20000000,
+      timeDate: {
+        month: 8,
+        day: 29,
+      },
+    },
+    {
+      id: 3,
+      income: 10000000,
+      spending: -20000000,
+      timeDate: {
+        month: 8,
+        day: 16,
+      },
+    },
+  ],
   selectDate: {
     month: 1,
     year: 2022,
