@@ -20,7 +20,6 @@ export const calendarGenerator = (year: number, month: number) => {
     calendar.push(nowWeek);
   }
 
-  console.log(calendar);
   return calendar;
 };
 
