@@ -18,6 +18,8 @@ const fonts = {
 const colors = {
   primaryPurple: '#A464D1',
   primaryPink: '#FDB9D1',
+  purple: '#9500ff',
+  pink: '#ff0059',
 };
 const deviceSizes = {
   mobile: '480px',
