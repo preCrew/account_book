@@ -1,0 +1,12 @@
+/node_modules
+*.env*.bin
+.DS_Store
+
+!example.cloudflare.env
+yarn.lock
+yarn-error.log
+dist/*
+wrangler.toml
+
+
+# misc
