@@ -8,6 +8,7 @@ import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
+import { getUsers, googleLogin, logout } from './firebase/firebase';
 
 const App = () => {
   const { changeSelectDate } = useAccountBook();
@@ -20,9 +21,20 @@ const App = () => {
     changeSelectDate({ year, month });
   }, []);
 
+  const handle = async () => {
+    const a = await getUsers();
+    console.log(a);
+    googleLogin();
+  };
+  const handle2 = () => {
+    logout();
+    console.log('logout');
+  };
   return (
     <>
-      <Layout>
+      <button onClick={handle}>click</button>
+      <button onClick={handle2}>click2</button>
+      {/* <Layout>
         <Routes>
           <Route
             path="/"
@@ -41,7 +53,7 @@ const App = () => {
             element={<Mypage />}
           />
         </Routes>
-      </Layout>
+      </Layout> */}
     </>
   );
 };
