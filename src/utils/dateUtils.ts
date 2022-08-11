@@ -1,7 +1,7 @@
-import { TLoadDate } from 'store/reducers/accoutBook-Slice';
+import { TYearMonth } from 'store/reducers/accoutBook-Slice';
 
 export const dateGenerator = (nowDate: Date, firstDate: Date) => {
-  const dates: TLoadDate[] = [];
+  const dates: TYearMonth[] = [];
   // 월이 0 ~ 11까지므로 이를 보정하기위해 1달을 빼줌.
   firstDate.setMonth(firstDate.getMonth() - 1);
 

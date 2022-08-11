@@ -22,6 +22,8 @@ const colors = {
     return `to right,${colors.primaryPurple},50%,${colors.primaryPink})`;
   },
   gray1: '#e5e5e5',
+  purple: '#9500ff',
+  pink: '#ff0059',
 };
 
 const deviceSizes = {
