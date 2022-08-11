@@ -1,18 +1,35 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback } from 'react';
-import { chageCaracterAction } from 'store/reducers/user-Slice';
+import { TUserIdPassword } from 'store/reducers/userThunk/asyncCreateUser';
+import asyncLoginUser from 'store/reducers/userThunk/asyncLoginUser';
+import asyncLogoutUser from 'store/reducers/userThunk/asyncLogoutUser';
 import { useAppDispatch } from 'store/store';
+import { asyncCreateUser } from '../reducers/user-Slice';
 
-const useAccountBook = () => {
+const useUser = () => {
   const dispatch = useAppDispatch();
 
-  const chageCaracter = useCallback((characterNumber: number) => {
-    dispatch(chageCaracterAction(characterNumber));
-  }, []);
-
-  return {
-    chageCaracter,
+  const createUser = (email: string, password: string) => {
+    dispatch(
+      asyncCreateUser({
+        email,
+        password,
+      }),
+    );
   };
+
+  const loginUser = (type: 'google' | 'idpw', user?: TUserIdPassword) => {
+    dispatch(
+      asyncLoginUser({
+        type,
+        user,
+      }),
+    );
+  };
+
+  const logoutUser = () => {
+    dispatch(asyncLogoutUser());
+  };
+
+  return { createUser, loginUser, logoutUser };
 };
 
-export default useAccountBook;
+export default useUser;

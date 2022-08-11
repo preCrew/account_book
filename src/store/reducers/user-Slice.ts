@@ -1,15 +1,30 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import badAvartar1Img from '../../assets/images/avatar/noname_bad.jpg';
 import sosoAvartar1Img from '../../assets/images/avatar/noname_soso.jpg';
 import goodAvartar1Img from '../../assets/images/avatar/noname_good.jpg';
 import badAvartar2Img from '../../assets/images/avatar/rupee_bad.jpg';
 import sosoAvartar2Img from '../../assets/images/avatar/rupee_soso.jpg';
 import goodAvartar2Img from '../../assets/images/avatar/rupee_good.jpg';
+import asyncCreateUser, {
+  asyncCreateUserFulfilled,
+  asyncCreateUserPending,
+  asyncCreateUserRejected,
+} from './userThunk/asyncCreateUser';
+import asyncLoginUser, {
+  asyncLoginUserFulfilled,
+  asyncLoginUserPending,
+  asyncLoginUserRejected,
+} from './userThunk/asyncLoginUser';
+import asyncLogoutUser, {
+  asyncLogoutUserFulfilled,
+  asyncLogoutUserPending,
+  asyncLogoutUserRejected,
+} from './userThunk/asyncLogoutUser';
 
-//로그인 후 불러올 데이터
-interface Tme {
-  id: number;
-  email: string;
+interface TLoginState {
+  loading: boolean;
+  success: boolean;
+  errorMsg: null | string;
 }
 interface TuserInfo {
   character: number | null;
@@ -18,10 +33,8 @@ interface TuserInfo {
 }
 
 interface TUser {
-  loginLoading: boolean;
-  loginDone: boolean;
-  loginError: null | string;
-  me: Tme | null;
+  loginState: TLoginState;
+  email: string;
   avatar: [
     {
       name: string;
@@ -36,14 +49,15 @@ interface TUser {
       good: string;
     },
   ];
-  userInfo: TuserInfo;
 }
 
 const initialUserState: TUser = {
-  loginLoading: false,
-  loginDone: false,
-  loginError: null,
-  me: null,
+  loginState: {
+    loading: false,
+    success: false,
+    errorMsg: null,
+  },
+  email: '',
   avatar: [
     {
       name: '외국인',
@@ -58,22 +72,27 @@ const initialUserState: TUser = {
       good: goodAvartar2Img,
     },
   ],
-  userInfo: {
-    character: null,
-    budget: 0,
-    totalExpense: 0,
-  },
 };
 
 const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialUserState,
-  reducers: {
-    chageCaracterAction(state: TUser, action: PayloadAction<number>) {
-      state.userInfo.character = action.payload;
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(asyncCreateUser.pending, asyncCreateUserPending);
+    builder.addCase(asyncCreateUser.fulfilled, asyncCreateUserFulfilled);
+    builder.addCase(asyncCreateUser.rejected, asyncCreateUserRejected);
+
+    builder.addCase(asyncLoginUser.pending, asyncLoginUserPending);
+    builder.addCase(asyncLoginUser.fulfilled, asyncLoginUserFulfilled);
+    builder.addCase(asyncLoginUser.rejected, asyncLoginUserRejected);
+
+    builder.addCase(asyncLogoutUser.prototype, asyncLogoutUserPending);
+    builder.addCase(asyncLogoutUser.fulfilled, asyncLogoutUserFulfilled);
+    builder.addCase(asyncLogoutUser.rejected, asyncLogoutUserRejected);
   },
 });
 
-export const { chageCaracterAction } = userSlice.actions;
+export const {} = userSlice.actions;
+export { asyncCreateUser };
 export default userSlice.reducer;

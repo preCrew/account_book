@@ -8,10 +8,14 @@ import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
-import { getUsers, googleLogin, logout } from './firebase/firebase';
+
+import { auth } from 'firebaseConfig';
+import useUser from 'store/hooks/useUser';
 
 const App = () => {
+  console.log(auth.currentUser);
   const { changeSelectDate } = useAccountBook();
+  const { loginUser, createUser, logoutUser } = useUser();
 
   useEffect(() => {
     const nowDate = new Date();
@@ -21,21 +25,29 @@ const App = () => {
     changeSelectDate({ year, month });
   }, []);
 
-  const handle = async () => {
-    const a = await getUsers();
-    console.log(a);
-    googleLogin();
+  const handle = () => {
+    loginUser('google');
   };
   const handle2 = () => {
-    logout();
-    console.log('logout');
+    logoutUser();
+  };
+  const handle3 = async () => {
+    createUser('song96101ssffffff2303@sbs.ser', '124434');
+  };
+  const handle4 = async () => {
+    loginUser('idpw', {
+      email: 'song96101ssffffff2303@sbs.ser',
+      password: '124434',
+    });
   };
   return (
     <>
-      <button onClick={handle}>click</button>
-      <button onClick={handle2}>click2</button>
-      {/* <Layout>
-        <Routes>
+      <Layout>
+        <button onClick={handle}>google</button>
+        <button onClick={handle2}>logout</button>
+        <button onClick={handle3}>signUp</button>
+        <button onClick={handle4}>login</button>
+        {/* <Routes>
           <Route
             path="/"
             element={<Home />}
@@ -52,8 +64,8 @@ const App = () => {
             path="/mypage"
             element={<Mypage />}
           />
-        </Routes>
-      </Layout> */}
+        </Routes> */}
+      </Layout>
     </>
   );
 };
