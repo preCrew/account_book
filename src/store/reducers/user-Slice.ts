@@ -22,18 +22,20 @@ interface TUser {
   loginDone: boolean;
   loginError: null | string;
   me: Tme | null;
-  avatar: {
-    character1: {
+  avatar: [
+    {
+      name: string;
       bad: string;
       soso: string;
       good: string;
-    };
-    character2: {
+    },
+    {
+      name: string;
       bad: string;
       soso: string;
       good: string;
-    };
-  };
+    },
+  ];
   userInfo: TuserInfo;
 }
 
@@ -42,18 +44,20 @@ const initialUserState: TUser = {
   loginDone: false,
   loginError: null,
   me: null,
-  avatar: {
-    character1: {
+  avatar: [
+    {
+      name: '외국인',
       bad: badAvartar1Img,
       soso: sosoAvartar1Img,
       good: goodAvartar1Img,
     },
-    character2: {
+    {
+      name: '루피',
       bad: badAvartar2Img,
       soso: sosoAvartar2Img,
       good: goodAvartar2Img,
     },
-  },
+  ],
   userInfo: {
     character: null,
     budget: 0,
@@ -65,11 +69,11 @@ const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialUserState,
   reducers: {
-    // addReceiptAction(state: TAccountBook, action: PayloadAction<TReceipt>) {
-    //   state.receipts.concat(action.payload);
-    // },
+    chageCaracterAction(state: TUser, action: PayloadAction<number>) {
+      state.userInfo.character = action.payload;
+    },
   },
 });
 
-// export const { addReceiptAction } = userSlice.actions;
+export const { chageCaracterAction } = userSlice.actions;
 export default userSlice.reducer;

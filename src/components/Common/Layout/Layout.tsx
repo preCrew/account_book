@@ -12,7 +12,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutWrap>
-      <Header />
+      {/* <Header /> */}
       <ContentsBox>{children}</ContentsBox>
       <Nav />
     </LayoutWrap>

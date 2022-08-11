@@ -5,4 +5,12 @@ export const AvatarWrap = styled.div<{ size?: number }>`
   height: ${props => (props.size ? `${props.size}px` : '80px')};
   overflow: hidden;
   border-radius: 100%;
+
+  > a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
