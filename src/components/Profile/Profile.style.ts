@@ -16,7 +16,6 @@ export const ProfileWrap = styled.article`
 
   & dl {
     display: flex;
-
     & + dl {
       margin-top: 10px;
     }
@@ -27,4 +26,6 @@ export const ProfileWrap = styled.article`
   }
 `;
 
-export const ProfileInfo = styled.div``;
+export const ProfileInfo = styled.div`
+  margin-left: 10px;
+`;

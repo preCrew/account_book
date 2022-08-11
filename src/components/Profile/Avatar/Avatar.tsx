@@ -5,29 +5,27 @@ import { AvatarWrap } from './Avatar.style';
 import AvatarImg from './AvatarImg';
 import Mypage from '../../../pages/MyPage';
 
-interface AvatarProps {}
+interface AvatarProps {
+  size: string;
+}
 
-const Avatar = ({}: AvatarProps) => {
+const Avatar = ({ size }: AvatarProps) => {
   const { loginDone } = useAppSelector(state => state.user);
 
   return (
     <>
-      {loginDone ? (
-        <AvatarWrap>
-          {/* props: size */}
-          <Link to="/mypage">
-            <AvatarImg />
-          </Link>
-        </AvatarWrap>
-      ) : (
-        <Link to="/login"></Link>
-      )}
-      <Routes>
+      <AvatarWrap>
+        {/* props: size */}
+        <Link to="/mypage">
+          <AvatarImg size={size} />
+        </Link>
+      </AvatarWrap>
+      {/* <Routes>
         <Route
           path="/mypage"
           element={<Mypage />}
         />
-      </Routes>
+      </Routes> */}
     </>
   );
 };

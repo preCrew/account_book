@@ -3,9 +3,11 @@ import { AvatarInnerImg } from './AvatarImg.style';
 import { BsPersonCircle } from 'react-icons/bs';
 import AvatarUserIcon from '../AvatarUserIcon';
 
-interface AvatarImgProps {}
+interface AvatarImgProps {
+  size: string;
+}
 
-const AvatarImg = ({}: AvatarImgProps) => {
+const AvatarImg = ({ size }: AvatarImgProps) => {
   const { userInfo, avatar } = useAppSelector(state => state.user);
   const myAvatar = avatar[userInfo.character!];
   console.log(avatar);
@@ -26,7 +28,7 @@ const AvatarImg = ({}: AvatarImgProps) => {
   return (
     <>
       {userInfo.character === null ? (
-        <AvatarUserIcon size="100" />
+        <AvatarUserIcon size={size} />
       ) : (
         <AvatarInnerImg styleBg={avatarSetting()}></AvatarInnerImg>
       )}

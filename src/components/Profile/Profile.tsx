@@ -10,7 +10,7 @@ const Profile = ({}: ProfileProps) => {
   return (
     <>
       <ProfileWrap>
-        <Avatar />
+        <Avatar size="50" />
         <ProfileInfo>
           <dl>
             <dt>예산</dt>

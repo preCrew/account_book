@@ -13,8 +13,8 @@ const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
   const { avatar, userInfo } = useAppSelector(state => state.user);
   const { chageCaracter } = useUser();
 
-  const onClickCharacter = () => {
-    chageCaracter(0);
+  const onClickCharacter = (index: number) => () => {
+    chageCaracter(index);
   };
 
   return (
@@ -29,7 +29,7 @@ const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
             <SelectDataBox
               key={i}
               selectCondition={i === userInfo.character}
-              onClick={onClickCharacter}
+              onClick={onClickCharacter(i)}
             >
               {character.name}
             </SelectDataBox>

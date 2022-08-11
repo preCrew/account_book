@@ -56,7 +56,7 @@ const MyPage = () => {
             <SelectCharacterModal onClose={closeModal} />
           </Modal>
           <Profile onClick={showModal}>
-            <AvatarImg />
+            <AvatarImg size="100" />
           </Profile>
           <Name>Name</Name>
           <Emaile>csa2676@naver.com</Emaile>
