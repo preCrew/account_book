@@ -1,33 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
+import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
 import {
-  addReceiptAction,
   changeFirstDateAction,
   changeSelectDateAction,
-  deleteReceiptAction,
   changeSelectDateOneMonthAction,
-  TYearMonth,
-  TReceipt,
   changeAmountAction,
+  TReceipt,
+  TDateTime,
 } from 'store/reducers/accoutBook-Slice';
 import { useAppDispatch } from 'store/store';
 
 const useAccountBook = () => {
   const dispatch = useAppDispatch();
 
-  const addReceipt = useCallback((receipt: TReceipt) => {
-    dispatch(addReceiptAction(receipt));
-  }, []);
-
-  const deleteReceipt = useCallback((id: number) => {
-    dispatch(deleteReceiptAction(id));
-  }, []);
-
-  const changeSelectDate = useCallback((loadDate: TYearMonth) => {
+  const changeSelectDate = useCallback((loadDate: TDateTime) => {
     dispatch(changeSelectDateAction(loadDate));
   }, []);
 
-  const changeFirstDate = useCallback((loadDate: TYearMonth) => {
+  const changeFirstDate = useCallback((loadDate: TDateTime) => {
     dispatch(changeFirstDateAction(loadDate));
   }, []);
 
@@ -38,13 +29,16 @@ const useAccountBook = () => {
     dispatch(changeAmountAction(amount));
   }, []);
 
+  const addReceipt = (receipt: TReceipt) => {
+    dispatch(asyncCreateReceipt(receipt));
+  };
+
   return {
-    addReceipt,
-    deleteReceipt,
     changeSelectDate,
     changeFirstDate,
     changeSelectDateOneMonth,
     changeAmount,
+    addReceipt,
   };
 };
 

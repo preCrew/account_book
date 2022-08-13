@@ -1,11 +1,10 @@
-import { TUserIdPassword } from 'store/reducers/userThunk/asyncCreateUser';
+import asyncCreateUser, {
+  TUserIdPassword,
+} from 'store/reducers/userThunk/asyncCreateUser';
 import asyncLoginUser from 'store/reducers/userThunk/asyncLoginUser';
 import asyncLogoutUser from 'store/reducers/userThunk/asyncLogoutUser';
 import { useAppDispatch } from 'store/store';
-import {
-  asyncCreateUser,
-  keepingLoginStateAction,
-} from '../reducers/user-Slice';
+import { keepingLoginStateAction } from '../reducers/user-Slice';
 
 const useUser = () => {
   const dispatch = useAppDispatch();
