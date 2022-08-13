@@ -2,7 +2,10 @@ import { TUserIdPassword } from 'store/reducers/userThunk/asyncCreateUser';
 import asyncLoginUser from 'store/reducers/userThunk/asyncLoginUser';
 import asyncLogoutUser from 'store/reducers/userThunk/asyncLogoutUser';
 import { useAppDispatch } from 'store/store';
-import { asyncCreateUser } from '../reducers/user-Slice';
+import {
+  asyncCreateUser,
+  keepingLoginStateAction,
+} from '../reducers/user-Slice';
 
 const useUser = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +32,11 @@ const useUser = () => {
     dispatch(asyncLogoutUser());
   };
 
-  return { createUser, loginUser, logoutUser };
+  const keepingLoginState = (email: string) => {
+    dispatch(keepingLoginStateAction(email));
+  };
+
+  return { createUser, loginUser, logoutUser, keepingLoginState };
 };
 
 export default useUser;

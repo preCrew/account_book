@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import badAvartar1Img from '../../assets/images/avatar/noname_bad.jpg';
 import sosoAvartar1Img from '../../assets/images/avatar/noname_soso.jpg';
 import goodAvartar1Img from '../../assets/images/avatar/noname_good.jpg';
@@ -77,7 +77,11 @@ const initialUserState: TUser = {
 const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialUserState,
-  reducers: {},
+  reducers: {
+    keepingLoginStateAction: (state: TUser, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder.addCase(asyncCreateUser.pending, asyncCreateUserPending);
     builder.addCase(asyncCreateUser.fulfilled, asyncCreateUserFulfilled);
@@ -93,6 +97,6 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const { keepingLoginStateAction } = userSlice.actions;
 export { asyncCreateUser };
 export default userSlice.reducer;
