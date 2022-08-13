@@ -13,10 +13,10 @@ interface CalendarItemProps {
 
 const CalendarItem = ({ month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
-    const receipts = state.accountBook.receipts.find(
-      receipt =>
-        receipt.timeDate?.day === date && receipt.timeDate.month === month,
-    );
+    const receipts = state.accountBook.receipts.find(receipt => {
+      const newDate = new Date(receipt.timeDate);
+      return newDate.getDate() === date && newDate.getMonth() === month;
+    });
     return {
       income: receipts?.income,
       spending: receipts?.spending,
