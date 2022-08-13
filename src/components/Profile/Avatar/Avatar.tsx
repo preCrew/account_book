@@ -9,7 +9,7 @@ import Mypage from '../../../pages/MyPage';
 interface AvatarProps {}
 
 const Avatar = ({}: AvatarProps) => {
-  const { success } = useAppSelector(state => state.user.loginState);
+  const { success } = useAppSelector(state => state.user.loadingState);
 
   return (
     <>
