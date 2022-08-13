@@ -1,10 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import badAvartar1Img from '../../assets/images/avatar/noname_bad.jpg';
 import sosoAvartar1Img from '../../assets/images/avatar/noname_soso.jpg';
 import goodAvartar1Img from '../../assets/images/avatar/noname_good.jpg';
 import badAvartar2Img from '../../assets/images/avatar/rupee_bad.jpg';
 import sosoAvartar2Img from '../../assets/images/avatar/rupee_soso.jpg';
 import goodAvartar2Img from '../../assets/images/avatar/rupee_good.jpg';
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TLoadingState } from './reducerCommonTypes';
+
 import asyncCreateUser, {
   asyncCreateUserFulfilled,
   asyncCreateUserPending,
@@ -21,11 +24,6 @@ import asyncLogoutUser, {
   asyncLogoutUserRejected,
 } from './userThunk/asyncLogoutUser';
 
-interface TLoginState {
-  loading: boolean;
-  success: boolean;
-  errorMsg: null | string;
-}
 interface TuserInfo {
   character: number | null;
   budget: number;
@@ -33,7 +31,7 @@ interface TuserInfo {
 }
 
 interface TUser {
-  loginState: TLoginState;
+  loadingState: TLoadingState;
   email: string;
   avatar: [
     {
@@ -52,7 +50,7 @@ interface TUser {
 }
 
 const initialUserState: TUser = {
-  loginState: {
+  loadingState: {
     loading: false,
     success: false,
     errorMsg: null,
@@ -98,5 +96,4 @@ const userSlice = createSlice({
 });
 
 export const { keepingLoginStateAction } = userSlice.actions;
-export { asyncCreateUser };
 export default userSlice.reducer;
