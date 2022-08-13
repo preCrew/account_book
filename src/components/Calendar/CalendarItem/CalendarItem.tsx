@@ -1,4 +1,5 @@
 import { useAppSelector } from 'store/store';
+import { getDate } from 'utils/dateUtils';
 import {
   CalendarDateS,
   CalendarIncomeS,
@@ -14,7 +15,7 @@ interface CalendarItemProps {
 const CalendarItem = ({ month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
     const receipts = state.accountBook.receipts.find(receipt => {
-      const newDate = new Date(receipt.timeDate);
+      const newDate = getDate(receipt.timeDate);
       return newDate.getDate() === date && newDate.getMonth() === month;
     });
     return {
