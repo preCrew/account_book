@@ -9,9 +9,25 @@ import Mypage from 'pages/MyPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
 
-import { app, auth } from 'firebaseConfig';
+import { app, auth, db } from 'firebaseConfig';
 import useUser from 'store/hooks/useUser';
 import { useAppSelector } from 'store/store';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  snapshotEqual,
+  Timestamp,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const App = () => {
   const [user, setUser] = useState({
@@ -21,12 +37,13 @@ const App = () => {
   const { changeSelectDate } = useAccountBook();
   const { loginUser, createUser, logoutUser, keepingLoginState } = useUser();
   const email = useAppSelector(state => state.user.email);
+  const { addReceipt } = useAccountBook();
 
   useEffect(() => {
     const nowDate = new Date();
     const year = nowDate.getFullYear();
     const month = nowDate.getMonth() + 1;
-    changeSelectDate({ year, month });
+    // changeSelectDate({ year, month });
 
     // 만약 로그인된 상태면 새로고침 or 페이지 이동돼도 로그인 유지
     auth.onAuthStateChanged(user => {
@@ -58,6 +75,32 @@ const App = () => {
       password: user.password,
     });
   };
+  // 영수증 추가
+  const handleDB = async () => {
+    // const date = new Date();
+    // date.setMonth(date.getMonth() + 1);
+
+    const receipt: TReceipt = {
+      category: '놀았어',
+      account: '피시방',
+      spending: 1000,
+      memo: 'test Memo',
+      timeDate: {
+        year: 2019,
+        month: 8,
+        date: 13,
+        hours: 12,
+        minutes: 25,
+      },
+    };
+    addReceipt(receipt);
+  };
+  const handleGetDB = async () => {
+    const docu = doc(db, email, 'receipts', 'years', '2022', 'months', '1');
+
+    const sanp = await getDoc(docu);
+    console.log(sanp.data());
+  };
   return (
     <>
       <Layout>
@@ -75,7 +118,9 @@ const App = () => {
         <button onClick={logout}>logout</button>
         <button onClick={signUpUser}>signUp</button>
         <button onClick={loginUserHandler}>login</button>
-        {/* <Routes>
+        <button onClick={handleDB}>DB</button>
+        <button onClick={handleGetDB}>getDB</button>
+        <Routes>
           <Route
             path="/"
             element={<Home />}
@@ -92,7 +137,7 @@ const App = () => {
             path="/mypage"
             element={<Mypage />}
           />
-        </Routes> */}
+        </Routes>
       </Layout>
     </>
   );
