@@ -16,9 +16,7 @@ const Avatar = ({}: AvatarProps) => {
       {success ? (
         <AvatarWrap>
           {/* props: size */}
-          <Link to="/mypage">
-            <AvatarImg />
-          </Link>
+          <Link to="/mypage">{/* <AvatarImg /> */}</Link>
         </AvatarWrap>
       ) : (
         <Link to="/login">

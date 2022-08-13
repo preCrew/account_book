@@ -5,12 +5,12 @@ import { ProfileWrap, ProfileInfo } from './Profile.style';
 interface ProfileProps {}
 
 const Profile = ({}: ProfileProps) => {
-  const { loginDone, userInfo } = useAppSelector(state => state.user);
+  const { loadingState, userInfo } = useAppSelector(state => state.user);
 
   return (
     <>
       <ProfileWrap>
-        <Avatar size="50" />
+        <Avatar />
         <ProfileInfo>
           <dl>
             <dt>예산</dt>

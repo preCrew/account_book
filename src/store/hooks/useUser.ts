@@ -1,14 +1,21 @@
+import { useCallback } from 'react';
 import asyncCreateUser, {
   TUserIdPassword,
 } from 'store/reducers/userThunk/asyncCreateUser';
 import asyncLoginUser from 'store/reducers/userThunk/asyncLoginUser';
 import asyncLogoutUser from 'store/reducers/userThunk/asyncLogoutUser';
 import { useAppDispatch } from 'store/store';
-import { keepingLoginStateAction } from '../reducers/user-Slice';
+import {
+  chageCaracterAction,
+  keepingLoginStateAction,
+} from '../reducers/user-Slice';
 
 const useUser = () => {
   const dispatch = useAppDispatch();
 
+  const chageCaracter = useCallback((characterNumber: number) => {
+    dispatch(chageCaracterAction(characterNumber));
+  }, []);
   const createUser = (email: string, password: string) => {
     dispatch(
       asyncCreateUser({
@@ -35,7 +42,13 @@ const useUser = () => {
     dispatch(keepingLoginStateAction(email));
   };
 
-  return { createUser, loginUser, logoutUser, keepingLoginState };
+  return {
+    chageCaracter,
+    createUser,
+    loginUser,
+    logoutUser,
+    keepingLoginState,
+  };
 };
 
 export default useUser;

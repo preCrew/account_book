@@ -33,6 +33,7 @@ interface TuserInfo {
 interface TUser {
   loadingState: TLoadingState;
   email: string;
+  userInfo: TuserInfo;
   avatar: [
     {
       name: string;
@@ -54,6 +55,11 @@ const initialUserState: TUser = {
     loading: false,
     success: false,
     errorMsg: null,
+  },
+  userInfo: {
+    budget: 0,
+    character: null,
+    totalExpense: 0,
   },
   email: '',
   avatar: [
@@ -79,6 +85,9 @@ const userSlice = createSlice({
     keepingLoginStateAction: (state: TUser, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    chageCaracterAction(state: TUser, action: PayloadAction<number>) {
+      state.userInfo.character = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(asyncCreateUser.pending, asyncCreateUserPending);
@@ -95,5 +104,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { keepingLoginStateAction } = userSlice.actions;
+export const { keepingLoginStateAction, chageCaracterAction } =
+  userSlice.actions;
 export default userSlice.reducer;
