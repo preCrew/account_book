@@ -18,18 +18,18 @@ const asyncLogoutUser = createAsyncThunk(
 );
 
 const asyncLogoutUserPending: CaseReducer = (state, action) => {
-  state.loginState.loading = true;
+  state.loadingState.loading = true;
 };
 
 const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
-  state.loginState.loading = false;
-  state.loginState.success = true;
+  state.loadingState.loading = false;
+  state.loadingState.success = true;
   state.email = '';
 };
 
 const asyncLogoutUserRejected: CaseReducer = (state, action) => {
-  state.loginState.loading = false;
-  state.loginState.errorMsg = '에러!!!';
+  state.loadingState.loading = false;
+  state.loadingState.errorMsg = '에러!!!';
 };
 
 export default asyncLogoutUser;
