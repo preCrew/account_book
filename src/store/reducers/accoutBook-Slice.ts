@@ -5,6 +5,11 @@ import asyncCreateReceipt, {
   asyncCreateReceiptPending,
   asyncCreateReceiptRejected,
 } from './accountBookThunk/asyncCreateReceiptk';
+import asyncReadReceipt, {
+  asyncReadReceiptFulfilled,
+  asyncReadReceiptPending,
+  asyncReadReceiptRejected,
+} from './accountBookThunk/asyncReadReceipt';
 import { TLoadingState } from './reducerCommonTypes';
 
 // 서버에서 불러올 년도, 월
@@ -32,7 +37,10 @@ export interface TReceipt {
 // 영수증 내역
 export interface TAccountBook {
   loadingState: TLoadingState;
-  receipts: TReceipt[]; // 영수증들
+  receipts: {
+    // 해당 날짜가 들어감
+    [key: string]: TReceipt[];
+  };
   selectDate: TDateTime; // 선택한 년, 월
   firstDate: TDateTime; // 가계부에 등록된 첫번쨰 영수증의 년, 월
   totalIncome: number; // 선택한 달의 총 수입
@@ -46,7 +54,7 @@ const initialAccountBookState: TAccountBook = {
     success: false,
     errorMsg: null,
   },
-  receipts: [],
+  receipts: {},
   selectDate: {
     year: 2022,
     month: 8,
@@ -69,11 +77,6 @@ const initialAccountBookState: TAccountBook = {
 const accountBookSlice = createSlice({
   name: 'accountBookSlice',
   initialState: initialAccountBookState,
-  extraReducers: builder => {
-    builder.addCase(asyncCreateReceipt.pending, asyncCreateReceiptPending);
-    builder.addCase(asyncCreateReceipt.fulfilled, asyncCreateReceiptFulfilled);
-    builder.addCase(asyncCreateReceipt.rejected, asyncCreateReceiptRejected);
-  },
   reducers: {
     changeSelectDateOneMonthAction(
       state: TAccountBook,
@@ -106,6 +109,15 @@ const accountBookSlice = createSlice({
     changeAmountAction(state: TAccountBook, action: PayloadAction<number>) {
       state.amount = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(asyncCreateReceipt.pending, asyncCreateReceiptPending);
+    builder.addCase(asyncCreateReceipt.fulfilled, asyncCreateReceiptFulfilled);
+    builder.addCase(asyncCreateReceipt.rejected, asyncCreateReceiptRejected);
+
+    builder.addCase(asyncReadReceipt.pending, asyncReadReceiptPending);
+    builder.addCase(asyncReadReceipt.fulfilled, asyncReadReceiptFulfilled);
+    builder.addCase(asyncReadReceipt.rejected, asyncReadReceiptRejected);
   },
 });
 

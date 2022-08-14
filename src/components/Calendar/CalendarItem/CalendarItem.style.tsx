@@ -16,7 +16,9 @@ const CalenderCommonStyle = styled.div`
 
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow-x: hidden;
+
+  height: 0.5rem;
 `;
 export const CalendarIncomeS = styled(CalenderCommonStyle)`
   color: ${({ theme }) => theme.colors.purple};

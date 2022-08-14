@@ -34,6 +34,7 @@ const asyncCreateUserPending: CaseReducer = (state, action) => {
 const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
+  console.log(action);
   state.email = action.payload as string;
 };
 

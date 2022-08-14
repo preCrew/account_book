@@ -34,3 +34,5 @@ const getMonthInfo = (year: number, month: number) => {
 
   return { startDate, endDate, startDay, endDay };
 };
+
+// const sumAmounts = (amounts: )

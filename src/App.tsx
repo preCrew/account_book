@@ -28,6 +28,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
+import { getAuth } from 'firebase/auth';
 
 const App = () => {
   const [user, setUser] = useState({
@@ -37,9 +38,11 @@ const App = () => {
   const { changeSelectDate } = useAccountBook();
   const { loginUser, createUser, logoutUser, keepingLoginState } = useUser();
   const email = useAppSelector(state => state.user.email);
-  const { addReceipt } = useAccountBook();
+  const { addReceipt, readReceipts } = useAccountBook();
 
   useEffect(() => {
+    // const a = getAuth();
+    // console.log(auth.currentUser);
     const nowDate = new Date();
     const year = nowDate.getFullYear();
     const month = nowDate.getMonth() + 1;
@@ -49,9 +52,11 @@ const App = () => {
     auth.onAuthStateChanged(user => {
       if (user) {
         keepingLoginState(user.email as string);
+        readReceipts({ year, month });
       }
     });
   }, []);
+  console.log(getAuth().currentUser);
 
   const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser(state => ({
@@ -83,12 +88,13 @@ const App = () => {
     const receipt: TReceipt = {
       category: '놀았어',
       account: '피시방',
-      spending: 1000,
+      spending: -1000,
+      // income: 1000,
       memo: 'test Memo',
       timeDate: {
-        year: 2019,
+        year: 2022,
         month: 8,
-        date: 13,
+        date: 14,
         hours: 12,
         minutes: 25,
       },
@@ -96,10 +102,7 @@ const App = () => {
     addReceipt(receipt);
   };
   const handleGetDB = async () => {
-    const docu = doc(db, email, 'receipts', 'years', '2022', 'months', '1');
-
-    const sanp = await getDoc(docu);
-    console.log(sanp.data());
+    readReceipts({ year: 2022, month: 8 });
   };
   return (
     <>

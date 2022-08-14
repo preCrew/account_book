@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
 import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
+import asyncReadReceipt from 'store/reducers/accountBookThunk/asyncReadReceipt';
 import {
   changeFirstDateAction,
   changeSelectDateAction,
@@ -9,6 +10,7 @@ import {
   TReceipt,
   TDateTime,
 } from 'store/reducers/accoutBook-Slice';
+import { TYearMonth } from 'store/reducers/reducerCommonTypes';
 import { useAppDispatch } from 'store/store';
 
 const useAccountBook = () => {
@@ -32,6 +34,9 @@ const useAccountBook = () => {
   const addReceipt = (receipt: TReceipt) => {
     dispatch(asyncCreateReceipt(receipt));
   };
+  const readReceipts = (yearMonth: TYearMonth) => {
+    dispatch(asyncReadReceipt(yearMonth));
+  };
 
   return {
     changeSelectDate,
@@ -39,6 +44,7 @@ const useAccountBook = () => {
     changeSelectDateOneMonth,
     changeAmount,
     addReceipt,
+    readReceipts,
   };
 };
 
