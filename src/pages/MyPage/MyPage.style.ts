@@ -71,6 +71,7 @@ export const AmountInputBox = styled.div`
   display: flex;
   flex-direction: row;
   margin-right: 30px;
+  margin-bottom: 12px;
 `;
 
 export const AmountIcon = styled.div`
@@ -83,18 +84,4 @@ export const AmountIcon = styled.div`
   box-sizing: border-box;
   outline: none;
   border-radius: 3px;
-`;
-
-export const SaveButton = styled.button`
-  width: inherit;
-  height: 40px;
-  color: #fff;
-  background: ${({ theme }) => theme.colors.primaryPurple};
-  font-size: 16px;
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 79, 255, 0.3);
-  transition: 0.3s;
-  margin-top: 30px;
-  cursor: pointer;
 `;

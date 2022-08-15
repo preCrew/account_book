@@ -6,6 +6,7 @@ import useModal from 'hooks/useModal';
 import { Down100, Up100 } from 'styles/animations';
 import SelectCharacterModal from '../../components/Common/Modal/ModalComponents/SelectCharacterModal';
 import Header from '../../components/Common/Layout/Header';
+import SaveButton from '../../components/Common/Button/Button';
 
 import {
   StyledMyPage,
@@ -18,7 +19,6 @@ import {
   MyPageContainer,
   AmountInputBox,
   MyPageSection,
-  SaveButton,
 } from './MyPage.style';
 
 import AvatarImg from 'components/Profile/Avatar/AvatarImg';
@@ -73,7 +73,7 @@ const MyPage = () => {
               />
             </AmountInputBox>
           </AmountBox>
-          <SaveButton>저장하기</SaveButton>
+          <SaveButton size="full">저장하기</SaveButton>
         </StyledMyPage>
       </MyPageSection>
     </MyPageContainer>
