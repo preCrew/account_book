@@ -37,10 +37,7 @@ export interface TReceipt {
 // 영수증 내역
 export interface TAccountBook {
   loadingState: TLoadingState;
-  receipts: {
-    // 해당 날짜가 들어감
-    [key: string]: TReceipt[];
-  };
+  receipts: TReceipt[];
   selectDate: TDateTime; // 선택한 년, 월
   firstDate: TDateTime; // 가계부에 등록된 첫번쨰 영수증의 년, 월
   totalIncome: number; // 선택한 달의 총 수입
@@ -54,7 +51,7 @@ const initialAccountBookState: TAccountBook = {
     success: false,
     errorMsg: null,
   },
-  receipts: {},
+  receipts: [],
   selectDate: {
     year: 2022,
     month: 8,

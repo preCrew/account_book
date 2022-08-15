@@ -50,11 +50,11 @@ const asyncCreateReceipt = createAsyncThunk(
       isExistsDoc
         ? // 만약 문서가 하나라도 존재한다면 추가해줌
           await updateDoc(docu, {
-            [date.getDate()]: arrayUnion({ ...makeReceipt }),
+            lists: arrayUnion({ ...makeReceipt }),
           })
         : // 문서가 존재하지 않는다면 해당 경로에 새로 생성해줌
           await setDoc(docu, {
-            [date.getDate()]: [{ ...makeReceipt }],
+            lists: [{ ...makeReceipt }],
           });
 
       // 방금 추가한게 이전 처음 날짜보다 앞선날자면 첫날짜를 업데이트해줌
@@ -87,7 +87,7 @@ const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
 
 const asyncCreateReceiptRejected: CaseReducer = state => {
   state.loadingState.loading = false;
-  state.loadingState.errorMsg = 'todtjd';
+  state.loadingState.errorMsg = '추가 실패';
 };
 
 export default asyncCreateReceipt;

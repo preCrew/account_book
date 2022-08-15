@@ -11,7 +11,10 @@ const asyncReadReceipt = createAsyncThunk(
 
     // 로그인된 상태가 아닌데 생성하려고 시도하는경우
     if (!email) {
-      throw new Error('로그인이 필요합니다.');
+      api.rejectWithValue({
+        status: 400,
+        data: '로그인이 필요합니다.',
+      });
     }
     // 로그인된 상태라면
     else {
@@ -25,7 +28,11 @@ const asyncReadReceipt = createAsyncThunk(
         'months',
         yearMonth.month.toString(),
       );
-      return (await getDoc(docu)).data();
+      const response = await getDoc(docu);
+      // 받아온 데이터가 있다면
+      return response.exists()
+        ? { status: 200, data: response.data() }
+        : { status: 204, data: '받아올 데이터가 존재하지 않습니다' };
     }
   },
 );
@@ -37,14 +44,12 @@ const asyncReadReceiptPending: CaseReducer = (state, action) => {
 const asyncReadReceiptFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
-
-  state.receipts = action.payload;
+  state.receipts = action.payload.data.lists;
 };
 
 const asyncReadReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
-  state.loadingState.errorMsg = 'todtjd';
-  console.log(action);
+  state.loadingState.errorMsg = action.payload.data;
 };
 
 export default asyncReadReceipt;

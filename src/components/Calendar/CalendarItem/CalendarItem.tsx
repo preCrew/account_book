@@ -15,7 +15,9 @@ interface CalendarItemProps {
 
 const CalendarItem = ({ month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
-    const dateReceipts = state.accountBook.receipts[date];
+    const dateReceipts = state.accountBook?.receipts.filter(
+      receipt => receipt.timeDate.date === date,
+    );
     let income = 0;
     let spending = 0;
     if (dateReceipts) {
