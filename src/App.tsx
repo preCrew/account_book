@@ -38,7 +38,7 @@ const App = () => {
   const { changeSelectDate } = useAccountBook();
   const { loginUser, createUser, logoutUser, keepingLoginState } = useUser();
   // const { email, uid } = useAppSelector(state => state.user);
-  const { addReceipt, readReceipts } = useAccountBook();
+  const { addReceipt, readReceipts, deleteReceipt } = useAccountBook();
 
   useEffect(() => {
     // const a = getAuth();
@@ -63,6 +63,10 @@ const App = () => {
       ...state,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleDelete = () => {
+    deleteReceipt(1660555919);
   };
 
   const loginGoogle = () => {
@@ -123,6 +127,7 @@ const App = () => {
         <button onClick={loginUserHandler}>login</button>
         <button onClick={handleDB}>DB</button>
         <button onClick={handleGetDB}>getDB</button>
+        <button onClick={handleDelete}>deleteDB</button>
         <Routes>
           <Route
             path="/"

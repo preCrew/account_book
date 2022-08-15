@@ -5,6 +5,11 @@ import asyncCreateReceipt, {
   asyncCreateReceiptPending,
   asyncCreateReceiptRejected,
 } from './accountBookThunk/asyncCreateReceiptk';
+import asyncDeleteReceipt, {
+  asyncDeleteReceiptFulfilled,
+  asyncDeleteReceiptPending,
+  asyncDeleteReceiptRejected,
+} from './accountBookThunk/asyncDeleteReceipt';
 import asyncReadReceipt, {
   asyncReadReceiptFulfilled,
   asyncReadReceiptPending,
@@ -115,6 +120,10 @@ const accountBookSlice = createSlice({
     builder.addCase(asyncReadReceipt.pending, asyncReadReceiptPending);
     builder.addCase(asyncReadReceipt.fulfilled, asyncReadReceiptFulfilled);
     builder.addCase(asyncReadReceipt.rejected, asyncReadReceiptRejected);
+
+    builder.addCase(asyncDeleteReceipt.pending, asyncDeleteReceiptPending);
+    builder.addCase(asyncDeleteReceipt.fulfilled, asyncDeleteReceiptFulfilled);
+    builder.addCase(asyncDeleteReceipt.rejected, asyncDeleteReceiptRejected);
   },
 });
 
