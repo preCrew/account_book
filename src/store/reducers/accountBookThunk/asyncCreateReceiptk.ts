@@ -1,5 +1,12 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { getDate } from 'utils/dateUtils';
@@ -20,14 +27,16 @@ const asyncCreateReceipt = createAsyncThunk(
     const date = getDate(receipt.timeDate);
     const timeStamp = Timestamp.now().seconds;
 
-    const response = await addDoc(collection(db, 'receipts'), {
+    // 데이터를 씀
+    await setDoc(doc(db, 'receipts', timeStamp.toString()), {
       ...receipt,
       uid: uid,
       id: timeStamp,
     });
 
+    const response = await getDoc(doc(db, 'receipts', timeStamp.toString()));
     // 성공적으로 추가했다면
-    if (response.id) {
+    if (response.exists()) {
       // 방금 추가한게 이전 처음 날짜보다 앞선날자면 첫날짜를 업데이트해줌
       if (getDate(firstDate) > getDate(receipt.timeDate)) {
         const docuFirstDate = doc(db, email, 'date');
