@@ -27,12 +27,14 @@ const asyncCreateReceipt = createAsyncThunk(
     const date = getDate(receipt.timeDate);
     const timeStamp = Timestamp.now().seconds;
 
-    // 데이터를 씀
-    await setDoc(doc(db, 'receipts', timeStamp.toString()), {
+    const data = {
       ...receipt,
       uid: uid,
       id: timeStamp,
-    });
+    };
+
+    // 데이터를 씀
+    await setDoc(doc(db, 'receipts', timeStamp.toString()), data);
 
     const response = await getDoc(doc(db, 'receipts', timeStamp.toString()));
     // 성공적으로 추가했다면
@@ -48,14 +50,7 @@ const asyncCreateReceipt = createAsyncThunk(
         api.dispatch(changeFirstDateAction(receipt.timeDate));
       }
 
-      // 업데이트된 최신정보를 받아옴
-      api.dispatch(
-        asyncReadReceipt({
-          year: date.getFullYear(),
-          month: date.getMonth(),
-        }),
-      );
-      return { status: 201, data: '생성 성공' };
+      return api.fulfillWithValue({ status: 201, data });
     } else {
       return api.rejectWithValue({ status: 400, data: '생성 실패' });
     }
@@ -69,11 +64,12 @@ const asyncCreateReceiptPending: CaseReducer = (state, action) => {
 const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
+
+  state.receipts.push(action.payload.data);
 };
 
 const asyncCreateReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
-  console.log(action);
   state.loadingState.errorMsg = action.payload.data;
 };
 
