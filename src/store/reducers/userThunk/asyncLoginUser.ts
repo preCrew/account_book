@@ -20,15 +20,31 @@ const asyncLoginUser = createAsyncThunk(
     user?: TUserIdPassword;
   }) => {
     await setPersistence(auth, browserLocalPersistence);
+    // 현재 로그인되지 않은 상태라면
     if (!auth.currentUser) {
+      let response;
+      // 로그인을 구글로 할경우
       if (type === 'google') {
         const provider = new GoogleAuthProvider();
-        return (await signInWithPopup(auth, provider)).user.email;
+        response = await signInWithPopup(auth, provider);
+        // 일반 메일로 로그인 할경우
       } else {
-        return (
-          await signInWithEmailAndPassword(auth, user!.email, user!.password)
-        ).user.email;
+        response = await signInWithEmailAndPassword(
+          auth,
+          user!.email,
+          user!.password,
+        );
       }
+
+      return response.user.email
+        ? {
+            status: 200,
+            data: response.user.email,
+          }
+        : {
+            status: 401,
+            data: '이메일 혹은 암호가 잘못됨',
+          };
     }
   },
 );
@@ -40,12 +56,12 @@ const asyncLoginUserPending: CaseReducer = (state, action) => {
 const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
-  state.email = action.payload as string;
+  state.email = action.payload.data as string;
 };
 
 const asyncLoginUserRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
-  state.loadingState.errorMsg = '에러!!!';
+  state.loadingState.errorMsg = action.payload.data;
 };
 
 export default asyncLoginUser;

@@ -13,17 +13,29 @@ export interface TUserIdPassword {
 }
 const asyncCreateUser = createAsyncThunk(
   'userSlice/asyncCreateUser',
-  async (user: TUserIdPassword) => {
+  async (user: TUserIdPassword, api) => {
     const isDuplicate = await checkDuplicateId(user.email);
-    if (!isDuplicate) {
-      await setPersistence(auth, browserLocalPersistence);
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password,
-      );
-      return res.user.email;
+
+    if (isDuplicate) {
+      return api.rejectWithValue('중복되는 이메일입니다.');
     }
+    await setPersistence(auth, browserLocalPersistence);
+    const res = await createUserWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password,
+    );
+
+    // 계정 생성에 성공하면
+    return res.user.email
+      ? {
+          status: 200,
+          data: res.user.email,
+        }
+      : {
+          status: 409,
+          data: '중복되는 메일입니다.',
+        };
   },
 );
 
@@ -34,13 +46,12 @@ const asyncCreateUserPending: CaseReducer = (state, action) => {
 const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
-  console.log(action);
-  state.email = action.payload as string;
+  state.email = action.payload.data as string;
 };
 
 const asyncCreateUserRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
-  state.loadingState.errorMsg = '이미 존재하는 이메일입니다.';
+  state.loadingState.errorMsg = action.payload.data;
 };
 
 export default asyncCreateUser;

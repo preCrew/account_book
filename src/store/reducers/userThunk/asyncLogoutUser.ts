@@ -29,7 +29,7 @@ const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
 
 const asyncLogoutUserRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
-  state.loadingState.errorMsg = '에러!!!';
+  state.loadingState.errorMsg = '로그아웃 실패';
 };
 
 export default asyncLogoutUser;
