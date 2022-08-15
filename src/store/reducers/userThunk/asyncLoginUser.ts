@@ -36,10 +36,10 @@ const asyncLoginUser = createAsyncThunk(
         );
       }
 
-      return response.user.email
+      return response.user
         ? {
             status: 200,
-            data: response.user.email,
+            data: response.user,
           }
         : {
             status: 401,
@@ -57,7 +57,8 @@ const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
 
-  state.email = action.payload.data as string;
+  state.email = action.payload.data.email as string;
+  state.uid = action.payload.data.uid as string;
   state.isLogin = true;
 };
 

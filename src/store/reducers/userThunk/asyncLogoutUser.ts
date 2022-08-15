@@ -26,6 +26,7 @@ const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.success = true;
 
   state.isLogin = false;
+  state.uid = '';
   state.email = '';
 };
 

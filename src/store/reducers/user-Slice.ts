@@ -32,8 +32,9 @@ interface TuserInfo {
 
 interface TUser {
   isLogin: boolean;
-  loadingState: TLoadingState;
   email: string;
+  uid: string;
+  loadingState: TLoadingState;
   userInfo: TuserInfo;
   avatar: [
     {
@@ -53,6 +54,7 @@ interface TUser {
 
 const initialUserState: TUser = {
   isLogin: false,
+  uid: '',
   loadingState: {
     loading: false,
     success: false,

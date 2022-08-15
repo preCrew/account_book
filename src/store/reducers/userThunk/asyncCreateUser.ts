@@ -27,10 +27,10 @@ const asyncCreateUser = createAsyncThunk(
     );
 
     // 계정 생성에 성공하면
-    return res.user.email
+    return res.user
       ? {
           status: 200,
-          data: res.user.email,
+          data: res.user,
         }
       : {
           status: 409,
@@ -47,7 +47,8 @@ const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
 
-  state.email = action.payload.data as string;
+  state.email = action.payload.data.email as string;
+  state.uid = action.payload.data.uid as string;
   state.isLogin = true;
 };
 
