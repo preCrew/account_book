@@ -5,6 +5,7 @@ import Input from 'components/Common/Input';
 import useModal from 'hooks/useModal';
 import { Down100, Up100 } from 'styles/animations';
 import SelectCharacterModal from '../../components/Common/Modal/ModalComponents/SelectCharacterModal';
+import Header from '../../components/Common/Layout/Header';
 
 import {
   StyledMyPage,
@@ -50,6 +51,7 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
+      <Header title="MyPage" />
       <MyPageSection>
         <StyledMyPage>
           <Modal>

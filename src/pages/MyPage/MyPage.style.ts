@@ -5,8 +5,6 @@ import { contentsMinHeight } from '../../components/Common/Layout/Layout.style';
 export const MyPageContainer = styled.div`
   margin: 0 auto;
   min-height: ${contentsMinHeight};
-  position: static;
-  display: table;
 `;
 
 export const MyPageSection = styled.div`
