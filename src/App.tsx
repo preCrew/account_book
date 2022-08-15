@@ -37,7 +37,7 @@ const App = () => {
   });
   const { changeSelectDate } = useAccountBook();
   const { loginUser, createUser, logoutUser, keepingLoginState } = useUser();
-  const email = useAppSelector(state => state.user.email);
+  // const { email, uid } = useAppSelector(state => state.user);
   const { addReceipt, readReceipts } = useAccountBook();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const App = () => {
     // 만약 로그인된 상태면 새로고침 or 페이지 이동돼도 로그인 유지
     auth.onAuthStateChanged(user => {
       if (user) {
-        keepingLoginState(user.email as string);
+        keepingLoginState(user.email as string, user.uid as string);
         readReceipts({ year, month });
       }
     });

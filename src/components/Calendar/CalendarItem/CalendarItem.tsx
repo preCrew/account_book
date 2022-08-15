@@ -15,21 +15,21 @@ interface CalendarItemProps {
 
 const CalendarItem = ({ month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
-    const dateReceipts = state.accountBook?.receipts.filter(
-      receipt => receipt.timeDate.date === date,
-    );
-    let income = 0;
-    let spending = 0;
-    if (dateReceipts) {
-      dateReceipts.forEach(receipt => {
-        if (receipt.income) {
-          income += receipt.income;
-        }
-        if (receipt.spending) {
-          spending += receipt.spending;
-        }
-      });
-    }
+    // const dateReceipts = state.accountBook?.receipts.filter(
+    //   receipt => receipt.timeDate.date === date,
+    // );
+    const income = 0;
+    const spending = 0;
+    // if (dateReceipts) {
+    //   dateReceipts.forEach(receipt => {
+    //     if (receipt.income) {
+    //       income += receipt.income;
+    //     }
+    //     if (receipt.spending) {
+    //       spending += receipt.spending;
+    //     }
+    //   });
+    // }
     return { income, spending };
   }, shallowEqual);
 

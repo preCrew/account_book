@@ -6,6 +6,7 @@ import {
   setPersistence,
 } from 'firebase/auth';
 import { auth } from 'firebaseConfig';
+import { RootState } from 'store/store';
 
 export interface TUserIdPassword {
   email: string;
@@ -15,9 +16,18 @@ const asyncCreateUser = createAsyncThunk(
   'userSlice/asyncCreateUser',
   async (user: TUserIdPassword, api) => {
     const isDuplicate = await checkDuplicateId(user.email);
+    const { isLogin } = (api.getState() as RootState).user;
 
     if (isDuplicate) {
-      return api.rejectWithValue('중복되는 이메일입니다.');
+      return api.rejectWithValue({
+        status: 409,
+        data: '중복되는 이메일입니다.',
+      });
+    } else if (isLogin) {
+      return api.rejectWithValue({
+        stats: 400,
+        data: '이미 로그인 되어있습니다.',
+      });
     }
     await setPersistence(auth, browserLocalPersistence);
     const res = await createUserWithEmailAndPassword(
@@ -30,7 +40,10 @@ const asyncCreateUser = createAsyncThunk(
     return res.user
       ? {
           status: 200,
-          data: res.user,
+          data: {
+            uid: res.user.uid,
+            email: res.user.email,
+          },
         }
       : {
           status: 409,

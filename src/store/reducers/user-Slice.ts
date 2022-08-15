@@ -86,8 +86,13 @@ const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialUserState,
   reducers: {
-    keepingLoginStateAction: (state: TUser, action: PayloadAction<string>) => {
-      state.email = action.payload;
+    keepingLoginStateAction: (
+      state: TUser,
+      action: PayloadAction<{ email: string; uid: string }>,
+    ) => {
+      state.email = action.payload.email;
+      state.uid = action.payload.uid;
+      state.isLogin = true;
     },
     chageCaracterAction(state: TUser, action: PayloadAction<number>) {
       state.userInfo.character = action.payload;

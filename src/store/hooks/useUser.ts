@@ -38,8 +38,8 @@ const useUser = () => {
     dispatch(asyncLogoutUser());
   };
 
-  const keepingLoginState = (email: string) => {
-    dispatch(keepingLoginStateAction(email));
+  const keepingLoginState = (email: string, uid: string) => {
+    dispatch(keepingLoginStateAction({ email, uid }));
   };
 
   return {
