@@ -46,7 +46,9 @@ const asyncCreateUserPending: CaseReducer = (state, action) => {
 const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
+
   state.email = action.payload.data as string;
+  state.isLogin = true;
 };
 
 const asyncCreateUserRejected: CaseReducer = (state, action) => {

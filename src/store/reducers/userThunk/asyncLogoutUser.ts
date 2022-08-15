@@ -24,6 +24,8 @@ const asyncLogoutUserPending: CaseReducer = (state, action) => {
 const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
   state.loadingState.success = true;
+
+  state.isLogin = false;
   state.email = '';
 };
 

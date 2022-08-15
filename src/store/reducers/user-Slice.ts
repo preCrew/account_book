@@ -31,6 +31,7 @@ interface TuserInfo {
 }
 
 interface TUser {
+  isLogin: boolean;
   loadingState: TLoadingState;
   email: string;
   userInfo: TuserInfo;
@@ -51,6 +52,7 @@ interface TUser {
 }
 
 const initialUserState: TUser = {
+  isLogin: false,
   loadingState: {
     loading: false,
     success: false,
