@@ -9,11 +9,11 @@ import Mypage from '../../../pages/MyPage';
 interface AvatarProps {}
 
 const Avatar = ({}: AvatarProps) => {
-  const { success } = useAppSelector(state => state.user.loadingState);
+  const isLogin = useAppSelector(state => state.user.isLogin);
 
   return (
     <>
-      {success ? (
+      {isLogin ? (
         <AvatarWrap>
           {/* props: size */}
           <Link to="/mypage">{/* <AvatarImg /> */}</Link>
