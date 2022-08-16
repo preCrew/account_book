@@ -28,6 +28,8 @@ const asyncDeleteReceipt = createAsyncThunk(
 const asyncDeleteReceiptPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
   state.loadingState.success = false;
+  state.loadingState.error = false;
+  state.loadingState.errorMsg = null;
 };
 
 const asyncDeleteReceiptFulfilled: CaseReducer = (state, action) => {
@@ -41,6 +43,7 @@ const asyncDeleteReceiptFulfilled: CaseReducer = (state, action) => {
 
 const asyncDeleteReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
+  state.loadingState.error = true;
   state.loadingState.errorMsg = action.payload.data;
   console.log('fail');
 };

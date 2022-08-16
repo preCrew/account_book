@@ -67,6 +67,8 @@ const asyncReadReceipt = createAsyncThunk(
 const asyncReadReceiptPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
   state.loadingState.success = false;
+  state.loadingState.error = false;
+  state.loadingState.errorMsg = null;
 };
 
 const asyncReadReceiptFulfilled: CaseReducer = (state, action) => {
@@ -77,6 +79,7 @@ const asyncReadReceiptFulfilled: CaseReducer = (state, action) => {
 
 const asyncReadReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
+  state.loadingState.error = true;
   state.loadingState.errorMsg = action.payload.data;
 };
 

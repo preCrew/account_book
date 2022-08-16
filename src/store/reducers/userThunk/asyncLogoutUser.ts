@@ -20,6 +20,8 @@ const asyncLogoutUser = createAsyncThunk(
 const asyncLogoutUserPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
   state.loadingState.success = false;
+  state.loadingState.error = false;
+  state.loadingState.errorMsg = null;
 };
 
 const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
@@ -33,6 +35,7 @@ const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
 
 const asyncLogoutUserRejected: CaseReducer = (state, action) => {
   state.loadingState.loading = false;
+  state.loadingState.error = true;
   state.loadingState.errorMsg = '로그아웃 실패';
 };
 
