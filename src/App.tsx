@@ -9,17 +9,26 @@ import Mypage from 'pages/MyPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
 
+import { auth } from 'firebaseConfig';
+import useUser from 'store/hooks/useUser';
+
 const App = () => {
-  const { changeSelectDate } = useAccountBook();
+  const { keepingLoginState } = useUser();
+  const { readReceipts } = useAccountBook();
 
   useEffect(() => {
     const nowDate = new Date();
     const year = nowDate.getFullYear();
     const month = nowDate.getMonth() + 1;
 
-    changeSelectDate({ year, month });
+    // 만약 로그인된 상태면 새로고침 or 페이지 이동돼도 로그인 유지
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        keepingLoginState(user.email as string, user.uid as string);
+        readReceipts({ year, month });
+      }
+    });
   }, []);
-
   return (
     <>
       <Layout>

@@ -1,77 +1,86 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getDate } from 'utils/dateUtils';
+import asyncCreateReceipt, {
+  asyncCreateReceiptFulfilled,
+  asyncCreateReceiptPending,
+  asyncCreateReceiptRejected,
+} from './accountBookThunk/asyncCreateReceiptk';
+import asyncDeleteReceipt, {
+  asyncDeleteReceiptFulfilled,
+  asyncDeleteReceiptPending,
+  asyncDeleteReceiptRejected,
+} from './accountBookThunk/asyncDeleteReceipt';
+import asyncReadReceipt, {
+  asyncReadReceiptFulfilled,
+  asyncReadReceiptPending,
+  asyncReadReceiptRejected,
+} from './accountBookThunk/asyncReadReceipt';
+import asyncUpdateReceipt, {
+  asyncUpdateReceiptFulfilled,
+  asyncUpdateReceiptPending,
+  asyncUpdateReceiptRejected,
+} from './accountBookThunk/asyncUpdateReceipt';
+import { TLoadingState } from './reducerCommonTypes';
 
 // 서버에서 불러올 년도, 월
-export interface TYearMonth {
-  month: number;
+export interface TDateTime {
   year: number;
+  month: number;
+  date: number;
+  hours: number;
+  minutes: number;
 }
-// 영수증 내역의 시간
-interface TReceipTimeDate {
-  year?: number;
-  month?: number;
-  day?: number;
-  hour?: number;
-  minute?: number;
-}
-// 영수증 내역
+
 export interface TReceipt {
-  id: number;
-  category?: string; // 카테고리
-  account?: string; //거래처
-  timeDate?: TReceipTimeDate;
+  id?: number;
+  category: string; // 카테고리
+  account: string; //거래처
+  timeDate: TDateTime;
   income?: number; // 수입
   spending?: number; //지출
   memo?: string; // 메모
   paymentMethod?: string; // 지불방법
+  depositMethod?: string; //입금방법
   isExcept?: boolean; // 제외여부
 }
 
-interface TAccountBook {
-  receipts: TReceipt[]; // 영수증들
-  selectDate: TYearMonth; // 선택한 년, 월
-  firstDate: TYearMonth; // 가계부에 등록된 첫번쨰 영수증의 년, 월
+// 영수증 내역
+export interface TAccountBook {
+  loadingState: {
+    create: TLoadingState | Record<string, unknown>;
+    delete: TLoadingState | Record<string, unknown>;
+    read: TLoadingState | Record<string, unknown>;
+    update: TLoadingState | Record<string, unknown>;
+  };
+  receipts: TReceipt[];
+  selectDate: TDateTime; // 선택한 년, 월
+  firstDate: TDateTime; // 가계부에 등록된 첫번쨰 영수증의 년, 월
   totalIncome: number; // 선택한 달의 총 수입
   totalSpending: number; // 선택한 달의 총 지출
   amount: number; // 선택한 달의 기준금액
 }
 
 const initialAccountBookState: TAccountBook = {
-  receipts: [
-    {
-      id: 1,
-      income: 100000,
-      spending: -1022044,
-      timeDate: {
-        month: 8,
-        day: 30,
-      },
-    },
-    {
-      id: 2,
-      income: 10000000,
-      spending: -20000000,
-      timeDate: {
-        month: 8,
-        day: 29,
-      },
-    },
-    {
-      id: 3,
-      income: 10000000,
-      spending: -20000000,
-      timeDate: {
-        month: 8,
-        day: 16,
-      },
-    },
-  ],
+  loadingState: {
+    create: {},
+    delete: {},
+    read: {},
+    update: {},
+  },
+  receipts: [],
   selectDate: {
-    month: 1,
     year: 2022,
+    month: 8,
+    date: 1,
+    hours: 0,
+    minutes: 0,
   },
   firstDate: {
-    month: 1,
     year: 2020,
+    month: 1,
+    date: 1,
+    hours: 0,
+    minutes: 0,
   },
   totalIncome: 0,
   totalSpending: 0,
@@ -82,12 +91,6 @@ const accountBookSlice = createSlice({
   name: 'accountBookSlice',
   initialState: initialAccountBookState,
   reducers: {
-    addReceiptAction(state: TAccountBook, action: PayloadAction<TReceipt>) {
-      state.receipts.concat(action.payload);
-    },
-    deleteReceiptAction(state: TAccountBook, action: PayloadAction<number>) {
-      state.receipts.filter(receipt => receipt.id !== action.payload);
-    },
     changeSelectDateOneMonthAction(
       state: TAccountBook,
       action: PayloadAction<1 | -1>,
@@ -106,13 +109,13 @@ const accountBookSlice = createSlice({
     // 서버에서 불러올 월년을 변경
     changeSelectDateAction(
       state: TAccountBook,
-      action: PayloadAction<TYearMonth>,
+      action: PayloadAction<TDateTime>,
     ) {
       state.selectDate = action.payload;
     },
     changeFirstDateAction(
       state: TAccountBook,
-      action: PayloadAction<TYearMonth>,
+      action: PayloadAction<TDateTime>,
     ) {
       state.firstDate = action.payload;
     },
@@ -120,11 +123,26 @@ const accountBookSlice = createSlice({
       state.amount = action.payload;
     },
   },
+  extraReducers(builder) {
+    builder.addCase(asyncCreateReceipt.pending, asyncCreateReceiptPending);
+    builder.addCase(asyncCreateReceipt.fulfilled, asyncCreateReceiptFulfilled);
+    builder.addCase(asyncCreateReceipt.rejected, asyncCreateReceiptRejected);
+
+    builder.addCase(asyncReadReceipt.pending, asyncReadReceiptPending);
+    builder.addCase(asyncReadReceipt.fulfilled, asyncReadReceiptFulfilled);
+    builder.addCase(asyncReadReceipt.rejected, asyncReadReceiptRejected);
+
+    builder.addCase(asyncDeleteReceipt.pending, asyncDeleteReceiptPending);
+    builder.addCase(asyncDeleteReceipt.fulfilled, asyncDeleteReceiptFulfilled);
+    builder.addCase(asyncDeleteReceipt.rejected, asyncDeleteReceiptRejected);
+
+    builder.addCase(asyncUpdateReceipt.pending, asyncUpdateReceiptPending);
+    builder.addCase(asyncUpdateReceipt.fulfilled, asyncUpdateReceiptFulfilled);
+    builder.addCase(asyncUpdateReceipt.rejected, asyncUpdateReceiptRejected);
+  },
 });
 
 export const {
-  addReceiptAction,
-  deleteReceiptAction,
   changeSelectDateAction,
   changeFirstDateAction,
   changeSelectDateOneMonthAction,
