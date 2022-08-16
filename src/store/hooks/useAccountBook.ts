@@ -44,8 +44,8 @@ const useAccountBook = () => {
   const deleteReceipt = (id: number) => {
     dispatch(asyncDeleteReceipt(id));
   };
-  const updateReceipt = (receipt: TUpdateReceiptData) => {
-    dispatch(asyncUpdateReceipt(receipt));
+  const updateReceipt = (id: number, changeReceipt: TReceipt) => {
+    dispatch(asyncUpdateReceipt({ id, receiptNew: changeReceipt }));
   };
 
   return {
