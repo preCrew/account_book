@@ -13,14 +13,12 @@ const asyncDeleteReceipt = createAsyncThunk(
     if (!isLogin) {
       return api.rejectWithValue({ status: 400, data: '로그인이 필요합니다.' });
     }
-    await deleteDoc(doc(db, 'receipts', id.toString()));
 
-    const response = await getDoc(doc(db, 'receipts', id.toString()));
-    // 삭제 실패했다면
-    if (response.exists()) {
-      return api.rejectWithValue({ status: 400, data: '삭제 실패' });
-    } else {
+    try {
+      await deleteDoc(doc(db, 'receipts', id.toString()));
       return api.fulfillWithValue({ status: 200, data: id });
+    } catch (e) {
+      return api.rejectWithValue({ status: 400, data: '삭제 실패' });
     }
   },
 );

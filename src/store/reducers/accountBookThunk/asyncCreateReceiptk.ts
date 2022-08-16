@@ -1,5 +1,5 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { getDate } from 'utils/dateUtils';
@@ -25,9 +25,12 @@ const asyncCreateReceipt = createAsyncThunk(
       id: timeStamp,
     };
 
-    // 데이터를 씀
-    await setDoc(doc(db, 'receipts', timeStamp.toString()), data)
-      .then(() => {
+    try {
+      // 데이터를 씀
+      await setDoc(doc(db, 'receipts', timeStamp.toString()), data);
+
+      const response = await getDoc(doc(db, 'receipts', timeStamp.toString()));
+      if (response.exists()) {
         // 방금 추가한게 이전 처음 날짜보다 앞선날자면 첫날짜를 업데이트해줌
         if (getDate(firstDate) > getDate(receipt.timeDate)) {
           const docuFirstDate = doc(db, email, 'date');
@@ -38,11 +41,12 @@ const asyncCreateReceipt = createAsyncThunk(
           // 클라이언트값도 업데이트
           api.dispatch(changeFirstDateAction(receipt.timeDate));
         }
+
         return api.fulfillWithValue({ status: 201, data });
-      })
-      .catch(e => {
-        return api.rejectWithValue({ status: 400, data: '생성 실패' });
-      });
+      }
+    } catch (e) {
+      return api.rejectWithValue({ status: 400, data: '생성 실패' });
+    }
   },
 );
 
