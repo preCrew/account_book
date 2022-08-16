@@ -54,6 +54,7 @@ const asyncCreateUser = createAsyncThunk(
 
 const asyncCreateUserPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
+  state.loadingState.success = false;
 };
 
 const asyncCreateUserFulfilled: CaseReducer = (state, action) => {

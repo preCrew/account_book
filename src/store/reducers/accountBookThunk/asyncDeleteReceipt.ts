@@ -27,6 +27,7 @@ const asyncDeleteReceipt = createAsyncThunk(
 
 const asyncDeleteReceiptPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
+  state.loadingState.success = false;
 };
 
 const asyncDeleteReceiptFulfilled: CaseReducer = (state, action) => {

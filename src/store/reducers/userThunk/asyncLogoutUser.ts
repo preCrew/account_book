@@ -19,6 +19,7 @@ const asyncLogoutUser = createAsyncThunk(
 
 const asyncLogoutUserPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
+  state.loadingState.success = false;
 };
 
 const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {

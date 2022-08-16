@@ -54,6 +54,7 @@ const asyncLoginUser = createAsyncThunk(
 
 const asyncLoginUserPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
+  state.loadingState.success = false;
 };
 
 const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
