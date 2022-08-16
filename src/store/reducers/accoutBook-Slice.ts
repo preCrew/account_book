@@ -47,11 +47,11 @@ export interface TReceipt {
 // 영수증 내역
 export interface TAccountBook {
   loadingState: {
-    create: TLoadingState;
-    delete: TLoadingState;
-    read: TLoadingState;
-    update: TLoadingState;
-  } | null;
+    create: TLoadingState | Record<string, unknown>;
+    delete: TLoadingState | Record<string, unknown>;
+    read: TLoadingState | Record<string, unknown>;
+    update: TLoadingState | Record<string, unknown>;
+  };
   receipts: TReceipt[];
   selectDate: TDateTime; // 선택한 년, 월
   firstDate: TDateTime; // 가계부에 등록된 첫번쨰 영수증의 년, 월
@@ -61,7 +61,12 @@ export interface TAccountBook {
 }
 
 const initialAccountBookState: TAccountBook = {
-  loadingState: null,
+  loadingState: {
+    create: {},
+    delete: {},
+    read: {},
+    update: {},
+  },
   receipts: [],
   selectDate: {
     year: 2022,
