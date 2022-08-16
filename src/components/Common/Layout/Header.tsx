@@ -1,10 +1,14 @@
 import React from 'react';
 import { HeaderWrap } from './Header.style';
 
-const Header = () => {
+interface HeaderProps {
+  title: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
   return (
     <>
-      <HeaderWrap>Header</HeaderWrap>
+      <HeaderWrap>{title}</HeaderWrap>
     </>
   );
 };

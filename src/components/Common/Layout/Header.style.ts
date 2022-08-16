@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import theme from 'styles/theme';
+import { contentsMargin } from 'components/Common/Layout/Layout.style';
 
 export const HeaderWrap = styled.div`
-  position: static;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.417rem 0.83rem;
+  margin: 0 -${contentsMargin} 20px;
+  background: ${({ theme }) =>
+    `linear-gradient(${theme.colors.primaryGradient()}`};
+  font-size: 20px;
   color: white;
-  max-width: inherit;
-  height: 100px;
-  background: linear-gradient(
-    to right,
-    ${theme.colors.primaryPurple},
-    ${theme.colors.primaryPink}
-  );
 `;
