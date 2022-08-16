@@ -1,17 +1,9 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  Timestamp,
-} from 'firebase/firestore';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { getDate } from 'utils/dateUtils';
 import { changeFirstDateAction, TReceipt } from '../accoutBook-Slice';
-import asyncReadReceipt from './asyncReadReceipt';
 
 const asyncCreateReceipt = createAsyncThunk(
   'ReceiptSlice/asyncCreateReceipt',
@@ -34,31 +26,29 @@ const asyncCreateReceipt = createAsyncThunk(
     };
 
     // 데이터를 씀
-    await setDoc(doc(db, 'receipts', timeStamp.toString()), data);
-
-    const response = await getDoc(doc(db, 'receipts', timeStamp.toString()));
-    // 성공적으로 추가했다면
-    if (response.exists()) {
-      // 방금 추가한게 이전 처음 날짜보다 앞선날자면 첫날짜를 업데이트해줌
-      if (getDate(firstDate) > getDate(receipt.timeDate)) {
-        const docuFirstDate = doc(db, email, 'date');
-        // 서버값도 업데이트
-        setDoc(docuFirstDate, {
-          firstDate: date,
-        });
-        // 클라이언트값도 업데이트
-        api.dispatch(changeFirstDateAction(receipt.timeDate));
-      }
-
-      return api.fulfillWithValue({ status: 201, data });
-    } else {
-      return api.rejectWithValue({ status: 400, data: '생성 실패' });
-    }
+    await setDoc(doc(db, 'receipts', timeStamp.toString()), data)
+      .then(() => {
+        // 방금 추가한게 이전 처음 날짜보다 앞선날자면 첫날짜를 업데이트해줌
+        if (getDate(firstDate) > getDate(receipt.timeDate)) {
+          const docuFirstDate = doc(db, email, 'date');
+          // 서버값도 업데이트
+          setDoc(docuFirstDate, {
+            firstDate: date,
+          });
+          // 클라이언트값도 업데이트
+          api.dispatch(changeFirstDateAction(receipt.timeDate));
+        }
+        return api.fulfillWithValue({ status: 201, data });
+      })
+      .catch(e => {
+        return api.rejectWithValue({ status: 400, data: '생성 실패' });
+      });
   },
 );
 
 const asyncCreateReceiptPending: CaseReducer = (state, action) => {
   state.loadingState.loading = true;
+  state.loadingState.success = false;
 };
 
 const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
