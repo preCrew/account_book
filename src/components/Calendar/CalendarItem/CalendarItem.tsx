@@ -1,3 +1,5 @@
+import React from 'react';
+import { shallowEqual } from 'react-redux';
 import { useAppSelector } from 'store/store';
 import {
   CalendarDateS,
@@ -13,29 +15,37 @@ interface CalendarItemProps {
 
 const CalendarItem = ({ month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
-    const receipts = state.accountBook.receipts.find(
-      receipt =>
-        receipt.timeDate?.day === date && receipt.timeDate.month === month,
+    const dateReceipts = state.accountBook?.receipts.filter(
+      receipt => receipt.timeDate.date === date,
     );
-    return {
-      income: receipts?.income,
-      spending: receipts?.spending,
-    };
-  });
+    let income = 0;
+    let spending = 0;
+    if (dateReceipts) {
+      dateReceipts.forEach(receipt => {
+        if (receipt.income) {
+          income += receipt.income;
+        }
+        if (receipt.spending) {
+          spending += receipt.spending;
+        }
+      });
+    }
+    return { income, spending };
+  }, shallowEqual);
 
   return (
     <>
       <CalendarItemS>
         <CalendarDateS>{date}</CalendarDateS>
         <CalendarIncomeS>
-          {income && `+${income?.toLocaleString('ko-KR')}원`}
+          {income !== 0 && `+${income?.toLocaleString('ko-KR')}원`}
         </CalendarIncomeS>
         <CalendarSpendingS>
-          {spending && `${spending.toLocaleString('ko-KR')}원`}
+          {spending !== 0 && `${spending?.toLocaleString('ko-KR')}원`}
         </CalendarSpendingS>
       </CalendarItemS>
     </>
   );
 };
 
-export default CalendarItem;
+export default React.memo(CalendarItem);

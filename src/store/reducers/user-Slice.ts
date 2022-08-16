@@ -1,4 +1,3 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import badAvartar1Img from '../../assets/images/avatar/noname_bad.jpg';
 import sosoAvartar1Img from '../../assets/images/avatar/noname_soso.jpg';
 import goodAvartar1Img from '../../assets/images/avatar/noname_good.jpg';
@@ -6,11 +5,25 @@ import badAvartar2Img from '../../assets/images/avatar/rupee_bad.jpg';
 import sosoAvartar2Img from '../../assets/images/avatar/rupee_soso.jpg';
 import goodAvartar2Img from '../../assets/images/avatar/rupee_good.jpg';
 
-//로그인 후 불러올 데이터
-interface Tme {
-  id: number;
-  email: string;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TLoadingState } from './reducerCommonTypes';
+
+import asyncCreateUser, {
+  asyncCreateUserFulfilled,
+  asyncCreateUserPending,
+  asyncCreateUserRejected,
+} from './userThunk/asyncCreateUser';
+import asyncLoginUser, {
+  asyncLoginUserFulfilled,
+  asyncLoginUserPending,
+  asyncLoginUserRejected,
+} from './userThunk/asyncLoginUser';
+import asyncLogoutUser, {
+  asyncLogoutUserFulfilled,
+  asyncLogoutUserPending,
+  asyncLogoutUserRejected,
+} from './userThunk/asyncLogoutUser';
+
 interface TuserInfo {
   character: number | null;
   budget: number;
@@ -18,10 +31,11 @@ interface TuserInfo {
 }
 
 interface TUser {
-  loginLoading: boolean;
-  loginDone: boolean;
-  loginError: null | string;
-  me: Tme | null;
+  isLogin: boolean;
+  email: string;
+  uid: string;
+  loadingState: TLoadingState;
+  userInfo: TuserInfo;
   avatar: [
     {
       name: string;
@@ -36,14 +50,23 @@ interface TUser {
       good: string;
     },
   ];
-  userInfo: TuserInfo;
 }
 
 const initialUserState: TUser = {
-  loginLoading: false,
-  loginDone: false,
-  loginError: null,
-  me: null,
+  isLogin: false,
+  uid: '',
+  loadingState: {
+    loading: false,
+    success: false,
+    error: false,
+    errorMsg: null,
+  },
+  userInfo: {
+    budget: 0,
+    character: null,
+    totalExpense: 0,
+  },
+  email: '',
   avatar: [
     {
       name: '외국인',
@@ -58,22 +81,39 @@ const initialUserState: TUser = {
       good: goodAvartar2Img,
     },
   ],
-  userInfo: {
-    character: null,
-    budget: 0,
-    totalExpense: 0,
-  },
 };
 
 const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialUserState,
   reducers: {
+    keepingLoginStateAction: (
+      state: TUser,
+      action: PayloadAction<{ email: string; uid: string }>,
+    ) => {
+      state.email = action.payload.email;
+      state.uid = action.payload.uid;
+      state.isLogin = true;
+    },
     chageCaracterAction(state: TUser, action: PayloadAction<number>) {
       state.userInfo.character = action.payload;
     },
   },
+  extraReducers(builder) {
+    builder.addCase(asyncCreateUser.pending, asyncCreateUserPending);
+    builder.addCase(asyncCreateUser.fulfilled, asyncCreateUserFulfilled);
+    builder.addCase(asyncCreateUser.rejected, asyncCreateUserRejected);
+
+    builder.addCase(asyncLoginUser.pending, asyncLoginUserPending);
+    builder.addCase(asyncLoginUser.fulfilled, asyncLoginUserFulfilled);
+    builder.addCase(asyncLoginUser.rejected, asyncLoginUserRejected);
+
+    builder.addCase(asyncLogoutUser.prototype, asyncLogoutUserPending);
+    builder.addCase(asyncLogoutUser.fulfilled, asyncLogoutUserFulfilled);
+    builder.addCase(asyncLogoutUser.rejected, asyncLogoutUserRejected);
+  },
 });
 
-export const { chageCaracterAction } = userSlice.actions;
+export const { keepingLoginStateAction, chageCaracterAction } =
+  userSlice.actions;
 export default userSlice.reducer;
