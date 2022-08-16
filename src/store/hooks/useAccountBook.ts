@@ -3,6 +3,9 @@ import { useCallback } from 'react';
 import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
 import asyncDeleteReceipt from 'store/reducers/accountBookThunk/asyncDeleteReceipt';
 import asyncReadReceipt from 'store/reducers/accountBookThunk/asyncReadReceipt';
+import asyncUpdateReceipt, {
+  TUpdateReceiptData,
+} from 'store/reducers/accountBookThunk/asyncUpdateReceipt';
 import {
   changeFirstDateAction,
   changeSelectDateAction,
@@ -41,6 +44,9 @@ const useAccountBook = () => {
   const deleteReceipt = (id: number) => {
     dispatch(asyncDeleteReceipt(id));
   };
+  const updateReceipt = (receipt: TUpdateReceiptData) => {
+    dispatch(asyncUpdateReceipt(receipt));
+  };
 
   return {
     changeSelectDate,
@@ -50,6 +56,7 @@ const useAccountBook = () => {
     addReceipt,
     readReceipts,
     deleteReceipt,
+    updateReceipt,
   };
 };
 

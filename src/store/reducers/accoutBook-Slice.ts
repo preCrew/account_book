@@ -15,6 +15,11 @@ import asyncReadReceipt, {
   asyncReadReceiptPending,
   asyncReadReceiptRejected,
 } from './accountBookThunk/asyncReadReceipt';
+import asyncUpdateReceipt, {
+  asyncUpdateReceiptFulfilled,
+  asyncUpdateReceiptPending,
+  asyncUpdateReceiptRejected,
+} from './accountBookThunk/asyncUpdateReceipt';
 import { TLoadingState } from './reducerCommonTypes';
 
 // 서버에서 불러올 년도, 월
@@ -54,6 +59,7 @@ const initialAccountBookState: TAccountBook = {
   loadingState: {
     loading: false,
     success: false,
+    error: false,
     errorMsg: null,
   },
   receipts: [],
@@ -124,6 +130,10 @@ const accountBookSlice = createSlice({
     builder.addCase(asyncDeleteReceipt.pending, asyncDeleteReceiptPending);
     builder.addCase(asyncDeleteReceipt.fulfilled, asyncDeleteReceiptFulfilled);
     builder.addCase(asyncDeleteReceipt.rejected, asyncDeleteReceiptRejected);
+
+    builder.addCase(asyncUpdateReceipt.pending, asyncUpdateReceiptPending);
+    builder.addCase(asyncUpdateReceipt.fulfilled, asyncUpdateReceiptFulfilled);
+    builder.addCase(asyncUpdateReceipt.rejected, asyncUpdateReceiptRejected);
   },
 });
 

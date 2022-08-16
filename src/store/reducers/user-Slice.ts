@@ -58,6 +58,7 @@ const initialUserState: TUser = {
   loadingState: {
     loading: false,
     success: false,
+    error: false,
     errorMsg: null,
   },
   userInfo: {
