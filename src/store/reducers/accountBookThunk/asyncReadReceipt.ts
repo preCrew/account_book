@@ -65,22 +65,22 @@ const asyncReadReceipt = createAsyncThunk(
 );
 
 const asyncReadReceiptPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.read.loading = true;
+  state.loadingState.read.success = false;
+  state.loadingState.read.error = false;
+  state.loadingState.read.errorMsg = null;
 };
 
 const asyncReadReceiptFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.read.loading = false;
+  state.loadingState.read.success = true;
   state.receipts = action.payload.data;
 };
 
 const asyncReadReceiptRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.read.loading = false;
+  state.loadingState.read.error = true;
+  state.loadingState.read.errorMsg = action.payload.data;
 };
 
 export default asyncReadReceipt;

@@ -51,23 +51,23 @@ const asyncCreateReceipt = createAsyncThunk(
 );
 
 const asyncCreateReceiptPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.create.loading = true;
+  state.loadingState.create.success = false;
+  state.loadingState.create.error = false;
+  state.loadingState.create.errorMsg = null;
 };
 
 const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.create.loading = false;
+  state.loadingState.create.success = true;
 
   state.receipts.push(action.payload.data);
 };
 
 const asyncCreateReceiptRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.create.loading = false;
+  state.loadingState.create.error = true;
+  state.loadingState.create.errorMsg = action.payload.data;
 };
 
 export default asyncCreateReceipt;

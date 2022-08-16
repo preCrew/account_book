@@ -1,5 +1,5 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { TReceipt } from '../accoutBook-Slice';
@@ -42,15 +42,15 @@ const asyncUpdateReceipt = createAsyncThunk(
   },
 );
 const asyncUpdateReceiptPending: CaseReducer = (state, action) => {
-  state.loadingState.success = false;
-  state.loadingState.loading = true;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.update.success = false;
+  state.loadingState.update.loading = true;
+  state.loadingState.update.error = false;
+  state.loadingState.update.errorMsg = null;
 };
 
 const asyncUpdateReceiptFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.update.loading = false;
+  state.loadingState.update.success = true;
 
   console.log(action);
   state.receipts = state.receipts.map((receipt: TReceipt) =>
@@ -61,9 +61,9 @@ const asyncUpdateReceiptFulfilled: CaseReducer = (state, action) => {
 };
 
 const asyncUpdateReceiptRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.update.loading = false;
+  state.loadingState.update.error = true;
+  state.loadingState.update.errorMsg = action.payload.data;
 };
 
 export default asyncUpdateReceipt;

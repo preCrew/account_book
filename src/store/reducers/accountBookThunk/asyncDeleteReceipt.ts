@@ -24,15 +24,15 @@ const asyncDeleteReceipt = createAsyncThunk(
 );
 
 const asyncDeleteReceiptPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.delete.loading = true;
+  state.loadingState.delete.success = false;
+  state.loadingState.delete.error = false;
+  state.loadingState.delete.errorMsg = null;
 };
 
 const asyncDeleteReceiptFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.delete.loading = false;
+  state.loadingState.delete.success = true;
 
   state.receipts = state.receipts.filter(
     (receipt: TReceipt) => receipt.id !== action.payload.data,
@@ -40,9 +40,9 @@ const asyncDeleteReceiptFulfilled: CaseReducer = (state, action) => {
 };
 
 const asyncDeleteReceiptRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.delete.loading = false;
+  state.loadingState.delete.error = true;
+  state.loadingState.delete.errorMsg = action.payload.data;
   console.log('fail');
 };
 
