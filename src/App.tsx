@@ -14,13 +14,15 @@ import useUser from 'store/hooks/useUser';
 
 const App = () => {
   const { keepingLoginState } = useUser();
-  const { readReceipts } = useAccountBook();
+  const { changeSelectDate, readReceipts } = useAccountBook();
 
   useEffect(() => {
     const nowDate = new Date();
     const year = nowDate.getFullYear();
     const month = nowDate.getMonth() + 1;
 
+    // 최초 렌더링시 현재 월을 변경
+    changeSelectDate({ year, month });
     // 만약 로그인된 상태면 새로고침 or 페이지 이동돼도 로그인 유지
     auth.onAuthStateChanged(user => {
       if (user) {

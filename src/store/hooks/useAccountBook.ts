@@ -15,13 +15,14 @@ import {
   TDateTime,
 } from 'store/reducers/accoutBook-Slice';
 import { TYearMonth } from 'store/reducers/reducerCommonTypes';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 
 const useAccountBook = () => {
   const dispatch = useAppDispatch();
+  const selectDate = useAppSelector(state => state.accountBook.selectDate);
 
-  const changeSelectDate = useCallback((loadDate: TDateTime) => {
-    dispatch(changeSelectDateAction(loadDate));
+  const changeSelectDate = useCallback((loadDate: Partial<TDateTime>) => {
+    dispatch(changeSelectDateAction({ ...selectDate, ...loadDate }));
   }, []);
 
   const changeFirstDate = useCallback((loadDate: TDateTime) => {
