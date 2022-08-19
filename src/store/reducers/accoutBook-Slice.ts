@@ -34,7 +34,7 @@ export interface TDateTime {
 export interface TReceipt {
   id?: number;
   category: string; // 카테고리
-  account: string; //거래처
+  transactionBranch: string; //거래처
   timeDate: TDateTime;
   income?: number; // 수입
   spending?: number; //지출
