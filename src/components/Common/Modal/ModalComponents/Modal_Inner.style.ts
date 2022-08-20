@@ -1,10 +1,15 @@
-import styled, { Keyframes } from 'styled-components';
+import {
+  TAlignItems,
+  TFlexDirection,
+  TJustifyContents,
+} from 'components/Common/Flex/Flex.style';
+import styled from 'styled-components';
 
 const HeaderHeight = `${100}px`;
 
-const SelectModalContainer = styled.div`
+const Container = styled.div<{ height?: string }>`
   width: 100%;
-  height: 70%;
+  height: ${({ height }) => height || '70%'};
   background-color: white;
 
   position: absolute;
@@ -19,7 +24,11 @@ const SelectModalContainer = styled.div`
   overflow-y: visible;
 `;
 
-const SelectModalHeader = styled.div`
+const Header = styled.div<{
+  flexDirection?: TFlexDirection;
+  justifyContent?: TJustifyContents;
+  alignItems?: TAlignItems;
+}>`
   padding: 20px;
   width: 100%;
   height: ${HeaderHeight};
@@ -27,21 +36,22 @@ const SelectModalHeader = styled.div`
   font-size: ${props => props.theme.fonts.size.large};
 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: ${({ flexDirection }) => flexDirection};
+  justify-content: ${({ justifyContent }) => justifyContent || 'space-between'};
+  align-items: ${({ alignItems }) => alignItems || 'space-between'};
   overflow-y: hidden;
 `;
 
-const SelectModalBody = styled.div`
+const Body = styled.div`
   width: 100%;
   height: calc(100% - ${HeaderHeight});
-  padding: 0 20px; /* 상하 / 좌우 */
+  padding: 0 20px 20px 20px;
   font-size: ${props => props.theme.fonts.size.medium};
   overflow-y: auto;
 `;
 
-export const SelectModalS = {
-  Container: SelectModalContainer,
-  Header: SelectModalHeader,
-  Body: SelectModalBody,
+export const ModalS = {
+  Container,
+  Header,
+  Body,
 };

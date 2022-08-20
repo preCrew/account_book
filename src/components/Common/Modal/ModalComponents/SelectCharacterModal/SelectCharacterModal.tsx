@@ -1,5 +1,5 @@
 import ButtonX from 'components/Common/Button/ButtonX';
-import { SelectModalS } from '../Modal_Inner.style';
+import { ModalS } from '../Modal_Inner.style';
 import SelectDataBox from '../../../SelectableList/CheckList';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import useUser from '../../../../../store/hooks/useUser';
@@ -9,7 +9,7 @@ interface SelectCharacterModalProps {
 }
 
 const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
-  const { Container, Header, Body } = SelectModalS;
+  const { Container, Header, Body } = ModalS;
   const { avatar, userInfo } = useAppSelector(state => state.user);
   const { chageCaracter } = useUser();
 
