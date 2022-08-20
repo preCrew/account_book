@@ -22,10 +22,14 @@ const useAccountBook = () => {
   const selectDate = useAppSelector(state => state.accountBook.selectDate);
   const seleceDateReceipts = useAppSelector(state =>
     state.accountBook.receipts.filter(
-      receipt => receipt.timeDate.date === selectDate.date,
+      receipt =>
+        receipt.timeDate.date === selectDate.date &&
+        receipt.timeDate.month === selectDate.month &&
+        receipt.timeDate.year === selectDate.year,
     ),
   );
 
+  console.log('useAccountBook');
   const seleceDateReceiptsSum = () => {
     if (seleceDateReceipts.length === 0) {
       return '';

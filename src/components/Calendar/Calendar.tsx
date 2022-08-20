@@ -48,6 +48,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
               }}
             >
               <CalendarItem
+                year={year}
                 month={month}
                 date={date}
               />

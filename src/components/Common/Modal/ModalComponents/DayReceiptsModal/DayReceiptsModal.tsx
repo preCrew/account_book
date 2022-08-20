@@ -34,6 +34,7 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
     [seleceDateReceipts],
   );
 
+  console.log('모달');
   // const handleClickAdd = () => {
   const handleClickAdd = () => {
     const receipt: TReceipt = {

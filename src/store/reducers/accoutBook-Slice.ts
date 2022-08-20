@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getDate } from 'utils/dateUtils';
 import asyncCreateReceipt, {
   asyncCreateReceiptFulfilled,
   asyncCreateReceiptPending,
