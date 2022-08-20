@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { TDateTime } from 'store/reducers/accoutBook-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
 import SelectDateBox from '../../../SelectableList';
-import { SelectModalS } from '../Modal_Inner.style';
+import { ModalS } from '../Modal_Inner.style';
 import { useAppSelector } from 'store/store';
 
 interface SelectMonthModalProps {
@@ -12,7 +12,7 @@ interface SelectMonthModalProps {
 }
 
 const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
-  const { Container, Header, Body } = SelectModalS;
+  const { Container, Header, Body } = ModalS;
   const { year, month } = useAppSelector(state => state.accountBook.selectDate);
   const goRef = useRef<HTMLDivElement>(null);
   const { changeSelectDate } = useAccountBook();
