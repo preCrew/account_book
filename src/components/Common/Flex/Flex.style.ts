@@ -28,6 +28,11 @@ export type TAlignItems =
   | 'baseline'
   | 'first baseline'
   | 'last baseline';
+export type TFlexDirection =
+  | 'row'
+  | 'row-reverse'
+  | 'column'
+  | 'column-reverse';
 
 interface TFlex {
   justifyContents?: TJustifyContents;

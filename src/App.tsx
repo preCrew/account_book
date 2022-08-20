@@ -11,9 +11,10 @@ import useAccountBook from 'store/hooks/useAccountBook';
 
 import { auth } from 'firebaseConfig';
 import useUser from 'store/hooks/useUser';
+import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const App = () => {
-  const { keepingLoginState } = useUser();
+  const { keepingLoginState, loginUser, logoutUser } = useUser();
   const { changeSelectDate, readReceipts } = useAccountBook();
 
   useEffect(() => {
@@ -31,9 +32,25 @@ const App = () => {
       }
     });
   }, []);
+
+  const handleClickLogin = () => {
+    loginUser('google');
+  };
+  const handleClickLogout = () => {
+    logoutUser();
+  };
+  const dev = true;
+
   return (
     <>
       <Layout>
+        {dev && (
+          <>
+            <button onClick={handleClickLogin}>임시 로그인</button>
+            <button onClick={handleClickLogout}>임시 로그아웃</button>
+          </>
+        )}
+
         <Routes>
           <Route
             path="/"

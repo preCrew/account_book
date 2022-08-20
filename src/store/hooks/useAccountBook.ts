@@ -20,6 +20,20 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 const useAccountBook = () => {
   const dispatch = useAppDispatch();
   const selectDate = useAppSelector(state => state.accountBook.selectDate);
+  const seleceDateReceipts = useAppSelector(state =>
+    state.accountBook.receipts.filter(
+      receipt => receipt.timeDate.date === selectDate.date,
+    ),
+  );
+
+  const seleceDateReceiptsSum = () => {
+    if (seleceDateReceipts.length === 0) {
+      return '';
+    }
+    return seleceDateReceipts
+      .map(receipt => receipt.income || receipt.spending)
+      .reduce((sum, cur) => (sum! += cur!)!);
+  };
 
   const changeSelectDate = useCallback((loadDate: Partial<TDateTime>) => {
     dispatch(changeSelectDateAction({ ...selectDate, ...loadDate }));
@@ -50,6 +64,7 @@ const useAccountBook = () => {
   };
 
   return {
+    seleceDateReceipts,
     changeSelectDate,
     changeFirstDate,
     changeSelectDateOneMonth,
@@ -58,6 +73,7 @@ const useAccountBook = () => {
     readReceipts,
     deleteReceipt,
     updateReceipt,
+    seleceDateReceiptsSum,
   };
 };
 

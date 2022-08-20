@@ -22,6 +22,8 @@ const colors = {
     return `to right,${colors.primaryPurple},50%,${colors.primaryPink})`;
   },
   gray1: '#e5e5e5',
+  gray2: '#c4c4c4',
+  gray3: '#8e8e8e',
   purple: '#9500ff',
   pink: '#ff0059',
 };

@@ -9,7 +9,6 @@ const HeaderHeight = `${100}px`;
 
 const Container = styled.div<{ height?: string }>`
   width: 100%;
-  height: ${({ height }) => height || '70%'};
   background-color: white;
 
   position: absolute;
@@ -44,10 +43,10 @@ const Header = styled.div<{
 
 const Body = styled.div`
   width: 100%;
+  max-height: 70vh;
   height: calc(100% - ${HeaderHeight});
-  padding: 0 20px 20px 20px;
   font-size: ${props => props.theme.fonts.size.medium};
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 export const ModalS = {
