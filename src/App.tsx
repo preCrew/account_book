@@ -6,6 +6,7 @@ import Layout from 'components/Common/Layout/Layout';
 import Home from 'pages/index';
 import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
+import StatisticsPage from 'pages/StatisticsPage';
 
 import useAccountBook from 'store/hooks/useAccountBook';
 
@@ -58,7 +59,7 @@ const App = () => {
           />
           <Route
             path="/statistics"
-            element={<></>}
+            element={<StatisticsPage />}
           />
           <Route
             path="/calendar"
