@@ -4,19 +4,23 @@
   - [1.3. Logout](#13-logout)
 - [2. Receipt (영수증)](#2-receipt-영수증)
   - [2.1. addReceipt](#21-addreceipt)
-  - [2.2. readReceipts](#22-readreceipts)
   - [2.3. deleteReceipt](#23-deletereceipt)
   - [2.4. updateReceipt](#24-updatereceipt)
+- [3. UserInfo (유저정보)](#3-userinfo-유저정보)
+  - [3.1 getUserInfo](#31-getuserinfo)
+  - [3.2 updateUserInfo](#32-updateuserinfo)
 # 1. User
 ```tsx
 const {createUser, loginUser, logoutUser} = useUser();
-// 필요시 사용
-const { loading, success, error, errorMsg } = useAppSelector(
-    state => state.user.loadingState,
-);
+
+// 필요시 사용 ( 현재 서버와 통신 상태 pending, fullfiled, reject)
+const { 
+  createUser, 
+  loginUser, 
+  logoutUser
+} = useAppSelector(state => state.user.loadingState);
 // 로그인중일시 true, 로그인중이 아닐시 false
 const isLogin = useAppSelector(state => state.user.isLogin);
-
 ```
 ## 1.1. createUser
 - 유저 생성하는 함수
@@ -57,7 +61,14 @@ const handleLogoutUser = () => {
 # 2. Receipt (영수증)
 ```tsx
 const { addReceipt, readReceipts, deleteReceipt, updateReceipt} = useAccountBook();
+// 필요시 사용 ( 현재 서버와 통신 상태 pending, fullfiled, reject)
 const receipts = useAppSelector(state => state.accountBook.receipts);
+const {
+  create, 
+  delete, 
+  read, 
+  update
+} = useAppSelector(state => state.accountBook.loadingState);
 ```
 ## 2.1. addReceipt
 - receipt를 서버에 추가하는 함수
@@ -66,15 +77,7 @@ const receipts = useAppSelector(state => state.accountBook.receipts);
 ```tsx
 const handleAddReceipt = () => {
   addReceipt(receipt);
-}
-// 필요시 사용
-const { 
-  loading, 
-  success, 
-  error, 
-  errorMsg
-} = useAppSelector(state => state.accountBook.loadingState.create);
-```
+}```
   
 ## 2.2. readReceipts
 - receipt를 서버에서 읽어오는 함수
@@ -85,14 +88,6 @@ const {
 const handleReadReceipt = () => {
   readReceipts({year: 2022, month: 8});
 }
-// 필요시 사용
-const { 
-  loading, 
-  success, 
-  error, 
-  errorMsg
-} = useAppSelector(state => state.accountBook.loadingState.read);
-
 ```
 ## 2.3. deleteReceipt
 - receipt를 서버에서 삭제하는 함수
@@ -102,13 +97,6 @@ const {
 const handleDeleteReceipt = () => {
   deleteReceipt(168218039);
 }
-// 필요시 사용
-const { 
-  loading, 
-  success, 
-  error, 
-  errorMsg
-} = useAppSelector(state => state.accountBook.loadingState.delete);
 ```
 ## 2.4. updateReceipt
 - receipt를 서버에서 업데이트하는 함수
@@ -124,11 +112,31 @@ const handleupdateReceipt = () => {
     // memo: "test memo"
   });
 }
-// 필요시 사용
+```
+# 3. UserInfo (유저정보)
+```tsx
+const {getUserInfo, updateUserInfo} = useUser();
+// 필요시 사용 ( 현재 서버와 통신 상태 pending, fullfiled, reject)
 const { 
-  loading, 
-  success, 
-  error, 
-  errorMsg
-} = useAppSelector(state => state.accountBook.loadingState.update);
+  readUserInfo, 
+  updateUserInfo 
+} = useAppSelector(state => state.user.loadingState);
+```
+
+## 3.1 getUserInfo
+- 유저정보 ( 이름, 예산, 프로필 종류)를 서버에서 받아와 `store`에 저장하는 함수
+- Args: none
+
+```tsx
+const getUserInfoFromServer = () => {
+  getUserInfo();
+}
+```
+## 3.2 updateUserInfo
+- `store`에 저장된 유저정보를 파이어베이스 서버로 보내 업데이트 하는 함수
+- Args: none
+```tsx
+const updateUserInfoFromStore = () => {
+  updateUserInfo();
+}
 ```
