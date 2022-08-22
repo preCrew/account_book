@@ -6,6 +6,7 @@ interface ProfileProps {}
 
 const Profile = ({}: ProfileProps) => {
   const { loadingState, userInfo } = useAppSelector(state => state.user);
+  const totalExpense = 0;
 
   return (
     <>
@@ -18,7 +19,7 @@ const Profile = ({}: ProfileProps) => {
           </dl>
           <dl>
             <dt>지출</dt>
-            <dd>{userInfo.totalExpense}</dd>
+            <dd>{0}</dd>
           </dl>
         </ProfileInfo>
       </ProfileWrap>

@@ -25,9 +25,8 @@ import asyncLogoutUser, {
 } from './userThunk/asyncLogoutUser';
 
 interface TuserInfo {
-  character: number | null;
+  character: number;
   budget: number;
-  totalExpense: number;
 }
 
 interface TUser {
@@ -63,8 +62,7 @@ const initialUserState: TUser = {
   },
   userInfo: {
     budget: 0,
-    character: null,
-    totalExpense: 0,
+    character: 0,
   },
   email: '',
   avatar: [
