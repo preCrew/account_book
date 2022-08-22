@@ -23,17 +23,34 @@ import asyncLogoutUser, {
   asyncLogoutUserPending,
   asyncLogoutUserRejected,
 } from './userThunk/asyncLogoutUser';
+import asyncUpdateUserInfo, {
+  asyncUpdateUserInfoFulfilled,
+  asyncUpdateUserInfoPending,
+  asyncUpdateUserInfoRejected,
+} from './userThunk/asyncUpdateUserInfo';
+import asyncReadUserInfo, {
+  asyncReadUserInfoFulfilled,
+  asyncReadUserInfoPending,
+  asyncReadUserInfoRejected,
+} from './userThunk/asyncReadUserInfo';
 
-interface TuserInfo {
+export interface TuserInfo {
+  name: string;
   character: number;
   budget: number;
 }
 
-interface TUser {
+export interface TUser {
   isLogin: boolean;
   email: string;
   uid: string;
-  loadingState: TLoadingState;
+  loadingState: {
+    createUser: TLoadingState | Record<string, unknown>;
+    loginUser: TLoadingState | Record<string, unknown>;
+    logoutUser: TLoadingState | Record<string, unknown>;
+    readUserInfo: TLoadingState | Record<string, unknown>;
+    updateUserInfo: TLoadingState | Record<string, unknown>;
+  };
   userInfo: TuserInfo;
   avatar: [
     {
@@ -55,12 +72,14 @@ const initialUserState: TUser = {
   isLogin: false,
   uid: '',
   loadingState: {
-    loading: false,
-    success: false,
-    error: false,
-    errorMsg: null,
+    createUser: {},
+    loginUser: {},
+    logoutUser: {},
+    readUserInfo: {},
+    updateUserInfo: {},
   },
   userInfo: {
+    name: '',
     budget: 0,
     character: 0,
   },
@@ -106,9 +125,20 @@ const userSlice = createSlice({
     builder.addCase(asyncLoginUser.fulfilled, asyncLoginUserFulfilled);
     builder.addCase(asyncLoginUser.rejected, asyncLoginUserRejected);
 
-    builder.addCase(asyncLogoutUser.prototype, asyncLogoutUserPending);
+    builder.addCase(asyncLogoutUser.pending, asyncLogoutUserPending);
     builder.addCase(asyncLogoutUser.fulfilled, asyncLogoutUserFulfilled);
     builder.addCase(asyncLogoutUser.rejected, asyncLogoutUserRejected);
+
+    builder.addCase(asyncUpdateUserInfo.pending, asyncUpdateUserInfoPending);
+    builder.addCase(
+      asyncUpdateUserInfo.fulfilled,
+      asyncUpdateUserInfoFulfilled,
+    );
+    builder.addCase(asyncUpdateUserInfo.rejected, asyncUpdateUserInfoRejected);
+
+    builder.addCase(asyncReadUserInfo.pending, asyncReadUserInfoPending);
+    builder.addCase(asyncReadUserInfo.fulfilled, asyncReadUserInfoFulfilled);
+    builder.addCase(asyncReadUserInfo.rejected, asyncReadUserInfoRejected);
   },
 });
 
