@@ -14,7 +14,7 @@ const AvatarImg = ({ size }: AvatarImgProps) => {
   //userInfo 0 -> 외국인 1-> 루피
   const avatarSetting = () => {
     const myBudget = userInfo.budget;
-    const myTotalExpense = userInfo.totalExpense;
+    const myTotalExpense = 0;
 
     if (myBudget > myTotalExpense) {
       return myAvatar.good;

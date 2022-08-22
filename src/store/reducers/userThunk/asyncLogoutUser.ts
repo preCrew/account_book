@@ -18,15 +18,15 @@ const asyncLogoutUser = createAsyncThunk(
 );
 
 const asyncLogoutUserPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.logoutUser.loading = true;
+  state.loadingState.logoutUser.success = false;
+  state.loadingState.logoutUser.error = false;
+  state.loadingState.logoutUser.errorMsg = null;
 };
 
 const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.logoutUser.loading = false;
+  state.loadingState.logoutUser.success = true;
 
   state.isLogin = false;
   state.uid = '';
@@ -34,9 +34,9 @@ const asyncLogoutUserFulfilled: CaseReducer = (state, action) => {
 };
 
 const asyncLogoutUserRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = '로그아웃 실패';
+  state.loadingState.logoutUser.loading = false;
+  state.loadingState.logoutUser.error = true;
+  state.loadingState.logoutUser.errorMsg = '로그아웃 실패';
 };
 
 export default asyncLogoutUser;

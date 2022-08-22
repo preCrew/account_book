@@ -53,15 +53,15 @@ const asyncLoginUser = createAsyncThunk(
 );
 
 const asyncLoginUserPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.loginUser.loading = true;
+  state.loadingState.loginUser.success = false;
+  state.loadingState.loginUser.error = false;
+  state.loadingState.loginUser.errorMsg = null;
 };
 
 const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.loginUser.loading = false;
+  state.loadingState.loginUser.success = true;
 
   console.log(action.payload.data);
   state.uid = action.payload.data.uid as string;
@@ -70,9 +70,9 @@ const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
 };
 
 const asyncLoginUserRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.loginUser.loading = false;
+  state.loadingState.loginUser.error = true;
+  state.loadingState.loginUser.errorMsg = action.payload.data;
 };
 
 export default asyncLoginUser;

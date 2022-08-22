@@ -15,7 +15,7 @@ import useUser from 'store/hooks/useUser';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const App = () => {
-  const { keepingLoginState, loginUser, logoutUser } = useUser();
+  const { keepingLoginState, loginUser, logoutUser, getUserInfo } = useUser();
   const { changeSelectDate, readReceipts } = useAccountBook();
 
   useEffect(() => {
@@ -25,10 +25,14 @@ const App = () => {
 
     // 최초 렌더링시 현재 월을 변경
     changeSelectDate({ year, month });
-    // 만약 로그인된 상태면 새로고침 or 페이지 이동돼도 로그인 유지
+    // 만약 로그인된 상태면
     auth.onAuthStateChanged(user => {
       if (user) {
+        // userinfo 서버에서 불러옴
+        getUserInfo();
+        // 새로고침 or 페이지 이동돼도 로그인 유지
         keepingLoginState(user.email as string, user.uid as string);
+        // 서버에서 내역 읽어옴
         readReceipts({ year, month });
       }
     });

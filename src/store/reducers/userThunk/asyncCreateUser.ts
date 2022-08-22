@@ -53,15 +53,15 @@ const asyncCreateUser = createAsyncThunk(
 );
 
 const asyncCreateUserPending: CaseReducer = (state, action) => {
-  state.loadingState.loading = true;
-  state.loadingState.success = false;
-  state.loadingState.error = false;
-  state.loadingState.errorMsg = null;
+  state.loadingState.createUser.loading = true;
+  state.loadingState.createUser.success = false;
+  state.loadingState.createUser.error = false;
+  state.loadingState.createUser.errorMsg = null;
 };
 
 const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.success = true;
+  state.loadingState.createUser.loading = false;
+  state.loadingState.createUser.success = true;
 
   state.email = action.payload.data.email as string;
   state.uid = action.payload.data.uid as string;
@@ -69,9 +69,9 @@ const asyncCreateUserFulfilled: CaseReducer = (state, action) => {
 };
 
 const asyncCreateUserRejected: CaseReducer = (state, action) => {
-  state.loadingState.loading = false;
-  state.loadingState.error = true;
-  state.loadingState.errorMsg = action.payload.data;
+  state.loadingState.createUser.loading = false;
+  state.loadingState.createUser.error = true;
+  state.loadingState.createUser.errorMsg = action.payload.data;
 };
 
 export default asyncCreateUser;

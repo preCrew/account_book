@@ -4,6 +4,8 @@ import asyncCreateUser, {
 } from 'store/reducers/userThunk/asyncCreateUser';
 import asyncLoginUser from 'store/reducers/userThunk/asyncLoginUser';
 import asyncLogoutUser from 'store/reducers/userThunk/asyncLogoutUser';
+import asyncReadUserInfo from 'store/reducers/userThunk/asyncReadUserInfo';
+import asyncUpdateUserInfo from 'store/reducers/userThunk/asyncUpdateUserInfo';
 import { useAppDispatch } from 'store/store';
 import {
   chageCaracterAction,
@@ -42,12 +44,22 @@ const useUser = () => {
     dispatch(keepingLoginStateAction({ email, uid }));
   };
 
+  const getUserInfo = () => {
+    dispatch(asyncReadUserInfo());
+  };
+
+  const updateUserInfo = () => {
+    dispatch(asyncUpdateUserInfo());
+  };
+
   return {
     chageCaracter,
     createUser,
     loginUser,
     logoutUser,
     keepingLoginState,
+    getUserInfo,
+    updateUserInfo,
   };
 };
 
