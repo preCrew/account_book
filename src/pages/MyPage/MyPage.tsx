@@ -32,6 +32,7 @@ const MyPage = () => {
 
   const dispatch = useAppDispatch();
   const accountBook = useAppSelector(state => state.accountBook);
+  const user = useAppSelector(state => state.user);
   const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {
@@ -61,7 +62,7 @@ const MyPage = () => {
             <AvatarImg size="100" />
           </Profile>
           <Name>Name</Name>
-          <Emaile>csa2676@naver.com</Emaile>
+          <Emaile>{user.email}</Emaile>
           <SubTitle>예산을 입력해주세요</SubTitle>
           <AmountBox>
             <AmountIcon></AmountIcon>
