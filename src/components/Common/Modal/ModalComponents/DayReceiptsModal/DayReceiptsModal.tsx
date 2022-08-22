@@ -1,18 +1,15 @@
 import PayItem from 'components/PayItem';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
-import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useAppSelector } from 'store/store';
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
   DayReceiptsModalHeader,
 } from './DayReceiptsModal.style';
 
-interface DayReceiptsModalProps {}
-
-const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
+const DayReceiptsModal = () => {
   const { Container, Header, Body } = ModalS;
   const { year, month, date } = useAppSelector(
     state => state.accountBook.selectDate,
@@ -59,7 +56,7 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
     addReceipt(receipt);
     // TODO: 위의 내용들음 임시임
     // 추가버튼 클릭시 새로운 입력을 위해 새로운 모달창을 띄워준다.
-  }, []);
+  }, [addReceipt]);
   return (
     <Container height="auto">
       <Header flexDirection="column">

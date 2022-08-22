@@ -3,8 +3,6 @@ import ApexChart, { Props } from 'react-apexcharts';
 import { useAppSelector } from '../../store/store';
 import Header from '../../components/Common/Layout/Header';
 
-interface StatisticsPageProps {}
-
 const StatisticsPage: React.FC<Props> = () => {
   let spending1 = 0;
   const accountBook = useAppSelector(state => state.accountBook);

@@ -26,24 +26,39 @@ const useAccountBook = () => {
       .reduce((sum, cur) => ((sum as number) += cur as number));
   };
 
-  const changeSelectDate = useCallback((loadDate: Partial<TDateTime>) => {
-    dispatch(changeSelectDateAction(loadDate));
-  }, []);
+  const changeSelectDate = useCallback(
+    (loadDate: Partial<TDateTime>) => {
+      dispatch(changeSelectDateAction(loadDate));
+    },
+    [dispatch],
+  );
 
-  const changeFirstDate = useCallback((loadDate: TDateTime) => {
-    dispatch(changeFirstDateAction(loadDate));
-  }, []);
+  const changeFirstDate = useCallback(
+    (loadDate: TDateTime) => {
+      dispatch(changeFirstDateAction(loadDate));
+    },
+    [dispatch],
+  );
 
-  const changeSelectDateOneMonth = useCallback((month: 1 | -1) => {
-    dispatch(changeSelectDateOneMonthAction(month));
-  }, []);
-  const changeAmount = useCallback((amount: number) => {
-    dispatch(changeAmountAction(amount));
-  }, []);
+  const changeSelectDateOneMonth = useCallback(
+    (month: 1 | -1) => {
+      dispatch(changeSelectDateOneMonthAction(month));
+    },
+    [dispatch],
+  );
+  const changeAmount = useCallback(
+    (amount: number) => {
+      dispatch(changeAmountAction(amount));
+    },
+    [dispatch],
+  );
 
-  const addReceipt = useCallback((receipt: TReceipt) => {
-    dispatch(asyncCreateReceipt(receipt));
-  }, []);
+  const addReceipt = useCallback(
+    (receipt: TReceipt) => {
+      dispatch(asyncCreateReceipt(receipt));
+    },
+    [dispatch],
+  );
   const readReceipts = (yearMonth: TYearMonth) => {
     dispatch(asyncReadReceipt(yearMonth));
   };

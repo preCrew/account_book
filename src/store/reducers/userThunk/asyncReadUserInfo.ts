@@ -2,7 +2,7 @@ import { doc, getDoc } from '@firebase/firestore';
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
-import { TUser, TuserInfo } from '../user-Slice';
+import { TUser } from '../user-Slice';
 
 const asyncReadUserInfo = createAsyncThunk(
   'userSlice/asyncReadUserInfo',

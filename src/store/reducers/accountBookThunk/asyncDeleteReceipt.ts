@@ -1,5 +1,5 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { TReceipt } from '../accoutBook-Slice';

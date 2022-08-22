@@ -15,9 +15,12 @@ import {
 const useUser = () => {
   const dispatch = useAppDispatch();
 
-  const chageCaracter = useCallback((characterNumber: number) => {
-    dispatch(chageCaracterAction(characterNumber));
-  }, []);
+  const chageCaracter = useCallback(
+    (characterNumber: number) => {
+      dispatch(chageCaracterAction(characterNumber));
+    },
+    [dispatch],
+  );
   const createUser = (email: string, password: string) => {
     dispatch(
       asyncCreateUser({

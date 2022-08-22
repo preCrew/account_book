@@ -1,15 +1,6 @@
 import { CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  collection,
-  doc,
-  DocumentData,
-  getDoc,
-  getDocs,
-  query,
-  QueryDocumentSnapshot,
-  where,
-} from 'firebase/firestore';
-import { auth, db } from 'firebaseConfig';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from 'firebaseConfig';
 import { RootState } from 'store/store';
 import { TYearMonth } from '../reducerCommonTypes';
 
@@ -26,18 +17,6 @@ const asyncReadReceipt = createAsyncThunk(
         data: '로그인이 필요합니다.',
       });
     }
-    // 로그인된 상태라면
-
-    // // 문서의 경로 설정
-    // const docu = doc(
-    //   db,
-    //   email,
-    //   'receipts',
-    //   'years',
-    //   yearMonth.year.toString(),
-    //   'months',
-    //   yearMonth.month.toString(),
-    // );
     // 문서의 경로 설정receipts
     const collec = collection(db, 'receipts');
     const q = query(
@@ -54,7 +33,7 @@ const asyncReadReceipt = createAsyncThunk(
         data: '받아올 데이터가 존재하지 않습니다',
       });
     }
-    const result: any[] = [];
+    const result: unknown[] = [];
     snap.forEach(res => {
       result.push(res.data());
     });

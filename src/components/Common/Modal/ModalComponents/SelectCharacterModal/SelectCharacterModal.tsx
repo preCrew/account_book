@@ -1,7 +1,7 @@
 import ButtonX from 'components/Common/Button/ButtonX';
 import { ModalS } from '../Modal_Inner.style';
 import SelectDataBox from '../../../SelectableList/CheckList';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useAppSelector } from 'store/store';
 import useUser from '../../../../../store/hooks/useUser';
 
 interface SelectCharacterModalProps {

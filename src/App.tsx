@@ -12,7 +12,6 @@ import useAccountBook from 'store/hooks/useAccountBook';
 
 import { auth } from 'firebaseConfig';
 import useUser from 'store/hooks/useUser';
-import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const App = () => {
   const { keepingLoginState, loginUser, logoutUser, getUserInfo } = useUser();
@@ -36,6 +35,7 @@ const App = () => {
         readReceipts({ year, month });
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickLogin = () => {

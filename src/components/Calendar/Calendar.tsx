@@ -2,9 +2,8 @@ import Button from 'components/Common/Button';
 import DayReceiptsModal from 'components/Common/Modal/ModalComponents/DayReceiptsModal';
 import Table, { TTableColumns, TTableData } from 'components/Common/Table';
 import useModal from 'hooks/useModal';
-import React, { useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
-import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { Down100, Up100 } from 'styles/animations';
 import { calendarGenerator } from 'utils/calendarUtils';
 
@@ -23,10 +22,13 @@ const Calendar = ({ year, month }: CalendarProps) => {
   const { changeSelectDate } = useAccountBook();
   // const [clickedDate, setClickedDate] = useState
 
-  const handleClickCalendarDate = (date: number) => {
-    showModal();
-    changeSelectDate({ date });
-  };
+  const handleClickCalendarDate = useCallback(
+    (date: number) => {
+      showModal();
+      changeSelectDate({ date });
+    },
+    [changeSelectDate, showModal],
+  );
   // 캘린더 아이템을 만들어주는 함수
   const calendar = useMemo(() => {
     const datas = calendarGenerator(year, month);
@@ -68,7 +70,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
     });
 
     return components;
-  }, [year, month]);
+  }, [handleClickCalendarDate, month, year]);
 
   return (
     <>

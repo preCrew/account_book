@@ -3,12 +3,9 @@ import { useAppSelector } from 'store/store';
 
 import { BsPersonCircle } from 'react-icons/bs';
 import { AvatarWrap } from './Avatar.style';
-import AvatarImg from './AvatarImg';
 import Mypage from '../../../pages/MyPage';
 
-interface AvatarProps {}
-
-const Avatar = ({}: AvatarProps) => {
+const Avatar = () => {
   const isLogin = useAppSelector(state => state.user.isLogin);
 
   return (

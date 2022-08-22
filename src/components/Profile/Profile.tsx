@@ -2,9 +2,7 @@ import { useAppSelector } from 'store/store';
 import Avatar from './Avatar';
 import { ProfileWrap, ProfileInfo } from './Profile.style';
 
-interface ProfileProps {}
-
-const Profile = ({}: ProfileProps) => {
+const Profile = () => {
   const { loadingState, userInfo } = useAppSelector(state => state.user);
   const totalExpense = 0;
 
