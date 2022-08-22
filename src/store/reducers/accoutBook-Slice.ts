@@ -108,9 +108,9 @@ const accountBookSlice = createSlice({
     // 서버에서 불러올 월년을 변경
     changeSelectDateAction(
       state: TAccountBook,
-      action: PayloadAction<TDateTime>,
+      action: PayloadAction<Partial<TDateTime>>,
     ) {
-      state.selectDate = action.payload;
+      state.selectDate = { ...state.selectDate, ...action.payload };
     },
     changeFirstDateAction(
       state: TAccountBook,

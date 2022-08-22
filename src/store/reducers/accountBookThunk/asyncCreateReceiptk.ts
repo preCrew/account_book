@@ -8,8 +8,10 @@ import { changeFirstDateAction, TReceipt } from '../accoutBook-Slice';
 const asyncCreateReceipt = createAsyncThunk(
   'ReceiptSlice/asyncCreateReceipt',
   async (receipt: TReceipt, api) => {
-    const { firstDate } = (api.getState() as RootState).accountBook;
-    const { email, uid, isLogin } = (api.getState() as RootState).user;
+    const firstDate = (api.getState() as RootState).accountBook.firstDate;
+    const email = (api.getState() as RootState).user.email;
+    const uid = (api.getState() as RootState).user.uid;
+    const isLogin = (api.getState() as RootState).user.isLogin;
 
     // 로그인된 상태가 아닌데 생성하려고 시도하는경우
     if (!isLogin) {
@@ -51,6 +53,16 @@ const asyncCreateReceipt = createAsyncThunk(
 );
 
 const asyncCreateReceiptPending: CaseReducer = (state, action) => {
+  // state = {
+  //   loadingState: {
+  //     create: {
+  //       loading: true,
+  //       success: false,
+  //       error: false,
+  //       errorMsg: null,
+  //     },
+  //   },
+  // };
   state.loadingState.create.loading = true;
   state.loadingState.create.success = false;
   state.loadingState.create.error = false;
@@ -58,6 +70,16 @@ const asyncCreateReceiptPending: CaseReducer = (state, action) => {
 };
 
 const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
+  // state = {
+  //   ...state,
+  //   receipts: state.receipts.concat(action.payload.data),
+  //   loadingState: {
+  //     create: {
+  //       loading: false,
+  //       success: true,
+  //     },
+  //   },
+  // };
   state.loadingState.create.loading = false;
   state.loadingState.create.success = true;
 
