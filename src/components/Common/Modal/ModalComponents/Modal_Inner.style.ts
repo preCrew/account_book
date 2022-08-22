@@ -44,6 +44,7 @@ const Header = styled.div<{
 const Body = styled.div`
   width: 100%;
   max-height: 70vh;
+  padding: 20px;
   height: calc(100% - ${HeaderHeight});
   font-size: ${props => props.theme.fonts.size.medium};
   overflow-y: scroll;

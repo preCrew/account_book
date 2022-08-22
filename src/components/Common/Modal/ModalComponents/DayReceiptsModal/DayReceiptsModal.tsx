@@ -1,8 +1,9 @@
 import PayItem from 'components/PayItem';
-import { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
+import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
-import { useAppSelector } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
@@ -16,8 +17,12 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
   const { year, month, date } = useAppSelector(
     state => state.accountBook.selectDate,
   );
-  const { seleceDateReceipts, seleceDateReceiptsSum, addReceipt } =
-    useAccountBook();
+  const seleceDateReceipts = useAppSelector(state =>
+    state.accountBook.receipts.filter(
+      receipt => receipt.timeDate.date === date,
+    ),
+  );
+  const { seleceDateReceiptsSum, addReceipt } = useAccountBook();
 
   const day = useMemo(() => {
     const day = new Date(year, month - 1, date).getDay();
@@ -25,9 +30,9 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
   }, [date, month, year]);
 
   const receiptsSum = useMemo(() => {
-    const sum = seleceDateReceiptsSum();
+    const sum = seleceDateReceiptsSum(seleceDateReceipts);
     return sum ? sum.toLocaleString('ko-KR') : '';
-  }, [seleceDateReceiptsSum]);
+  }, [seleceDateReceipts, seleceDateReceiptsSum]);
 
   const receiptsCount = useMemo(
     () => seleceDateReceipts.length,
@@ -35,7 +40,7 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
   );
 
   // const handleClickAdd = () => {
-  const handleClickAdd = () => {
+  const handleClickAdd = useCallback(() => {
     const receipt: TReceipt = {
       category: '놀았어',
       transactionBranch: '피시방',
@@ -52,8 +57,9 @@ const DayReceiptsModal = ({}: DayReceiptsModalProps) => {
       paymentMethod: '카드!',
     };
     addReceipt(receipt);
-  };
-  // };
+    // TODO: 위의 내용들음 임시임
+    // 추가버튼 클릭시 새로운 입력을 위해 새로운 모달창을 띄워준다.
+  }, []);
   return (
     <Container height="auto">
       <Header flexDirection="column">

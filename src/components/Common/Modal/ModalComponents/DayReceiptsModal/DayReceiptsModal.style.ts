@@ -24,6 +24,6 @@ export const DayReceiptModalBody = styled.div`
   /* overflow-y: scroll; */
   width: 100%;
   height: 100%;
-  padding: 0 20px 20px 20px;
+  /* padding: 0 20px 20px 20px; */
 `;
 export const DayReceiptsModalHeader = { Wrap, Main, Sub };

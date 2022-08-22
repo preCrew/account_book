@@ -9,14 +9,18 @@ import {
 } from './CalendarItem.style';
 
 interface CalendarItemProps {
+  year: number;
   month: number;
   date: number;
 }
 
-const CalendarItem = ({ month, date }: CalendarItemProps) => {
+const CalendarItem = ({ year, month, date }: CalendarItemProps) => {
   const { income, spending } = useAppSelector(state => {
     const dateReceipts = state.accountBook?.receipts.filter(
-      receipt => receipt.timeDate.date === date,
+      receipt =>
+        receipt.timeDate.date === date &&
+        receipt.timeDate.month === month &&
+        receipt.timeDate.year === year,
     );
     let income = 0;
     let spending = 0;

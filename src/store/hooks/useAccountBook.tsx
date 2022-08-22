@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from 'react';
 import asyncCreateReceipt from 'store/reducers/accountBookThunk/asyncCreateReceiptk';
 import asyncDeleteReceipt from 'store/reducers/accountBookThunk/asyncDeleteReceipt';
 import asyncReadReceipt from 'store/reducers/accountBookThunk/asyncReadReceipt';
-import asyncUpdateReceipt, {
-  TUpdateReceiptData,
-} from 'store/reducers/accountBookThunk/asyncUpdateReceipt';
+import asyncUpdateReceipt from 'store/reducers/accountBookThunk/asyncUpdateReceipt';
 import {
   changeFirstDateAction,
   changeSelectDateAction,
@@ -15,28 +12,22 @@ import {
   TDateTime,
 } from 'store/reducers/accoutBook-Slice';
 import { TYearMonth } from 'store/reducers/reducerCommonTypes';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useAppDispatch } from 'store/store';
 
 const useAccountBook = () => {
   const dispatch = useAppDispatch();
-  const selectDate = useAppSelector(state => state.accountBook.selectDate);
-  const seleceDateReceipts = useAppSelector(state =>
-    state.accountBook.receipts.filter(
-      receipt => receipt.timeDate.date === selectDate.date,
-    ),
-  );
 
-  const seleceDateReceiptsSum = () => {
+  const seleceDateReceiptsSum = (seleceDateReceipts: TReceipt[]) => {
     if (seleceDateReceipts.length === 0) {
       return '';
     }
     return seleceDateReceipts
       .map(receipt => receipt.income || receipt.spending)
-      .reduce((sum, cur) => (sum! += cur!)!);
+      .reduce((sum, cur) => ((sum as number) += cur as number));
   };
 
   const changeSelectDate = useCallback((loadDate: Partial<TDateTime>) => {
-    dispatch(changeSelectDateAction({ ...selectDate, ...loadDate }));
+    dispatch(changeSelectDateAction(loadDate));
   }, []);
 
   const changeFirstDate = useCallback((loadDate: TDateTime) => {
@@ -50,9 +41,9 @@ const useAccountBook = () => {
     dispatch(changeAmountAction(amount));
   }, []);
 
-  const addReceipt = (receipt: TReceipt) => {
+  const addReceipt = useCallback((receipt: TReceipt) => {
     dispatch(asyncCreateReceipt(receipt));
-  };
+  }, []);
   const readReceipts = (yearMonth: TYearMonth) => {
     dispatch(asyncReadReceipt(yearMonth));
   };
@@ -64,7 +55,6 @@ const useAccountBook = () => {
   };
 
   return {
-    seleceDateReceipts,
     changeSelectDate,
     changeFirstDate,
     changeSelectDateOneMonth,

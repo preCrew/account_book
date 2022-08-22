@@ -1,3 +1,4 @@
+import React from 'react';
 import { ListPrice, ListTit, PayListWrap } from './PayItem.style';
 import './PayItem.style.ts';
 
@@ -14,6 +15,7 @@ const PayItem = ({
   transactionBranch,
   onClick,
 }: PayItemProps) => {
+  console.log('otem');
   return (
     <PayListWrap onClick={onClick}>
       <ListTit>
@@ -25,4 +27,4 @@ const PayItem = ({
   );
 };
 
-export default PayItem;
+export default React.memo(PayItem);
