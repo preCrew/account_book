@@ -33,6 +33,7 @@ export interface TDateTime {
 
 export interface TReceipt {
   id?: number;
+  group: string; //분류
   category: string; // 카테고리
   account: string; //거래처
   timeDate: TDateTime;
@@ -67,7 +68,7 @@ const initialAccountBookState: TAccountBook = {
     read: {},
     update: {},
   },
-  receipts: [],
+  receipts: [], //
   selectDate: {
     year: 2022,
     month: 8,
@@ -122,6 +123,9 @@ const accountBookSlice = createSlice({
     changeAmountAction(state: TAccountBook, action: PayloadAction<number>) {
       state.amount = action.payload;
     },
+    // changeReceiptAction(state: TAccountBook, action: PayloadAction<TReceipt>) {
+    //   state.receipts = [action.payload, ...state.receipts];
+    // },
   },
   extraReducers(builder) {
     builder.addCase(asyncCreateReceipt.pending, asyncCreateReceiptPending);
@@ -147,5 +151,6 @@ export const {
   changeFirstDateAction,
   changeSelectDateOneMonthAction,
   changeAmountAction,
+  changeReceiptAction,
 } = accountBookSlice.actions;
 export default accountBookSlice.reducer;
