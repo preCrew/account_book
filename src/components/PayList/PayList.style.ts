@@ -10,15 +10,3 @@ export const PayListWrap = styled.ul`
     border-top: 1px solid ${({ theme }) => theme.colors.gray1};
   }
 `;
-
-export const ListTit = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.583rem;
-`;
-
-export const ListPrice = styled.span`
-  display: block;
-  margin-top: 0.417rem;
-  font-size: 0.5rem;
-`;
