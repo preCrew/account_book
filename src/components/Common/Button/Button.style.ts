@@ -15,7 +15,7 @@ export const ButtonWrapper = styled.div`
   &.large,
   &.full {
     height: 2rem;
-    font-size: ${props => props.theme.fonts.size.medium};
+    font-size: ${props => props.theme.fonts.size.size18};
 
     padding: 0 auto;
     border-radius: 0.75rem;

@@ -12,6 +12,11 @@ export const GlobalStyle = createGlobalStyle`
   body {
       font-family: appleR;
   }
+  button{
+    background: none;
+    outline: 0;
+    border:none;
+  }
   *{
       box-sizing: border-box;
   }
