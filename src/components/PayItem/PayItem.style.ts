@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PayListWrap = styled.ul`
+export const PayListWrap = styled.li`
   padding-top: 1rem;
   cursor: pointer;
 `;

@@ -1,134 +1,18 @@
+import PayItem from 'components/PayItem';
+import { useAppSelector } from 'store/store';
 import { PayListWrap, ListTit, ListPrice } from './PayList.style';
 
 const PayList = () => {
+  const { receipts } = useAppSelector(state => state.accountBook);
   return (
     <PayListWrap>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>{' '}
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>{' '}
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>{' '}
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>{' '}
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
-      <li>
-        <ListTit>
-          <p>정읍옌락김밥</p>
-          <span>18,000원</span>
-        </ListTit>
-        <ListPrice>앱스토어</ListPrice>
-      </li>
+      {receipts.map(receipt => (
+        <PayItem
+          key={receipt.id}
+          amount={receipt.spending}
+          title={receipt.transactionBranch}
+        />
+      ))}
     </PayListWrap>
   );
 };
