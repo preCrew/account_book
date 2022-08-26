@@ -85,3 +85,7 @@ export const AmountIcon = styled.div`
   outline: none;
   border-radius: 3px;
 `;
+
+export const LogoutBtn = styled.button`
+  margin-top: 1rem;
+`;
