@@ -4,25 +4,17 @@ import { useAppSelector } from 'store/store';
 import { BsPersonCircle } from 'react-icons/bs';
 import { AvatarWrap } from './Avatar.style';
 import Mypage from '../../../pages/MyPage';
+import AvatarImg from './AvatarImg';
 
 const Avatar = () => {
-  const isLogin = useAppSelector(state => state.user.isLogin);
-
   return (
     <>
-      {isLogin ? (
-        <AvatarWrap>
-          {/* props: size */}
-          <Link to="/mypage">{/* <AvatarImg /> */}</Link>
-        </AvatarWrap>
-      ) : (
-        <Link to="/login">
-          <BsPersonCircle
-            fontSize={40}
-            color="gray"
-          />
+      <AvatarWrap>
+        {/* props: size */}
+        <Link to="/mypage">
+          <AvatarImg size="50px" />
         </Link>
-      )}
+      </AvatarWrap>
       <Routes>
         <Route
           path="/mypage"

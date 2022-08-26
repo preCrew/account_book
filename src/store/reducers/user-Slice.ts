@@ -1,10 +1,3 @@
-import badAvartar1Img from '../../assets/images/avatar/noname_bad.jpg';
-import sosoAvartar1Img from '../../assets/images/avatar/noname_soso.jpg';
-import goodAvartar1Img from '../../assets/images/avatar/noname_good.jpg';
-import badAvartar2Img from '../../assets/images/avatar/rupee_bad.jpg';
-import sosoAvartar2Img from '../../assets/images/avatar/rupee_soso.jpg';
-import goodAvartar2Img from '../../assets/images/avatar/rupee_good.jpg';
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TLoadingState } from './reducerCommonTypes';
 
@@ -52,20 +45,6 @@ export interface TUser {
     updateUserInfo: TLoadingState | Record<string, unknown>;
   };
   userInfo: TuserInfo;
-  avatar: [
-    {
-      name: string;
-      bad: string;
-      soso: string;
-      good: string;
-    },
-    {
-      name: string;
-      bad: string;
-      soso: string;
-      good: string;
-    },
-  ];
 }
 
 const initialUserState: TUser = {
@@ -84,20 +63,6 @@ const initialUserState: TUser = {
     character: 0,
   },
   email: '',
-  avatar: [
-    {
-      name: '외국인',
-      bad: badAvartar1Img,
-      soso: sosoAvartar1Img,
-      good: goodAvartar1Img,
-    },
-    {
-      name: '루피',
-      bad: badAvartar2Img,
-      soso: sosoAvartar2Img,
-      good: goodAvartar2Img,
-    },
-  ],
 };
 
 const userSlice = createSlice({
