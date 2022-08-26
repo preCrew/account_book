@@ -10,7 +10,7 @@ interface ButtonProps {
   size?: TButtonSize;
   justifyContent?: TJustifyContents;
   alignItems?: TAlignItems;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
   children: React.ReactNode;
 }
 
