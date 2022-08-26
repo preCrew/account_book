@@ -2,7 +2,7 @@ import { useAppSelector } from 'store/store';
 import Avatar from './Avatar';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
-import AddReceiptModal from 'components/Common/Modal/ModalComponents/AddReceiptModal';
+import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
 import useModal from 'hooks/useModal';
 import { Down100, Up100 } from 'styles/animations';
 
