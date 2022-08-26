@@ -9,6 +9,9 @@ const fonts = {
     small: '0.8rem',
     medium: '1rem',
     large: '1.2rem',
+    size14: '0.5rem',
+    size16: '0.667rem',
+    size18: '0.75rem',
   },
   weight: {
     fw700: 700,
