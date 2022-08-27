@@ -4,12 +4,13 @@ import { PayListWrap, ListTit, ListPrice } from './PayList.style';
 
 const PayList = () => {
   const { receipts } = useAppSelector(state => state.accountBook);
+  console.log(receipts[11].income);
   return (
     <PayListWrap>
       {receipts.map(receipt => (
         <PayItem
           key={receipt.id}
-          amount={receipt.spending}
+          amount={receipt.income ?? receipt.spending}
           title={receipt.transactionBranch}
         />
       ))}
