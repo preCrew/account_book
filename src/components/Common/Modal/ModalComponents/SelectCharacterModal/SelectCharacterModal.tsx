@@ -3,14 +3,14 @@ import { ModalS } from '../Modal_Inner.style';
 import SelectDataBox from '../../../SelectableList/CheckList';
 import { useAppSelector } from 'store/store';
 import useUser from '../../../../../store/hooks/useUser';
-
+import { avatarData } from '../../../../Profile/Avatar/AvatarImg/data';
 interface SelectCharacterModalProps {
   onClose: () => void;
 }
 
 const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
   const { Container, Header, Body } = ModalS;
-  const { avatar, userInfo } = useAppSelector(state => state.user);
+  const { userInfo } = useAppSelector(state => state.user);
   const { chageCaracter } = useUser();
 
   const onClickCharacter = (index: number) => () => {
@@ -25,7 +25,7 @@ const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
           <ButtonX onClick={onClose} />
         </Header>
         <Body>
-          {avatar.map((character, i) => (
+          {avatarData.map((character, i) => (
             <SelectDataBox
               key={i}
               selectCondition={i === userInfo.character}

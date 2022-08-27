@@ -19,15 +19,18 @@ import {
   MyPageContainer,
   AmountInputBox,
   MyPageSection,
+  LogoutBtn,
 } from './MyPage.style';
 
 import AvatarImg from 'components/Profile/Avatar/AvatarImg';
+import useUser from 'store/hooks/useUser';
 
 // interface MyPageProps {}
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 const MyPage = () => {
+  const { logoutUser } = useUser();
   const MAX_AMOUNT = 9999999999;
 
   const dispatch = useAppDispatch();
@@ -49,7 +52,9 @@ const MyPage = () => {
       dispatch.changeAmount(0);
     }
   };
-
+  const handleClickLogout = () => {
+    logoutUser();
+  };
   return (
     <MyPageContainer>
       <Header title="MyPage" />
@@ -75,6 +80,12 @@ const MyPage = () => {
             </AmountInputBox>
           </AmountBox>
           <SaveButton size="full">저장하기</SaveButton>
+          <LogoutBtn
+            type="button"
+            onClick={handleClickLogout}
+          >
+            로그아웃
+          </LogoutBtn>
         </StyledMyPage>
       </MyPageSection>
     </MyPageContainer>

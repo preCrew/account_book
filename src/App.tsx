@@ -14,7 +14,7 @@ import { auth } from 'firebaseConfig';
 import useUser from 'store/hooks/useUser';
 
 const App = () => {
-  const { keepingLoginState, loginUser, logoutUser, getUserInfo } = useUser();
+  const { keepingLoginState, getUserInfo } = useUser();
   const { changeSelectDate, readReceipts } = useAccountBook();
 
   useEffect(() => {
@@ -38,24 +38,11 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClickLogin = () => {
-    loginUser('google');
-  };
-  const handleClickLogout = () => {
-    logoutUser();
-  };
   const dev = true;
 
   return (
     <>
       <Layout>
-        {dev && (
-          <>
-            <button onClick={handleClickLogin}>임시 로그인</button>
-            <button onClick={handleClickLogout}>임시 로그아웃</button>
-          </>
-        )}
-
         <Routes>
           <Route
             path="/"
