@@ -9,6 +9,8 @@ import asyncUpdateUserInfo from 'store/reducers/userThunk/asyncUpdateUserInfo';
 import { useAppDispatch } from 'store/store';
 import {
   chageCaracterAction,
+  changebudgetAction,
+  changeNameAction,
   keepingLoginStateAction,
 } from '../reducers/user-Slice';
 
@@ -21,6 +23,21 @@ const useUser = () => {
     },
     [dispatch],
   );
+
+  const changeBudget = useCallback(
+    (userBudget: number) => {
+      dispatch(changebudgetAction(userBudget));
+    },
+    [dispatch],
+  );
+
+  const changeName = useCallback(
+    (userName: string) => {
+      dispatch(changeNameAction(userName));
+    },
+    [dispatch],
+  );
+
   const createUser = (email: string, password: string) => {
     dispatch(
       asyncCreateUser({
@@ -57,6 +74,8 @@ const useUser = () => {
 
   return {
     chageCaracter,
+    changeName,
+    changeBudget,
     createUser,
     loginUser,
     logoutUser,
