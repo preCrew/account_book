@@ -1,5 +1,10 @@
-import React, { ChangeEventHandler, useEffect, useMemo, useState } from 'react';
-import { AddReceiptTable, AmountInput } from './AddReceiptModal.style';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  AddReceiptModalFooterButton,
+  AddReceiptModalFooterContainer,
+  AddReceiptTable,
+  AmountInput,
+} from './AddReceiptModal.style';
 import SubmitBtn from '../../../Button/Button';
 import moment from 'moment';
 import { Tdata } from './AddReceiptModal';
@@ -7,7 +12,8 @@ import useInput from 'hooks/useInput';
 import useSelect from 'hooks/useSelect';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
-
+import { AiFillDelete } from 'react-icons/ai';
+import { useAppSelector } from 'store/store';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
@@ -15,14 +21,33 @@ interface AddReceiptFormProps {
     month: number;
     date: number;
   };
+  update?: boolean;
+  id?: number;
 }
 
-const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
-  const [amount, setAmount, onChangeAmount] = useInput('');
-  const [account, , onChangeAccount] = useInput('');
-  const [group, setGroup, onChangeGroup] = useSelect('');
-  const [category, setCategory, onChangeCategory] = useSelect('');
-  const [payment, setPayment, onChagePayment] = useSelect('');
+const AddReceiptForm = ({
+  data,
+  onClose,
+  date,
+  update,
+}: AddReceiptFormProps) => {
+  console.log('moda');
+  const { addReceipt, deleteReceipt, updateReceipt } = useAccountBook();
+  const selectReceipt = useAppSelector(state =>
+    state.accountBook.receipts.find(
+      receipt => receipt.id === state.accountBook.selectId,
+    ),
+  );
+  const [state, setState] = useState({
+    amount: update
+      ? (selectReceipt?.spending as number) ?? (selectReceipt?.income as number)
+      : '',
+    account: update ? selectReceipt?.transactionBranch : '',
+    group: update ? (selectReceipt?.spending ? '지출' : '수입') : data.group[0],
+    category: update ? selectReceipt?.category : data.category[0],
+    payment: update ? selectReceipt?.paymentMethod : data.payment[0],
+  });
+
   const currentTime = useMemo(() => {
     const time = moment();
     if (date) {
@@ -30,33 +55,23 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
       time.date(date.date);
     }
     return time;
-  }, []);
-  const currentObj = currentTime.toObject();
-
-  const { addReceipt } = useAccountBook();
-
-  useEffect(() => {
-    setGroup(data.group[0]);
-    setCategory(data.category[0]);
-    setPayment(data.payment[0]);
-  }, []);
+  }, [date]);
 
   const onSubmitReceipt = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (amount === '') {
+    if (state.amount === '') {
       return alert('지출 금액을 입력해주세요');
     }
-    if (account === '') {
+    if (state.account === '') {
       return alert('거래처를 입력해주세요');
     }
 
+    const currentObj = currentTime.toObject();
     const responseObj: TReceipt = {
-      //spending: parseInt(amount),
-      //group: group,
-      category: category,
-      paymentMethod: payment,
-      transactionBranch: account as string,
+      category: state.category as string,
+      paymentMethod: state.payment,
+      transactionBranch: state.account as string,
       timeDate: {
         year: currentObj.years,
         month: date?.month ?? currentObj.months + 1,
@@ -65,26 +80,46 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
         minutes: currentObj.minutes,
       },
     };
-    console.log(responseObj);
 
-    if (group === '지출') {
-      responseObj.spending = (amount as unknown as number) * -1;
+    if (state.group === '지출') {
+      responseObj.spending = Math.abs(state.amount as number) * -1; //(amount as unknown as number) * -1;
+      responseObj.income = null;
     }
-    if (group === '수입') {
-      responseObj.income = (amount as unknown as number) * 1;
+    if (state.group === '수입') {
+      responseObj.spending = null;
+      responseObj.income = Math.abs(state.amount as number) * 1; //unknown as number) * 1;
     }
 
+    if (update) {
+      updateReceipt(selectReceipt?.id as number, responseObj);
+    } else {
+      addReceipt(responseObj);
+    }
     onClose();
-    addReceipt(responseObj);
+  };
+
+  const handleClickDelete = () => {
+    deleteReceipt(selectReceipt?.id as number);
+    onClose();
+  };
+
+  const handleChangeInputOrSelect = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setState(beforeState => ({
+      ...beforeState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
     <form>
       <AmountInput>
         <input
+          name="amount"
           type="number"
-          value={amount}
-          onChange={onChangeAmount}
+          value={state.amount}
+          onChange={handleChangeInputOrSelect}
           autoFocus
         />
         <span>원</span>
@@ -95,9 +130,9 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
             <th>분류</th>
             <td>
               <select
-                value={group}
-                defaultValue={data.group[0]}
-                onChange={onChangeGroup}
+                name="group"
+                value={state.group}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.group.map(option => (
                   <option
@@ -114,9 +149,9 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
             <th>카테고리</th>
             <td>
               <select
-                value={category as string}
-                defaultValue={data.category[0]}
-                onChange={onChangeCategory}
+                name="category"
+                value={state.category}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.category.map(option => (
                   <option
@@ -133,23 +168,34 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
             <th>거래처</th>
             <td>
               <input
+                name="account"
                 type="text"
-                value={account}
-                onChange={onChangeAccount}
+                value={state.account}
+                onChange={handleChangeInputOrSelect}
               />
             </td>
           </tr>
           <tr>
             <th>날짜</th>
-            <td>{currentTime.format('YYYY-MM-DD HH:mm:ss')}</td>
+            <td>
+              {update
+                ? moment(
+                    `${selectReceipt?.timeDate.year}-
+                    ${selectReceipt?.timeDate.month}-
+                    ${selectReceipt?.timeDate.date}
+                    ${selectReceipt?.timeDate.hours}:
+                    ${selectReceipt?.timeDate.minutes}`,
+                  ).format('YYYY-MM-DD HH:mm:ss')
+                : currentTime.format('YYYY-MM-DD HH:mm:ss')}
+            </td>
           </tr>
           <tr>
             <th>결제수단</th>
             <td>
               <select
-                value={payment as string}
-                defaultValue={data.payment[0]}
-                onChange={onChagePayment}
+                name="payment"
+                value={state.payment as string}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.payment.map(option => (
                   <option
@@ -164,12 +210,19 @@ const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
           </tr>
         </tbody>
       </AddReceiptTable>
-      <SubmitBtn
-        size="full"
-        onClick={onSubmitReceipt}
-      >
-        저장하기
-      </SubmitBtn>
+      <AddReceiptModalFooterContainer>
+        {update && (
+          <AddReceiptModalFooterButton onClick={handleClickDelete}>
+            <AiFillDelete />
+          </AddReceiptModalFooterButton>
+        )}
+        <SubmitBtn
+          size="full"
+          onClick={onSubmitReceipt}
+        >
+          저장하기
+        </SubmitBtn>
+      </AddReceiptModalFooterContainer>
     </form>
   );
 };
