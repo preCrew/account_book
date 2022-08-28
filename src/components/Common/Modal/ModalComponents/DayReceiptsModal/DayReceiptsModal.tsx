@@ -1,8 +1,11 @@
 import PayItem from 'components/PayItem';
+import useModal from 'hooks/useModal';
 import { useCallback, useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
+import { Down100, Up100 } from 'styles/animations';
+import AddReceiptModal from '../AddReceiptModal';
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
@@ -11,6 +14,8 @@ import {
 
 const DayReceiptsModal = () => {
   const { Container, Header, Body } = ModalS;
+
+  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
   const { year, month, date } = useAppSelector(
     state => state.accountBook.selectDate,
   );
@@ -19,7 +24,7 @@ const DayReceiptsModal = () => {
       receipt => receipt.timeDate.date === date,
     ),
   );
-  const { seleceDateReceiptsSum, addReceipt } = useAccountBook();
+  const { seleceDateReceiptsSum } = useAccountBook();
 
   const day = useMemo(() => {
     const day = new Date(year, month - 1, date).getDay();
@@ -38,25 +43,8 @@ const DayReceiptsModal = () => {
 
   // const handleClickAdd = () => {
   const handleClickAdd = useCallback(() => {
-    const receipt: TReceipt = {
-      category: '놀았어',
-      transactionBranch: '피시방',
-      spending: -1000,
-      // income: 1000,
-      memo: 'test Memo',
-      timeDate: {
-        year: 2022,
-        month: 8,
-        date: 14,
-        hours: 12,
-        minutes: 25,
-      },
-      paymentMethod: '카드!',
-    };
-    addReceipt(receipt);
-    // TODO: 위의 내용들음 임시임
-    // 추가버튼 클릭시 새로운 입력을 위해 새로운 모달창을 띄워준다.
-  }, [addReceipt]);
+    showModal();
+  }, [showModal]);
   return (
     <Container height="auto">
       <Header flexDirection="column">
@@ -88,6 +76,10 @@ const DayReceiptsModal = () => {
           />
         </DayReceiptModalBody>
       </Body>
+
+      <Modal>
+        <AddReceiptModal onClose={closeModal} />
+      </Modal>
     </Container>
   );
 };
