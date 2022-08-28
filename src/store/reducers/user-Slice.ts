@@ -80,6 +80,12 @@ const userSlice = createSlice({
     chageCaracterAction(state: TUser, action: PayloadAction<number>) {
       state.userInfo.character = action.payload;
     },
+    changeNameAction(state: TUser, action: PayloadAction<string>) {
+      state.userInfo.name = action.payload;
+    },
+    changebudgetAction(state: TUser, action: PayloadAction<number>) {
+      state.userInfo.budget = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(asyncCreateUser.pending, asyncCreateUserPending);
@@ -107,6 +113,10 @@ const userSlice = createSlice({
   },
 });
 
-export const { keepingLoginStateAction, chageCaracterAction } =
-  userSlice.actions;
+export const {
+  keepingLoginStateAction,
+  changeNameAction,
+  changebudgetAction,
+  chageCaracterAction,
+} = userSlice.actions;
 export default userSlice.reducer;
