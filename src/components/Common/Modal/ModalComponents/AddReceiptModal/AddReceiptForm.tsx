@@ -64,22 +64,6 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
 
     onClose();
     addReceipt(responseObj);
-    // dispatch(
-    //   changeReceiptAction({
-    //     spending: parseInt(amount),
-    //     group: group,
-    //     category: category,
-    //     paymentMethod: payment,
-    //     account: account,
-    //     timeDate: {
-    //       year: currentObj.years,
-    //       month: currentObj.months + 1,
-    //       date: currentObj.date,
-    //       hours: currentObj.hours,
-    //       minutes: currentObj.minutes,
-    //     },
-    //   }),
-    // );
   };
 
   return (

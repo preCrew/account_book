@@ -8,18 +8,15 @@ const inputStyle = css`
   outline: 0;
 `;
 
-export const AddReceiptFormWrap = styled.div`
-  & > div {
-    height: 95%;
-  }
-`;
+export const AddReceiptFormWrap = styled.div``;
 export const InputWrap = styled.div``;
 export const AmountInput = styled.div`
   position: relative;
   & input {
     &::-webkit-inner-spin-button,
+    /* stylelint-enable property-no-vendor-prefix */
     &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
+      /* -webkit-appearance: unset; */
     }
     width: 100%;
     margin: 0;
