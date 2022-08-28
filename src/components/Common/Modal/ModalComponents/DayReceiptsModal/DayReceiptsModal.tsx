@@ -78,7 +78,10 @@ const DayReceiptsModal = () => {
       </Body>
 
       <Modal>
-        <AddReceiptModal onClose={closeModal} />
+        <AddReceiptModal
+          onClose={closeModal}
+          date={{ month, date }}
+        />
       </Modal>
     </Container>
   );

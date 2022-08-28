@@ -11,15 +11,26 @@ import { TReceipt } from 'store/reducers/accoutBook-Slice';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
+  date?: {
+    month: number;
+    date: number;
+  };
 }
 
-const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
+const AddReceiptForm = ({ data, onClose, date }: AddReceiptFormProps) => {
   const [amount, setAmount, onChangeAmount] = useInput('');
   const [account, , onChangeAccount] = useInput('');
   const [group, setGroup, onChangeGroup] = useSelect('');
   const [category, setCategory, onChangeCategory] = useSelect('');
   const [payment, setPayment, onChagePayment] = useSelect('');
-  const currentTime = useMemo(() => moment(), []);
+  const currentTime = useMemo(() => {
+    const time = moment();
+    if (date) {
+      time.month(date.month - 1);
+      time.date(date.date);
+    }
+    return time;
+  }, []);
   const currentObj = currentTime.toObject();
 
   const { addReceipt } = useAccountBook();
@@ -48,12 +59,13 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
       transactionBranch: account as string,
       timeDate: {
         year: currentObj.years,
-        month: currentObj.months + 1,
-        date: currentObj.date,
+        month: date?.month ?? currentObj.months + 1,
+        date: date?.date ?? currentObj.date,
         hours: currentObj.hours,
         minutes: currentObj.minutes,
       },
     };
+    console.log(responseObj);
 
     if (group === '지출') {
       responseObj.spending = (amount as unknown as number) * -1;

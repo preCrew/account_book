@@ -30,9 +30,13 @@ const SelectData: Tdata = {
 
 interface AddReceiptModalProps {
   onClose: () => void;
+  date?: {
+    month: number;
+    date: number;
+  };
 }
 
-const AddReceiptModal = ({ onClose }: AddReceiptModalProps) => {
+const AddReceiptModal = ({ onClose, date }: AddReceiptModalProps) => {
   const { Container, Header, Body } = ModalS;
 
   return (
@@ -46,6 +50,7 @@ const AddReceiptModal = ({ onClose }: AddReceiptModalProps) => {
           <AddReceiptForm
             data={SelectData}
             onClose={onClose}
+            date={date}
           />
         </Body>
       </Container>
