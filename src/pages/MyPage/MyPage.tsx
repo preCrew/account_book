@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import useAppDispatch from '../../store/hooks/useAccountBook';
 import { useAppSelector } from '../../store/store';
 import Input from 'components/Common/Input';
 import useModal from 'hooks/useModal';
@@ -24,7 +23,6 @@ import {
 
 import AvatarImg from 'components/Profile/Avatar/AvatarImg';
 import useUser from 'store/hooks/useUser';
-import useInput from 'hooks/useInput';
 
 // interface MyPageProps {}
 
@@ -36,41 +34,59 @@ const MyPage = () => {
 
   const user = useAppSelector(state => state.user);
   const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
-  const [value, setValue, onChange] = useInput('Name');
-  const [amount, setAmount, onChangeAmount] = useInput(0);
-  const { getUserInfo } = useUser();
-  const { updateUserInfo, changeBudget, changeName } = useUser();
+  const { updateUserInfo, getUserInfo, changeBudget, changeName } = useUser();
+  const serverName = user.userInfo.name;
+  const serverBudget = user.userInfo.budget;
 
+  //초기화
   useEffect(() => {
     getUserInfo();
-    if (user.userInfo.name !== '') {
-      setValue(user.userInfo.name);
-      setAmount(user.userInfo.budget);
+    if (serverName !== '' || serverBudget !== 0) {
+      changeName(user.userInfo.name);
+      changeBudget(user.userInfo.budget);
     }
   }, []);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {
-    setAmount(e.target.valueAsNumber);
+    const amount = e.target.valueAsNumber;
+    changeBudget(amount);
 
     //Amount유효성 검사
     if (amount > -1) {
       if (amount > MAX_AMOUNT || amount < 0) {
         alert('입력할 수 있는 단위가 아닙니다.');
-        setAmount(NaN);
+        changeBudget(NaN);
       }
     } else {
-      setAmount(0);
+      changeBudget(0);
+    }
+  };
+
+  const handleChangeNameSetting = (e: InputChangeEvent) => {
+    const name = e.target.value;
+    changeName(name);
+
+    //Name유효성 검사
+    if (name.length > 10) {
+      alert('최대 10글자 까지 가능합니다.');
+      changeName(name.substring(0, 10));
     }
   };
 
   const handleClickSave = () => {
-    changeName(value as string);
-    changeBudget(amount as number);
-    updateUserInfo();
+    console.log(serverName.length);
 
-    getUserInfo();
-    setValue(user.userInfo.name);
-    setAmount(user.userInfo.budget);
+    if (serverName.length !== 0) {
+      //유저정보 Update
+      changeName(user.userInfo.name as string);
+      changeBudget(user.userInfo.budget as number);
+      updateUserInfo();
+      //유저정보 Fetch
+      getUserInfo();
+      alert('저장되었습니다.');
+    } else {
+      alert('빈값을 저장할수 없습니다.');
+    }
   };
   const handleClickLogout = () => {
     logoutUser();
@@ -89,8 +105,8 @@ const MyPage = () => {
           <Name>
             <Input
               type={'text'}
-              value={value}
-              onChange={onChange}
+              value={user.userInfo.name}
+              onChange={handleChangeNameSetting}
             />
           </Name>
           <Emaile>{user.email}</Emaile>
@@ -100,9 +116,8 @@ const MyPage = () => {
             <AmountInputBox>
               <Input
                 type={'number'}
-                value={amount}
+                value={user.userInfo.budget}
                 onChange={e => {
-                  onChangeAmount(e);
                   handleChangeAmountSetting(e);
                 }}
               />
