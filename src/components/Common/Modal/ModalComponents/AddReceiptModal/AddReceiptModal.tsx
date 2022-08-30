@@ -11,7 +11,7 @@ export interface Tdata {
   category: string[];
   payment: string[];
 }
-const SelectData: Tdata = {
+export const SelectData: Tdata = {
   group: ['지출', '수입', '이체'],
   category: [
     '식비',
