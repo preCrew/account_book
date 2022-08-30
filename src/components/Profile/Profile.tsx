@@ -10,7 +10,7 @@ import { useState } from 'react';
 const Profile = () => {
   const { loadingState, userInfo } = useAppSelector(state => state.user);
   const totalExpense = 0;
-  const { Modal, showModal, closeModal } = useModal({});
+  const { Modal, showModal, closeModal } = useModal({ modalName: 'profile' });
   // const [] = useState();
 
   return (

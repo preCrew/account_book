@@ -16,12 +16,12 @@ const CalendarPage = () => {
   const month = useAppSelector(state => state.accountBook.selectDate.month);
 
   // const;
-  const { Modal, showModal } = useModal({});
+  const { Modal, showModal } = useModal({ modalName: 'receipts' });
   const {
     Modal: Modal2,
     showModal: showModal2,
     closeModal: closeModal2,
-  } = useModal({});
+  } = useModal({ modalName: 'receipt' });
 
   const handleClickCalendarDate = useCallback(
     (date: number) => {

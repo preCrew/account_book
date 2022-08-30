@@ -4,11 +4,13 @@ import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 
 import accountBookReducer from './reducers/accoutBook-Slice';
 import userReducer from './reducers/user-Slice';
+import modalReducer from './reducers/modal-Slice';
 
 export const store = configureStore({
   reducer: {
     accountBook: accountBookReducer,
     user: userReducer,
+    modal: modalReducer,
   },
 });
 

@@ -15,7 +15,9 @@ import { StyledMonthSelector } from './MonthSelector.style';
 
 const MonthSelector = () => {
   const { changeSelectDateOneMonth } = useAccountBook();
-  const { Modal, showModal, closeModal } = useModal({});
+  const { Modal, showModal, closeModal } = useModal({
+    modalName: 'monthSelect',
+  });
 
   const month = useAppSelector(state => state.accountBook.selectDate.month);
   const firstYear = useAppSelector(state => state.accountBook.firstDate.year);
