@@ -30,31 +30,30 @@ export const SelectData: Tdata = {
 
 interface AddReceiptModalProps {
   onClose: () => void | ReactNode;
-  receipt?: TReceipt;
+  update?: boolean;
   date?: {
     month: number;
     date: number;
   };
 }
 
-const AddReceiptModal = ({ onClose, receipt, date }: AddReceiptModalProps) => {
+const AddReceiptModal = ({ onClose, update, date }: AddReceiptModalProps) => {
   const { Container, Header, Body } = ModalS;
 
   return (
     <AddReceiptFormWrap>
       <Container>
         <Header>
-          {receipt && '내역 수정하기'}
-          {!receipt && '내역 추가하기'}
+          {update && '내역 수정하기'}
+          {!update && '내역 추가하기'}
           <ButtonX onClick={onClose} />
         </Header>
         <Body>
           <AddReceiptForm
             data={SelectData}
-            onClose={onClose}
-            receipt={receipt}
             date={date}
-            // update={update}
+            onClose={onClose}
+            update={update}
           />
         </Body>
       </Container>

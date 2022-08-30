@@ -11,26 +11,36 @@ import { Tdata } from './AddReceiptModal';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { AiFillDelete } from 'react-icons/ai';
+import { useAppSelector } from 'store/store';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
-  receipt?: TReceipt;
+  // receipt?: TReceipt;
   date?: {
     month: number;
     date: number;
   };
-  // update?: boolean;
+  update?: boolean;
   // id?: number;
 }
 
 const AddReceiptForm = ({
   data,
   onClose,
-  receipt,
   date,
+  update,
 }: AddReceiptFormProps) => {
   console.log('form');
   const { addReceipt, deleteReceipt, updateReceipt } = useAccountBook();
+  const receipt = useAppSelector(state =>
+    state.accountBook.receipts.find(
+      receipt => receipt.id === state.accountBook.selectId,
+    ),
+  );
+  console.log(receipt);
+  // const receipt = useAppSelector(state =>
+  //   state.accountBook.receipts.find(r => r.id === id),
+  // );
 
   const [state, setState] = useState({
     amount: receipt
@@ -44,10 +54,10 @@ const AddReceiptForm = ({
 
   const currentTime = useMemo(() => {
     const time = moment();
-    date && time.month(date?.month);
-    date && time.date(date?.date);
+    !update && time.month((date?.month as number) - 1);
+    !update && time.date(date?.date as number);
     return time;
-  }, [date]);
+  }, [date, update]);
 
   const onSubmitReceipt = (e: React.FormEvent) => {
     e.preventDefault();

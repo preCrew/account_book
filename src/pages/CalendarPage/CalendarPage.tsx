@@ -8,34 +8,29 @@ import AddReceiptModal from 'components/Common/Modal/ModalComponents/AddReceiptM
 import DayReceiptsModal from 'components/Common/Modal/ModalComponents/DayReceiptsModal';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
+import useAccountBook from 'store/hooks/useAccountBook';
 
 const CalendarPage = () => {
-  console.log('calPage render');
+  const { changeSelectDate } = useAccountBook();
   const year = useAppSelector(state => state.accountBook.selectDate.year);
   const month = useAppSelector(state => state.accountBook.selectDate.month);
 
-  // const;
   const { Modal, showModal } = useModal({ modalName: 'receipts' });
-  const {
-    Modal: Modal2,
-    showModal: showModal2,
-    closeModal: closeModal2,
-  } = useModal({ modalName: 'receipt' });
 
   const handleClickCalendarDate = useCallback(
     (date: number) => {
       showModal();
-      // changeSelectDate({ date });
+      changeSelectDate({ date });
     },
-    [showModal],
+    [changeSelectDate, showModal],
   );
-  const handleClickAddButton = useCallback(() => {
-    showModal2();
-  }, [showModal2]);
+  // const handleClickAddButton = useCallback(() => {
+  //   showModal2();
+  // }, [showModal2]);
 
-  const handleClickPayItem = useCallback((receipt: TReceipt) => {
-    console.log(receipt);
-  }, []);
+  // const handleClickPayItem = useCallback((receipt: TReceipt) => {
+  //   console.log(receipt);
+  // }, []);
 
   return (
     <>
@@ -49,13 +44,10 @@ const CalendarPage = () => {
 
       <Modal>
         <DayReceiptsModal
-          onClickAddButton={handleClickAddButton}
-          onClickPayItem={handleClickPayItem}
+        // onClickAddButton={handleClickAddButton}
+        // onClickPayItem={handleClickPayItem}
         />
       </Modal>
-      <Modal2>
-        <AddReceiptModal onClose={closeModal2} />
-      </Modal2>
     </>
   );
 };
