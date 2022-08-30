@@ -2,7 +2,7 @@ import { TDateTime } from 'store/reducers/accoutBook-Slice';
 
 export const dateGenerator = (inputDate: Date, firstDate: Date) => {
   const nowDate = new Date(
-    `${inputDate.getFullYear()}-${inputDate.getMonth()}-1`,
+    `${inputDate.getFullYear()}-${inputDate.getMonth() + 1}-1`,
   );
 
   const dates: TDateTime[] = [];
@@ -19,6 +19,7 @@ export const dateGenerator = (inputDate: Date, firstDate: Date) => {
     });
     nowDate.setMonth(nowDate.getMonth() - 1);
   }
+  console.log(dates);
   return dates;
 };
 

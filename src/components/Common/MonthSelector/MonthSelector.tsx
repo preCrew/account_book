@@ -17,8 +17,10 @@ const MonthSelector = () => {
   const { Modal, showModal, closeModal } = useModal({
     modalName: 'monthSelect',
   });
+  const { readReceipts } = useAccountBook();
 
   const month = useAppSelector(state => state.accountBook.selectDate.month);
+  const year = useAppSelector(state => state.accountBook.selectDate.year);
   const firstYear = useAppSelector(state => state.accountBook.firstDate.year);
   const firstMonth = useAppSelector(state => state.accountBook.firstDate.month);
 
@@ -29,7 +31,8 @@ const MonthSelector = () => {
 
   const handleClickLeft = useCallback(() => {
     changeSelectDateOneMonth(-1);
-  }, [changeSelectDateOneMonth]);
+    readReceipts({ month: month - 1, year });
+  }, [changeSelectDateOneMonth, month, readReceipts, year]);
 
   const handleClickMonth = useCallback(() => {
     showModal();
@@ -37,7 +40,8 @@ const MonthSelector = () => {
 
   const handleClickRight = useCallback(() => {
     changeSelectDateOneMonth(+1);
-  }, [changeSelectDateOneMonth]);
+    readReceipts({ month: month + 1, year });
+  }, [changeSelectDateOneMonth, month, readReceipts, year]);
   return (
     <>
       <StyledMonthSelector>
