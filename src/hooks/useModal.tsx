@@ -1,33 +1,43 @@
 import ModalFrame from 'components/Common/Modal';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Keyframes } from 'styled-components';
+import { Down100, Up100 } from 'styles/animations';
 
-const useModal = (
-  openAnime?: Keyframes,
-  closeAnime?: Keyframes,
+interface useModalProps {
+  openAnime?: Keyframes;
+  closeAnime?: Keyframes;
+  animeTimeMs?: number;
+}
+const useModal = ({
+  openAnime = Up100,
+  closeAnime = Down100,
   animeTimeMs = 300,
-) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isUnmount, setIsUnmount] = useState(false);
+}: useModalProps) => {
+  const [state, setState] = useState({
+    isOpen: false,
+    isUnmount: false,
+  });
 
-  const closeModal = () => {
-    setIsUnmount(true);
-
+  const closeModal = useCallback(() => {
+    setState(state => ({ ...state, isUnmount: true }));
     setTimeout(() => {
-      setIsOpen(false);
+      // setIsOpen(false);
+      setState(state => ({ ...state, isOpen: false }));
     }, animeTimeMs);
-  };
+  }, [animeTimeMs]);
 
-  const showModal = () => {
-    setIsUnmount(false);
-    setIsOpen(true);
-  };
+  const showModal = useCallback(() => {
+    // setIsUnmount(false);
+    setState(state => ({ ...state, isUnmount: false, isOpen: true }));
+
+    // setIsOpen(true);
+  }, []);
 
   const Modal = ({ children }: { children: React.ReactNode }) => (
     <ModalFrame
-      isOpen={isOpen}
+      isOpen={state.isOpen}
       onClose={closeModal}
-      isUnmount={isUnmount}
+      isUnmount={state.isUnmount}
       openAnimation={openAnime}
       closeAnimation={closeAnime}
     >

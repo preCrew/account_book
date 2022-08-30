@@ -15,7 +15,6 @@ const PayItem = ({
   transactionBranch,
   onClick,
 }: PayItemProps) => {
-  console.log('otem');
   return (
     <PayListWrap onClick={onClick}>
       <ListTit>

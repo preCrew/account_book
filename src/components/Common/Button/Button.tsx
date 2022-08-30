@@ -1,3 +1,4 @@
+import React from 'react';
 import { TAlignItems, TJustifyContents } from '../Flex/Flex.style';
 import { ButtonS, ButtonWrapper } from './Button.style';
 import './Button.style.ts';
@@ -39,4 +40,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default React.memo(Button);

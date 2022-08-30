@@ -35,8 +35,8 @@ export interface TReceipt {
   category: string; // 카테고리
   transactionBranch: string; //거래처
   timeDate: TDateTime;
-  income?: number; // 수입
-  spending?: number; //지출
+  income?: number | null; // 수입
+  spending?: number | null; //지출
   memo?: string; // 메모
   paymentMethod?: string; // 지불방법
   depositMethod?: string; //입금방법
@@ -52,6 +52,7 @@ export interface TAccountBook {
     update: TLoadingState | Record<string, unknown>;
   };
   receipts: TReceipt[];
+  selectId: number;
   selectDate: TDateTime; // 선택한 년, 월
   firstDate: TDateTime; // 가계부에 등록된 첫번쨰 영수증의 년, 월
   totalIncome: number; // 선택한 달의 총 수입
@@ -74,6 +75,7 @@ const initialAccountBookState: TAccountBook = {
     hours: 0,
     minutes: 0,
   },
+  selectId: 0,
   firstDate: {
     year: 2020,
     month: 1,
@@ -121,6 +123,9 @@ const accountBookSlice = createSlice({
     changeAmountAction(state: TAccountBook, action: PayloadAction<number>) {
       state.amount = action.payload;
     },
+    changeSelectIdAction(state: TAccountBook, action: PayloadAction<number>) {
+      state.selectId = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(asyncCreateReceipt.pending, asyncCreateReceiptPending);
@@ -146,5 +151,6 @@ export const {
   changeFirstDateAction,
   changeSelectDateOneMonthAction,
   changeAmountAction,
+  changeSelectIdAction,
 } = accountBookSlice.actions;
 export default accountBookSlice.reducer;

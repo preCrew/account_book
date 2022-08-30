@@ -8,52 +8,44 @@ import {
 import SubmitBtn from '../../../Button/Button';
 import moment from 'moment';
 import { Tdata } from './AddReceiptModal';
-import useInput from 'hooks/useInput';
-import useSelect from 'hooks/useSelect';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { AiFillDelete } from 'react-icons/ai';
-import { useAppSelector } from 'store/store';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
+  receipt?: TReceipt;
   date?: {
     month: number;
     date: number;
   };
-  update?: boolean;
-  id?: number;
+  // update?: boolean;
+  // id?: number;
 }
 
 const AddReceiptForm = ({
   data,
   onClose,
+  receipt,
   date,
-  update,
 }: AddReceiptFormProps) => {
-  console.log('moda');
+  console.log('form');
   const { addReceipt, deleteReceipt, updateReceipt } = useAccountBook();
-  const selectReceipt = useAppSelector(state =>
-    state.accountBook.receipts.find(
-      receipt => receipt.id === state.accountBook.selectId,
-    ),
-  );
+
   const [state, setState] = useState({
-    amount: update
-      ? (selectReceipt?.spending as number) ?? (selectReceipt?.income as number)
+    amount: receipt
+      ? (receipt?.spending as number) ?? (receipt?.income as number)
       : '',
-    account: update ? selectReceipt?.transactionBranch : '',
-    group: update ? (selectReceipt?.spending ? '지출' : '수입') : data.group[0],
-    category: update ? selectReceipt?.category : data.category[0],
-    payment: update ? selectReceipt?.paymentMethod : data.payment[0],
+    account: receipt ? receipt?.transactionBranch : '',
+    group: receipt ? (receipt?.spending ? '지출' : '수입') : data.group[0],
+    category: receipt ? receipt?.category : data.category[0],
+    payment: receipt ? receipt?.paymentMethod : data.payment[0],
   });
 
   const currentTime = useMemo(() => {
     const time = moment();
-    if (date) {
-      time.month(date.month - 1);
-      time.date(date.date);
-    }
+    date && time.month(date?.month);
+    date && time.date(date?.date);
     return time;
   }, [date]);
 
@@ -74,8 +66,8 @@ const AddReceiptForm = ({
       transactionBranch: state.account as string,
       timeDate: {
         year: currentObj.years,
-        month: date?.month ?? currentObj.months + 1,
-        date: date?.date ?? currentObj.date,
+        month: receipt?.timeDate.month ?? currentObj.months + 1,
+        date: receipt?.timeDate.date ?? currentObj.date,
         hours: currentObj.hours,
         minutes: currentObj.minutes,
       },
@@ -90,8 +82,8 @@ const AddReceiptForm = ({
       responseObj.income = Math.abs(state.amount as number) * 1; //unknown as number) * 1;
     }
 
-    if (update) {
-      updateReceipt(selectReceipt?.id as number, responseObj);
+    if (receipt) {
+      updateReceipt(receipt?.id as number, responseObj);
     } else {
       addReceipt(responseObj);
     }
@@ -99,7 +91,7 @@ const AddReceiptForm = ({
   };
 
   const handleClickDelete = () => {
-    deleteReceipt(selectReceipt?.id as number);
+    deleteReceipt(receipt?.id as number);
     onClose();
   };
 
@@ -178,13 +170,13 @@ const AddReceiptForm = ({
           <tr>
             <th>날짜</th>
             <td>
-              {update
+              {receipt
                 ? moment(
-                    `${selectReceipt?.timeDate.year}-
-                    ${selectReceipt?.timeDate.month}-
-                    ${selectReceipt?.timeDate.date}
-                    ${selectReceipt?.timeDate.hours}:
-                    ${selectReceipt?.timeDate.minutes}`,
+                    `${receipt?.timeDate.year}-
+                    ${receipt?.timeDate.month}-
+                    ${receipt?.timeDate.date}
+                    ${receipt?.timeDate.hours}:
+                    ${receipt?.timeDate.minutes}`,
                   ).format('YYYY-MM-DD HH:mm:ss')
                 : currentTime.format('YYYY-MM-DD HH:mm:ss')}
             </td>
@@ -211,7 +203,7 @@ const AddReceiptForm = ({
         </tbody>
       </AddReceiptTable>
       <AddReceiptModalFooterContainer>
-        {update && (
+        {receipt && (
           <AddReceiptModalFooterButton onClick={handleClickDelete}>
             <AiFillDelete />
           </AddReceiptModalFooterButton>
@@ -227,4 +219,4 @@ const AddReceiptForm = ({
   );
 };
 
-export default AddReceiptForm;
+export default React.memo(AddReceiptForm);

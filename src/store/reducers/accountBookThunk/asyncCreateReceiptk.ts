@@ -27,6 +27,7 @@ const asyncCreateReceipt = createAsyncThunk(
       id: timeStamp,
     };
 
+    // console.log(data);
     try {
       // 데이터를 씀
       await setDoc(doc(db, 'receipts', timeStamp.toString()), data);
@@ -53,16 +54,6 @@ const asyncCreateReceipt = createAsyncThunk(
 );
 
 const asyncCreateReceiptPending: CaseReducer = (state, action) => {
-  // state = {
-  //   loadingState: {
-  //     create: {
-  //       loading: true,
-  //       success: false,
-  //       error: false,
-  //       errorMsg: null,
-  //     },
-  //   },
-  // };
   state.loadingState.create.loading = true;
   state.loadingState.create.success = false;
   state.loadingState.create.error = false;
@@ -70,19 +61,8 @@ const asyncCreateReceiptPending: CaseReducer = (state, action) => {
 };
 
 const asyncCreateReceiptFulfilled: CaseReducer = (state, action) => {
-  // state = {
-  //   ...state,
-  //   receipts: state.receipts.concat(action.payload.data),
-  //   loadingState: {
-  //     create: {
-  //       loading: false,
-  //       success: true,
-  //     },
-  //   },
-  // };
-  state.loadingState.create.loading = false;
-  state.loadingState.create.success = true;
-
+  // state.loadingState.create.loading = false;
+  // state.loadingState.create.success = true;
   state.receipts.push(action.payload.data);
 };
 

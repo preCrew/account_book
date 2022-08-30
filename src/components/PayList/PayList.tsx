@@ -10,7 +10,7 @@ const PayList = () => {
       {receipts.map(receipt => (
         <PayItem
           key={receipt.id}
-          amount={receipt.income ?? receipt.spending}
+          amount={(receipt.income as number) ?? (receipt.spending as number)}
           title={receipt.transactionBranch}
         />
       ))}

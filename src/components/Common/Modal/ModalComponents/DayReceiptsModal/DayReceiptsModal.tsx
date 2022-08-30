@@ -4,18 +4,24 @@ import { useCallback, useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { useAppSelector } from 'store/store';
-import { Down100, Up100 } from 'styles/animations';
-import AddReceiptModal from '../AddReceiptModal';
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
   DayReceiptsModalHeader,
 } from './DayReceiptsModal.style';
 
-const DayReceiptsModal = () => {
+interface DayReceiptsModalProps {
+  onClickAddButton: () => void;
+  onClickPayItem: (receipt: TReceipt) => void;
+}
+
+const DayReceiptsModal = ({
+  onClickAddButton,
+  onClickPayItem,
+}: DayReceiptsModalProps) => {
+  console.log('day');
   const { Container, Header, Body } = ModalS;
 
-  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
   const { year, month, date } = useAppSelector(
     state => state.accountBook.selectDate,
   );
@@ -41,10 +47,6 @@ const DayReceiptsModal = () => {
     [seleceDateReceipts],
   );
 
-  // const handleClickAdd = () => {
-  const handleClickAdd = useCallback(() => {
-    showModal();
-  }, [showModal]);
   return (
     <Container height="auto">
       <Header flexDirection="column">
@@ -66,23 +68,19 @@ const DayReceiptsModal = () => {
             <PayItem
               key={receipt.id}
               title={receipt.transactionBranch}
-              amount={receipt.income ?? receipt.spending}
+              amount={
+                (receipt.income as number) ?? (receipt.spending as number)
+              }
               transactionBranch={receipt.paymentMethod}
+              onClick={() => onClickPayItem(receipt)}
             />
           ))}
           <PayItem
             title="추가하기"
-            onClick={handleClickAdd}
+            onClick={onClickAddButton}
           />
         </DayReceiptModalBody>
       </Body>
-
-      <Modal>
-        <AddReceiptModal
-          onClose={closeModal}
-          date={{ month, date }}
-        />
-      </Modal>
     </Container>
   );
 };

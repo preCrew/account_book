@@ -6,6 +6,7 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+  console.log('heade!!!!!!!!!!!!!!!!!!!!!!!!r');
   return (
     <>
       <HeaderWrap>{title}</HeaderWrap>
@@ -13,4 +14,4 @@ const Header = ({ title }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
