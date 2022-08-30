@@ -17,6 +17,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending10 = 0;
   const accountBook = useAppSelector(state => state.accountBook);
 
+  //category1
   const category1 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[0],
   );
@@ -25,6 +26,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending1 += Math.abs(category1[i].spending as number);
   }
 
+  //category2
   const category2 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[1],
   );
@@ -33,6 +35,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending2 += Math.abs(category2[i].spending as number);
   }
 
+  //category3
   const category3 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[2],
   );
@@ -41,7 +44,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending3 += Math.abs(category3[i].spending as number);
   }
 
-  //4
+  //category4
   const category4 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[3],
   );
@@ -50,7 +53,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending4 += Math.abs(category4[i].spending as number);
   }
 
-  //5
+  //category5
   const category5 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[4],
   );
@@ -59,7 +62,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending5 += Math.abs(category5[i].spending as number);
   }
 
-  //6
+  //category6
   const category6 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[5],
   );
@@ -68,7 +71,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending6 += Math.abs(category6[i].spending as number);
   }
 
-  //7
+  //category7
   const category7 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[6],
   );
@@ -77,7 +80,7 @@ const StatisticsPage: React.FC<Props> = () => {
     spending7 += Math.abs(category7[i].spending as number);
   }
 
-  //8
+  //category8
   const category8 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[7],
   );
@@ -85,7 +88,7 @@ const StatisticsPage: React.FC<Props> = () => {
   for (let i = 0; i < category8.length; i++) {
     spending8 += Math.abs(category8[i].spending as number);
   }
-  //9
+  //category9
   const category9 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[8],
   );
@@ -93,7 +96,7 @@ const StatisticsPage: React.FC<Props> = () => {
   for (let i = 0; i < category9.length; i++) {
     spending9 += Math.abs(category9[i].spending as number);
   }
-  //10
+  //category10
   const category10 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[9],
   );
