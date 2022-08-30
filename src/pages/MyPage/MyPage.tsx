@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import useAppDispatch from '../../store/hooks/useAccountBook';
 import { useAppSelector } from '../../store/store';
 import Input from 'components/Common/Input';
 import useModal from 'hooks/useModal';
@@ -35,8 +34,7 @@ const MyPage = () => {
 
   const user = useAppSelector(state => state.user);
   const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
-  const { getUserInfo } = useUser();
-  const { updateUserInfo, changeBudget, changeName } = useUser();
+  const { updateUserInfo, getUserInfo, changeBudget, changeName } = useUser();
   const serverName = user.userInfo.name;
   const serverBudget = user.userInfo.budget;
 
