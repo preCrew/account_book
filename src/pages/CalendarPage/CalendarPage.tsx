@@ -3,8 +3,7 @@ import MonthSelector from 'components/Common/MonthSelector';
 import './CalendarPage.style.ts';
 import Header from '../../components/Common/Layout/Header';
 import useModal from 'hooks/useModal';
-import { Down100, Up100 } from 'styles/animations';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import AddReceiptModal from 'components/Common/Modal/ModalComponents/AddReceiptModal';
 import DayReceiptsModal from 'components/Common/Modal/ModalComponents/DayReceiptsModal';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
@@ -32,7 +31,7 @@ const CalendarPage = () => {
   );
   const handleClickAddButton = useCallback(() => {
     showModal2();
-  }, []);
+  }, [showModal2]);
 
   const handleClickPayItem = useCallback((receipt: TReceipt) => {
     console.log(receipt);
@@ -51,7 +50,7 @@ const CalendarPage = () => {
       <Modal>
         <DayReceiptsModal
           onClickAddButton={handleClickAddButton}
-          onClickPayItem={handleClickAddButton}
+          onClickPayItem={handleClickPayItem}
         />
       </Modal>
       <Modal2>

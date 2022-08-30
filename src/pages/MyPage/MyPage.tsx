@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useAppSelector } from '../../store/store';
 import Input from 'components/Common/Input';
 import useModal from 'hooks/useModal';
-import { Down100, Up100 } from 'styles/animations';
 import SelectCharacterModal from '../../components/Common/Modal/ModalComponents/SelectCharacterModal';
 import Header from '../../components/Common/Layout/Header';
 import SaveButton from '../../components/Common/Button/Button';
@@ -45,6 +44,7 @@ const MyPage = () => {
       changeName(user.userInfo.name);
       changeBudget(user.userInfo.budget);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {

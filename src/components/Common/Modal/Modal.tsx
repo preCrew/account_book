@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent } from 'react';
 import { ModalInner, ModalWrapper } from './Modal.style';
 import ModalPortal from './ModalPortal';
 import { Keyframes } from 'styled-components';
@@ -9,8 +9,6 @@ interface ModalProps {
   animationMs?: number;
   openAnimation?: Keyframes;
   closeAnimation?: Keyframes;
-  // isUnmount: boolean;
-  // isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   modalName?: TModalTypes;
@@ -20,8 +18,6 @@ const Modal = ({
   animationMs,
   openAnimation,
   closeAnimation,
-  // isUnmount,
-  // isOpen,
   onClose,
   children,
   modalName,

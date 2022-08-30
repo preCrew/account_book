@@ -1,6 +1,5 @@
 import PayItem from 'components/PayItem';
-import useModal from 'hooks/useModal';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { useAppSelector } from 'store/store';

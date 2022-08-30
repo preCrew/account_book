@@ -5,7 +5,6 @@ import useModal from 'hooks/useModal';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { useAppSelector } from 'store/store';
 
-import { Down100, Up100 } from 'styles/animations';
 import { dateGenerator } from 'utils/dateUtils';
 
 import Button from '../Button';

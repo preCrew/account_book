@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import ButtonX from 'components/Common/Button/ButtonX';
 import { ModalS } from '../Modal_Inner.style';
-import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { AddReceiptFormWrap } from './AddReceiptModal.style';
 import AddReceiptForm from './AddReceiptForm';
