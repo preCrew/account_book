@@ -40,6 +40,7 @@ const MyPage = () => {
   const serverName = user.userInfo.name;
   const serverBudget = user.userInfo.budget;
 
+  //초기화
   useEffect(() => {
     getUserInfo();
     if (serverName !== '' || serverBudget !== 0) {
@@ -67,9 +68,8 @@ const MyPage = () => {
     const name = e.target.value;
     changeName(name);
 
+    //Name유효성 검사
     if (name.length > 10) {
-      console.log(name.length);
-
       alert('최대 10글자 까지 가능합니다.');
       changeName(name.substring(0, 10));
     }
@@ -79,9 +79,11 @@ const MyPage = () => {
     console.log(serverName.length);
 
     if (serverName.length !== 0) {
+      //유저정보 Update
       changeName(user.userInfo.name as string);
       changeBudget(user.userInfo.budget as number);
       updateUserInfo();
+      //유저정보 Fetch
       getUserInfo();
       alert('저장되었습니다.');
     } else {
