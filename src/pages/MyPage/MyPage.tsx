@@ -33,7 +33,7 @@ const MyPage = () => {
   const MAX_AMOUNT = 9999999999;
 
   const user = useAppSelector(state => state.user);
-  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
+  const { Modal, showModal, closeModal } = useModal({});
   const { updateUserInfo, getUserInfo, changeBudget, changeName } = useUser();
   const serverName = user.userInfo.name;
   const serverBudget = user.userInfo.budget;

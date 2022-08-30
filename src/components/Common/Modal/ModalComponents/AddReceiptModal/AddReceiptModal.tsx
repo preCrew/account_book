@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ButtonX from 'components/Common/Button/ButtonX';
 import { ModalS } from '../Modal_Inner.style';
 import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { AddReceiptFormWrap } from './AddReceiptModal.style';
 import AddReceiptForm from './AddReceiptForm';
+import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 export interface Tdata {
   group: string[];
@@ -29,28 +30,32 @@ export const SelectData: Tdata = {
 };
 
 interface AddReceiptModalProps {
-  onClose: () => void;
+  onClose: () => void | ReactNode;
+  receipt?: TReceipt;
   date?: {
     month: number;
     date: number;
   };
 }
 
-const AddReceiptModal = ({ onClose, date }: AddReceiptModalProps) => {
+const AddReceiptModal = ({ onClose, receipt, date }: AddReceiptModalProps) => {
   const { Container, Header, Body } = ModalS;
 
   return (
     <AddReceiptFormWrap>
       <Container>
         <Header>
-          {'내역 추가하기'}
+          {receipt && '내역 수정하기'}
+          {!receipt && '내역 추가하기'}
           <ButtonX onClick={onClose} />
         </Header>
         <Body>
           <AddReceiptForm
             data={SelectData}
             onClose={onClose}
+            receipt={receipt}
             date={date}
+            // update={update}
           />
         </Body>
       </Container>
@@ -58,4 +63,4 @@ const AddReceiptModal = ({ onClose, date }: AddReceiptModalProps) => {
   );
 };
 
-export default AddReceiptModal;
+export default React.memo(AddReceiptModal);

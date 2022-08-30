@@ -5,11 +5,13 @@ import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
 import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
 import useModal from 'hooks/useModal';
 import { Down100, Up100 } from 'styles/animations';
+import { useState } from 'react';
 
 const Profile = () => {
   const { loadingState, userInfo } = useAppSelector(state => state.user);
   const totalExpense = 0;
-  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
+  const { Modal, showModal, closeModal } = useModal({});
+  // const [] = useState();
 
   return (
     <>
