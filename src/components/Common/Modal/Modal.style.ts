@@ -4,6 +4,7 @@ interface TModalInner {
   openAnimation?: Keyframes;
   closeAnimation?: Keyframes;
   isUnmount: boolean;
+  animatinoMs?: number;
 }
 
 export const ModalWrapper = styled.div`
@@ -28,6 +29,6 @@ export const ModalInner = styled.div<TModalInner>`
 
   animation: ${({ isUnmount, openAnimation, closeAnimation }) =>
       isUnmount ? closeAnimation : openAnimation}
-    0.3s ease-in-out;
+    ${({ animatinoMs }) => animatinoMs ?? '0.3s'} ease-in-out;
   /* animation-fill-mode: fo; */
 `;

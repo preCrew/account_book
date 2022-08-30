@@ -1,3 +1,4 @@
+import Button from 'components/Common/Button';
 import styled, { css } from 'styled-components';
 
 const inputHeight = '30px';
@@ -8,18 +9,15 @@ const inputStyle = css`
   outline: 0;
 `;
 
-export const AddReceiptFormWrap = styled.div`
-  & > div {
-    height: 95%;
-  }
-`;
+export const AddReceiptFormWrap = styled.div``;
 export const InputWrap = styled.div``;
 export const AmountInput = styled.div`
   position: relative;
   & input {
     &::-webkit-inner-spin-button,
+    /* stylelint-enable property-no-vendor-prefix */
     &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
+      /* -webkit-appearance: unset; */
     }
     width: 100%;
     margin: 0;
@@ -60,4 +58,16 @@ export const AddReceiptTable = styled.table`
     font-family: ${({ theme }) => theme.fonts.style.regular};
     font-size: ${({ theme }) => theme.fonts.size.size16};
   }
+`;
+
+export const AddReceiptModalFooterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+`;
+
+export const AddReceiptModalFooterButton = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

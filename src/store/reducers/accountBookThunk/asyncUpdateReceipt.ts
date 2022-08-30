@@ -51,6 +51,10 @@ const asyncUpdateReceiptPending: CaseReducer = (state, action) => {
 const asyncUpdateReceiptFulfilled: CaseReducer = (state, action) => {
   state.loadingState.update.loading = false;
   state.loadingState.update.success = true;
+  // let receipt = state.receipts.find(
+  //   (receipt: TReceipt) => receipt.id === action.payload.data.id,
+  // );
+  // receipt = action.payload.data;
   state.receipts = state.receipts.map((receipt: TReceipt) =>
     receipt.id === action.payload.data.id
       ? { ...action.payload.data }

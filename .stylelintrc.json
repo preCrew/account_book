@@ -21,6 +21,6 @@
     "font-family-no-missing-generic-family-keyword": {
       "ignoreFontFamilies": ["appleR", "appleB"]
     },
-    "value-no-vendor-prefix": false
+    "property-no-vendor-prefix": true
   }
 }

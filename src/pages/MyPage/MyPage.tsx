@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useAppSelector } from '../../store/store';
 import Input from 'components/Common/Input';
 import useModal from 'hooks/useModal';
-import { Down100, Up100 } from 'styles/animations';
 import SelectCharacterModal from '../../components/Common/Modal/ModalComponents/SelectCharacterModal';
 import Header from '../../components/Common/Layout/Header';
 import SaveButton from '../../components/Common/Button/Button';
@@ -33,7 +32,7 @@ const MyPage = () => {
   const MAX_AMOUNT = 9999999999;
 
   const user = useAppSelector(state => state.user);
-  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
+  const { Modal, showModal, closeModal } = useModal({ modalName: 'profile' });
   const { updateUserInfo, getUserInfo, changeBudget, changeName } = useUser();
   const serverName = user.userInfo.name;
   const serverBudget = user.userInfo.budget;
@@ -45,6 +44,7 @@ const MyPage = () => {
       changeName(user.userInfo.name);
       changeBudget(user.userInfo.budget);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {

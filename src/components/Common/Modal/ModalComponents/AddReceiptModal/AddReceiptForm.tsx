@@ -1,94 +1,127 @@
-import React, { ChangeEventHandler, useEffect, useMemo, useState } from 'react';
-import { AddReceiptTable, AmountInput } from './AddReceiptModal.style';
+import React, { useMemo, useState } from 'react';
+import {
+  AddReceiptModalFooterButton,
+  AddReceiptModalFooterContainer,
+  AddReceiptTable,
+  AmountInput,
+} from './AddReceiptModal.style';
 import SubmitBtn from '../../../Button/Button';
 import moment from 'moment';
 import { Tdata } from './AddReceiptModal';
-import useInput from 'hooks/useInput';
-import useSelect from 'hooks/useSelect';
 import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
-
+import { AiFillDelete } from 'react-icons/ai';
+import { useAppSelector } from 'store/store';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
+  // receipt?: TReceipt;
+  date?: {
+    month: number;
+    date: number;
+  };
+  update?: boolean;
+  // id?: number;
 }
 
-const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
-  const [amount, setAmount, onChangeAmount] = useInput('');
-  const [account, , onChangeAccount] = useInput('');
-  const [group, setGroup, onChangeGroup] = useSelect('');
-  const [category, setCategory, onChangeCategory] = useSelect('');
-  const [payment, setPayment, onChagePayment] = useSelect('');
-  const currentTime = useMemo(() => moment(), []);
-  const currentObj = currentTime.toObject();
+const AddReceiptForm = ({
+  data,
+  onClose,
+  date,
+  update,
+}: AddReceiptFormProps) => {
+  console.log('form');
+  const { addReceipt, deleteReceipt, updateReceipt } = useAccountBook();
+  const receipt = useAppSelector(state =>
+    state.accountBook.receipts.find(
+      receipt => receipt.id === state.accountBook.selectId,
+    ),
+  );
+  console.log(receipt);
+  // const receipt = useAppSelector(state =>
+  //   state.accountBook.receipts.find(r => r.id === id),
+  // );
 
-  const { addReceipt } = useAccountBook();
+  const [state, setState] = useState({
+    amount: receipt
+      ? (receipt?.spending as number) ?? (receipt?.income as number)
+      : '',
+    account: receipt ? receipt?.transactionBranch : '',
+    group: receipt ? (receipt?.spending ? '지출' : '수입') : data.group[0],
+    category: receipt ? receipt?.category : data.category[0],
+    payment: receipt ? receipt?.paymentMethod : data.payment[0],
+  });
 
-  useEffect(() => {
-    setGroup(data.group[0]);
-    setCategory(data.category[0]);
-    setPayment(data.payment[0]);
-  }, []);
+  const currentTime = useMemo(() => {
+    const time = moment();
+    !update && time.month((date?.month as number) - 1);
+    !update && time.date(date?.date as number);
+    return time;
+  }, [date, update]);
 
   const onSubmitReceipt = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (amount === '') {
+    if (state.amount === '') {
       return alert('지출 금액을 입력해주세요');
     }
-    if (account === '') {
+    if (state.account === '') {
       return alert('거래처를 입력해주세요');
     }
 
+    const currentObj = currentTime.toObject();
     const responseObj: TReceipt = {
-      //spending: parseInt(amount),
-      //group: group,
-      category: category,
-      paymentMethod: payment,
-      transactionBranch: account as string,
+      category: state.category as string,
+      paymentMethod: state.payment,
+      transactionBranch: state.account as string,
       timeDate: {
         year: currentObj.years,
-        month: currentObj.months + 1,
-        date: currentObj.date,
+        month: receipt?.timeDate.month ?? currentObj.months + 1,
+        date: receipt?.timeDate.date ?? currentObj.date,
         hours: currentObj.hours,
         minutes: currentObj.minutes,
       },
     };
 
-    if (group === '지출') {
-      responseObj.spending = (amount as unknown as number) * -1;
+    if (state.group === '지출') {
+      responseObj.spending = Math.abs(state.amount as number) * -1; //(amount as unknown as number) * -1;
+      responseObj.income = null;
     }
-    if (group === '수입') {
-      responseObj.income = (amount as unknown as number) * 1;
+    if (state.group === '수입') {
+      responseObj.spending = null;
+      responseObj.income = Math.abs(state.amount as number) * 1; //unknown as number) * 1;
     }
 
+    if (receipt) {
+      updateReceipt(receipt?.id as number, responseObj);
+    } else {
+      addReceipt(responseObj);
+    }
     onClose();
-    addReceipt(responseObj);
-    // dispatch(
-    //   changeReceiptAction({
-    //     spending: parseInt(amount),
-    //     group: group,
-    //     category: category,
-    //     paymentMethod: payment,
-    //     account: account,
-    //     timeDate: {
-    //       year: currentObj.years,
-    //       month: currentObj.months + 1,
-    //       date: currentObj.date,
-    //       hours: currentObj.hours,
-    //       minutes: currentObj.minutes,
-    //     },
-    //   }),
-    // );
+  };
+
+  const handleClickDelete = () => {
+    deleteReceipt(receipt?.id as number);
+    onClose();
+  };
+
+  const handleChangeInputOrSelect = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setState(beforeState => ({
+      ...beforeState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
     <form>
       <AmountInput>
         <input
+          name="amount"
           type="number"
-          value={amount}
-          onChange={onChangeAmount}
+          value={state.amount}
+          onChange={handleChangeInputOrSelect}
           autoFocus
         />
         <span>원</span>
@@ -99,9 +132,9 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
             <th>분류</th>
             <td>
               <select
-                value={group}
-                defaultValue={data.group[0]}
-                onChange={onChangeGroup}
+                name="group"
+                value={state.group}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.group.map(option => (
                   <option
@@ -118,9 +151,9 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
             <th>카테고리</th>
             <td>
               <select
-                value={category as string}
-                defaultValue={data.category[0]}
-                onChange={onChangeCategory}
+                name="category"
+                value={state.category}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.category.map(option => (
                   <option
@@ -137,23 +170,34 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
             <th>거래처</th>
             <td>
               <input
+                name="account"
                 type="text"
-                value={account}
-                onChange={onChangeAccount}
+                value={state.account}
+                onChange={handleChangeInputOrSelect}
               />
             </td>
           </tr>
           <tr>
             <th>날짜</th>
-            <td>{currentTime.format('YYYY-MM-DD HH:mm:ss')}</td>
+            <td>
+              {receipt
+                ? moment(
+                    `${receipt?.timeDate.year}-
+                    ${receipt?.timeDate.month}-
+                    ${receipt?.timeDate.date}
+                    ${receipt?.timeDate.hours}:
+                    ${receipt?.timeDate.minutes}`,
+                  ).format('YYYY-MM-DD HH:mm:ss')
+                : currentTime.format('YYYY-MM-DD HH:mm:ss')}
+            </td>
           </tr>
           <tr>
             <th>결제수단</th>
             <td>
               <select
-                value={payment as string}
-                defaultValue={data.payment[0]}
-                onChange={onChagePayment}
+                name="payment"
+                value={state.payment as string}
+                onChange={handleChangeInputOrSelect}
               >
                 {data.payment.map(option => (
                   <option
@@ -168,14 +212,21 @@ const AddReceiptForm = ({ data, onClose }: AddReceiptFormProps) => {
           </tr>
         </tbody>
       </AddReceiptTable>
-      <SubmitBtn
-        size="full"
-        onClick={onSubmitReceipt}
-      >
-        저장하기
-      </SubmitBtn>
+      <AddReceiptModalFooterContainer>
+        {receipt && (
+          <AddReceiptModalFooterButton onClick={handleClickDelete}>
+            <AiFillDelete />
+          </AddReceiptModalFooterButton>
+        )}
+        <SubmitBtn
+          size="full"
+          onClick={onSubmitReceipt}
+        >
+          저장하기
+        </SubmitBtn>
+      </AddReceiptModalFooterContainer>
     </form>
   );
 };
 
-export default AddReceiptForm;
+export default React.memo(AddReceiptForm);

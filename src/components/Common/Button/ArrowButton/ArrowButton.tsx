@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '../Button';
 
 interface ArrowButtonProps {
@@ -9,4 +10,4 @@ const ArrowButton = ({ onClick, direction }: ArrowButtonProps) => {
   return <Button onClick={onClick}>{direction === 'left' ? '◂' : '▸'}</Button>;
 };
 
-export default ArrowButton;
+export default React.memo(ArrowButton);

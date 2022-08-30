@@ -10,6 +10,7 @@ import {
   changeAmountAction,
   TReceipt,
   TDateTime,
+  changeSelectIdAction,
 } from 'store/reducers/accoutBook-Slice';
 import { TYearMonth } from 'store/reducers/reducerCommonTypes';
 import { useAppDispatch } from 'store/store';
@@ -52,6 +53,12 @@ const useAccountBook = () => {
     },
     [dispatch],
   );
+  const changeSelectId = useCallback(
+    (id: number) => {
+      dispatch(changeSelectIdAction(id));
+    },
+    [dispatch],
+  );
 
   const addReceipt = useCallback(
     (receipt: TReceipt) => {
@@ -59,21 +66,31 @@ const useAccountBook = () => {
     },
     [dispatch],
   );
-  const readReceipts = (yearMonth: TYearMonth) => {
-    dispatch(asyncReadReceipt(yearMonth));
-  };
-  const deleteReceipt = (id: number) => {
-    dispatch(asyncDeleteReceipt(id));
-  };
-  const updateReceipt = (id: number, changeReceipt: TReceipt) => {
-    dispatch(asyncUpdateReceipt({ id, receiptNew: changeReceipt }));
-  };
+  const readReceipts = useCallback(
+    (yearMonth: TYearMonth) => {
+      dispatch(asyncReadReceipt(yearMonth));
+    },
+    [dispatch],
+  );
+  const deleteReceipt = useCallback(
+    (id: number) => {
+      dispatch(asyncDeleteReceipt(id));
+    },
+    [dispatch],
+  );
+  const updateReceipt = useCallback(
+    (id: number, changeReceipt: TReceipt) => {
+      dispatch(asyncUpdateReceipt({ id, receiptNew: changeReceipt }));
+    },
+    [dispatch],
+  );
 
   return {
     changeSelectDate,
     changeFirstDate,
     changeSelectDateOneMonth,
     changeAmount,
+    changeSelectId,
     addReceipt,
     readReceipts,
     deleteReceipt,

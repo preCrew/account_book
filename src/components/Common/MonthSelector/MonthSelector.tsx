@@ -1,11 +1,10 @@
-import { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import useModal from 'hooks/useModal';
 
 import useAccountBook from 'store/hooks/useAccountBook';
 import { useAppSelector } from 'store/store';
 
-import { Down100, Up100 } from 'styles/animations';
 import { dateGenerator } from 'utils/dateUtils';
 
 import Button from '../Button';
@@ -15,24 +14,34 @@ import { StyledMonthSelector } from './MonthSelector.style';
 
 const MonthSelector = () => {
   const { changeSelectDateOneMonth } = useAccountBook();
+  const { Modal, showModal, closeModal } = useModal({
+    modalName: 'monthSelect',
+  });
+  const { readReceipts } = useAccountBook();
+
   const month = useAppSelector(state => state.accountBook.selectDate.month);
+  const year = useAppSelector(state => state.accountBook.selectDate.year);
+  const firstYear = useAppSelector(state => state.accountBook.firstDate.year);
+  const firstMonth = useAppSelector(state => state.accountBook.firstDate.month);
 
-  const { Modal, showModal, closeModal } = useModal(Up100, Down100, 300);
-  const firstDateOrigin = useAppSelector(state => state.accountBook.firstDate);
   const dates = useMemo(() => {
-    const firstDate = new Date(firstDateOrigin.year, firstDateOrigin.month);
+    const firstDate = new Date(firstYear, firstMonth);
     return dateGenerator(new Date(), firstDate);
-  }, [firstDateOrigin]);
+  }, [firstMonth, firstYear]);
 
-  const handleClickLeft = () => {
+  const handleClickLeft = useCallback(() => {
     changeSelectDateOneMonth(-1);
-  };
-  const handleClickMonth = () => {
+    readReceipts({ month: month - 1, year });
+  }, [changeSelectDateOneMonth, month, readReceipts, year]);
+
+  const handleClickMonth = useCallback(() => {
     showModal();
-  };
-  const handleClickRight = () => {
+  }, [showModal]);
+
+  const handleClickRight = useCallback(() => {
     changeSelectDateOneMonth(+1);
-  };
+    readReceipts({ month: month + 1, year });
+  }, [changeSelectDateOneMonth, month, readReceipts, year]);
   return (
     <>
       <StyledMonthSelector>
@@ -59,4 +68,4 @@ const MonthSelector = () => {
   );
 };
 
-export default MonthSelector;
+export default React.memo(MonthSelector);
