@@ -54,8 +54,8 @@ const AddReceiptForm = ({
 
   const currentTime = useMemo(() => {
     const time = moment();
-    !update && time.month((date?.month as number) - 1);
-    !update && time.date(date?.date as number);
+    !update && date && time.month((date?.month as number) - 1);
+    !update && date && time.date(date?.date as number);
     return time;
   }, [date, update]);
 
