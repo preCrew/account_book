@@ -19,7 +19,6 @@ const DayReceiptsModal = () => {
     modalName: 'receipt',
     onClose: () => {
       setIsUpdateReceipt(false);
-      dispatch(changeSelectIdAction(0));
     },
   });
   const { seleceDateReceiptsSum, changeSelectId } = useAccountBook();
