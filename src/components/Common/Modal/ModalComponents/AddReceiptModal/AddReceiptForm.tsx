@@ -37,25 +37,21 @@ const AddReceiptForm = ({
       receipt => receipt.id === state.accountBook.selectId,
     ),
   );
-  console.log(receipt);
-  // const receipt = useAppSelector(state =>
-  //   state.accountBook.receipts.find(r => r.id === id),
-  // );
 
   const [state, setState] = useState({
-    amount: receipt
+    amount: update
       ? (receipt?.spending as number) ?? (receipt?.income as number)
       : '',
-    account: receipt ? receipt?.transactionBranch : '',
-    group: receipt ? (receipt?.spending ? '지출' : '수입') : data.group[0],
-    category: receipt ? receipt?.category : data.category[0],
-    payment: receipt ? receipt?.paymentMethod : data.payment[0],
+    account: update ? receipt?.transactionBranch : '',
+    group: update ? (receipt?.spending ? '지출' : '수입') : data.group[0],
+    category: update ? receipt?.category : data.category[0],
+    payment: update ? receipt?.paymentMethod : data.payment[0],
   });
 
   const currentTime = useMemo(() => {
     const time = moment();
-    !update && time.month((date?.month as number) - 1);
-    !update && time.date(date?.date as number);
+    !update && date && time.month((date?.month as number) - 1);
+    !update && date && time.date(date?.date as number);
     return time;
   }, [date, update]);
 
