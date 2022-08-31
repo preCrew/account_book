@@ -176,7 +176,7 @@ const AddReceiptForm = ({
           <tr>
             <th>날짜</th>
             <td>
-              {receipt
+              {update
                 ? moment(
                     `${receipt?.timeDate.year}-
                     ${receipt?.timeDate.month}-
