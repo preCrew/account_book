@@ -4,6 +4,7 @@ import SelectDataBox from '../../../SelectableList/CheckList';
 import { useAppSelector } from 'store/store';
 import useUser from '../../../../../store/hooks/useUser';
 import { avatarData } from '../../../../Profile/Avatar/AvatarImg/data';
+
 interface SelectCharacterModalProps {
   onClose: () => void;
 }
@@ -11,10 +12,11 @@ interface SelectCharacterModalProps {
 const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
   const { Container, Header, Body } = ModalS;
   const { userInfo } = useAppSelector(state => state.user);
-  const { chageCaracter } = useUser();
+  const { chageCaracter, updateUserInfo } = useUser();
 
   const onClickCharacter = (index: number) => () => {
     chageCaracter(index);
+    updateUserInfo();
   };
 
   return (
