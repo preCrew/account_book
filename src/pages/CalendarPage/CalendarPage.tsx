@@ -6,16 +6,26 @@ import useModal from 'hooks/useModal';
 import { useCallback } from 'react';
 import AddReceiptModal from 'components/Common/Modal/ModalComponents/AddReceiptModal';
 import DayReceiptsModal from 'components/Common/Modal/ModalComponents/DayReceiptsModal';
-import { TReceipt } from 'store/reducers/accoutBook-Slice';
-import { useAppSelector } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import useAccountBook from 'store/hooks/useAccountBook';
+import { changeModalUpdate } from 'store/reducers/modal-Slice';
 
 const CalendarPage = () => {
+  // const [isUpdateReceipt, setIsUpdateReceipt] = useState(false);
+
   const { changeSelectDate } = useAccountBook();
+  const { changeSelectId } = useAccountBook();
+  const dispatch = useAppDispatch();
+
   const year = useAppSelector(state => state.accountBook.selectDate.year);
   const month = useAppSelector(state => state.accountBook.selectDate.month);
 
   const { Modal, showModal } = useModal({ modalName: 'receipts' });
+  const {
+    Modal: Modal2,
+    showModal: showModal2,
+    closeModal: closeModal2,
+  } = useModal({ modalName: 'receipt' });
 
   const handleClickCalendarDate = useCallback(
     (date: number) => {
@@ -24,13 +34,21 @@ const CalendarPage = () => {
     },
     [changeSelectDate, showModal],
   );
-  // const handleClickAddButton = useCallback(() => {
-  //   showModal2();
-  // }, [showModal2]);
 
-  // const handleClickPayItem = useCallback((receipt: TReceipt) => {
-  //   console.log(receipt);
-  // }, []);
+  const handleClickAddButton = useCallback(() => {
+    dispatch(changeModalUpdate({ state: false }));
+    showModal2();
+  }, [dispatch, showModal2]);
+
+  const handleClickPayItem = useCallback(
+    (id: number, date: number) => {
+      changeSelectId(id);
+      changeSelectDate({ date });
+      dispatch(changeModalUpdate({ state: true }));
+      showModal2();
+    },
+    [changeSelectDate, changeSelectId, dispatch, showModal2],
+  );
 
   return (
     <>
@@ -44,10 +62,14 @@ const CalendarPage = () => {
 
       <Modal>
         <DayReceiptsModal
-        // onClickAddButton={handleClickAddButton}
-        // onClickPayItem={handleClickPayItem}
+          handleClickAddButton={handleClickAddButton}
+          handleClickPayItem={handleClickPayItem}
         />
       </Modal>
+
+      <Modal2>
+        <AddReceiptModal onClose={closeModal2} />
+      </Modal2>
     </>
   );
 };

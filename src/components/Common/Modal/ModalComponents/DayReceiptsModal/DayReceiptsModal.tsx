@@ -1,27 +1,24 @@
 import PayItem from 'components/PayItem';
-import useModal from 'hooks/useModal';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
-import { changeSelectIdAction } from 'store/reducers/accoutBook-Slice';
-import { useAppDispatch, useAppSelector } from 'store/store';
-import AddReceiptModal from '../AddReceiptModal';
+import { useAppSelector } from 'store/store';
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
   DayReceiptsModalHeader,
 } from './DayReceiptsModal.style';
 
-const DayReceiptsModal = () => {
-  const dispatch = useAppDispatch();
+interface DayReceiptsModalProps {
+  handleClickAddButton: () => void;
+  handleClickPayItem: (id: number, date: number) => void;
+}
+
+const DayReceiptsModal = ({
+  handleClickAddButton,
+  handleClickPayItem,
+}: DayReceiptsModalProps) => {
   const { Container, Header, Body } = ModalS;
-  const [isUpdateReceipt, setIsUpdateReceipt] = useState(false);
-  const { Modal, showModal, closeModal } = useModal({
-    modalName: 'receipt',
-    onClose: () => {
-      setIsUpdateReceipt(false);
-    },
-  });
-  const { seleceDateReceiptsSum, changeSelectId } = useAccountBook();
+  const { seleceDateReceiptsSum } = useAccountBook();
 
   const { year, month, date } = useAppSelector(
     state => state.accountBook.selectDate,
@@ -45,19 +42,6 @@ const DayReceiptsModal = () => {
   const receiptsCount = useMemo(
     () => seleceDateReceipts.length,
     [seleceDateReceipts],
-  );
-
-  const handleClickAddButton = useCallback(() => {
-    showModal();
-  }, [showModal]);
-
-  const handleClickPayItem = useCallback(
-    (id: number) => {
-      showModal();
-      changeSelectId(id);
-      setIsUpdateReceipt(true);
-    },
-    [changeSelectId, showModal],
   );
 
   return (
@@ -86,7 +70,12 @@ const DayReceiptsModal = () => {
                   (receipt.income as number) ?? (receipt.spending as number)
                 }
                 transactionBranch={receipt.paymentMethod}
-                onClick={() => handleClickPayItem(receipt.id as number)}
+                onClick={() =>
+                  handleClickPayItem(
+                    receipt.id as number,
+                    receipt.timeDate.date,
+                  )
+                }
               />
             ))}
             <PayItem
@@ -96,14 +85,6 @@ const DayReceiptsModal = () => {
           </DayReceiptModalBody>
         </Body>
       </Container>
-
-      <Modal>
-        <AddReceiptModal
-          onClose={closeModal}
-          update={isUpdateReceipt}
-          date={{ month, date }}
-        />
-      </Modal>
     </>
   );
 };
