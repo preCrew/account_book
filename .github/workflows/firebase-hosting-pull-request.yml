@@ -14,7 +14,7 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACCOUNTBOOK_5A92A }}'
-          channelId: live
+          channelId: development
           expires: 7d
           projectId: accountbook-5a92a
         env:
