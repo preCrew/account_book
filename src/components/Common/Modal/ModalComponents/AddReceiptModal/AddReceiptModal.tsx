@@ -4,7 +4,7 @@ import { ModalS } from '../Modal_Inner.style';
 
 import { AddReceiptFormWrap } from './AddReceiptModal.style';
 import AddReceiptForm from './AddReceiptForm';
-import { TReceipt } from 'store/reducers/accoutBook-Slice';
+import { useAppSelector } from 'store/store';
 
 export interface Tdata {
   group: string[];
@@ -30,15 +30,11 @@ export const SelectData: Tdata = {
 
 interface AddReceiptModalProps {
   onClose: () => void | ReactNode;
-  update?: boolean;
-  date?: {
-    month: number;
-    date: number;
-  };
 }
 
-const AddReceiptModal = ({ onClose, update, date }: AddReceiptModalProps) => {
+const AddReceiptModal = ({ onClose }: AddReceiptModalProps) => {
   const { Container, Header, Body } = ModalS;
+  const update = useAppSelector(state => state.modal.receipt.isUpdate);
 
   return (
     <AddReceiptFormWrap>
@@ -51,7 +47,6 @@ const AddReceiptModal = ({ onClose, update, date }: AddReceiptModalProps) => {
         <Body>
           <AddReceiptForm
             data={SelectData}
-            date={date}
             onClose={onClose}
             update={update}
           />

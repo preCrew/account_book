@@ -7,11 +7,19 @@ export type TModal = {
     isUnmount: boolean;
   };
 };
+interface TModal2 {
+  receipt: {
+    isOpen: boolean;
+    isUnmount: boolean;
+    isUpdate: boolean;
+  };
+}
 
-const initiaModalState: TModal = {
+const initiaModalState: TModal & TModal2 = {
   receipt: {
     isOpen: false,
     isUnmount: false,
+    isUpdate: false,
   },
   receipts: {
     isOpen: false,
@@ -43,8 +51,15 @@ const modalSlice = createSlice({
     ) {
       state[action.payload.modal].isUnmount = action.payload.state;
     },
+    changeModalUpdate(
+      state: TModal & TModal2,
+      action: PayloadAction<{ state: boolean }>,
+    ) {
+      state.receipt.isUpdate = action.payload.state;
+    },
   },
 });
 
-export const { changeModalMount, changeModalOpen } = modalSlice.actions;
+export const { changeModalMount, changeModalOpen, changeModalUpdate } =
+  modalSlice.actions;
 export default modalSlice.reducer;

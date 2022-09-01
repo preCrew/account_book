@@ -33,16 +33,15 @@ const useModal = ({
     dispatch(changeModalMount({ modal: modalName, state: true }));
 
     setTimeout(() => {
-      onClose && onClose();
-
       dispatch(changeModalOpen({ modal: modalName, state: false }));
+      onClose && onClose();
     }, animeTimeMs);
   }, [animeTimeMs, dispatch, modalName, onClose]);
 
   const showModal = useCallback(() => {
-    onShow && onShow();
     dispatch(changeModalMount({ modal: modalName, state: false }));
     dispatch(changeModalOpen({ modal: modalName, state: true }));
+    onShow && onShow();
   }, [dispatch, modalName, onShow]);
 
   const Modal = ({ children }: { children: React.ReactNode }) => (

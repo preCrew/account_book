@@ -12,31 +12,34 @@ import useAccountBook from 'store/hooks/useAccountBook';
 import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { AiFillDelete } from 'react-icons/ai';
 import { useAppSelector } from 'store/store';
+import { shallowEqual } from 'react-redux';
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
-  // receipt?: TReceipt;
-  date?: {
-    month: number;
-    date: number;
-  };
   update?: boolean;
-  // id?: number;
 }
 
-const AddReceiptForm = ({
-  data,
-  onClose,
-  date,
-  update,
-}: AddReceiptFormProps) => {
-  console.log('form');
+const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
   const { addReceipt, deleteReceipt, updateReceipt } = useAccountBook();
+  const { date, month } = useAppSelector(
+    state => ({
+      date: state.accountBook.selectDate.date,
+      month: state.accountBook.selectDate.month,
+    }),
+    shallowEqual,
+  );
   const receipt = useAppSelector(state =>
     state.accountBook.receipts.find(
       receipt => receipt.id === state.accountBook.selectId,
     ),
   );
+
+  const currentTime = useMemo(() => {
+    const time = moment();
+    !update && time.month((month as number) - 1);
+    !update && time.date(date as number);
+    return time;
+  }, [date, month, update]);
 
   const [state, setState] = useState({
     amount: update
@@ -46,14 +49,16 @@ const AddReceiptForm = ({
     group: update ? (receipt?.spending ? '지출' : '수입') : data.group[0],
     category: update ? receipt?.category : data.category[0],
     payment: update ? receipt?.paymentMethod : data.payment[0],
+    date: update
+      ? moment(
+          `${receipt?.timeDate.year}-
+        ${receipt?.timeDate.month}-
+        ${receipt?.timeDate.date}
+        ${receipt?.timeDate.hours}:
+        ${receipt?.timeDate.minutes}`,
+        ).format('YYYY-MM-DD HH:mm:ss')
+      : currentTime.format('YYYY-MM-DD HH:mm:ss'),
   });
-
-  const currentTime = useMemo(() => {
-    const time = moment();
-    !update && date && time.month((date?.month as number) - 1);
-    !update && date && time.date(date?.date as number);
-    return time;
-  }, [date, update]);
 
   const onSubmitReceipt = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,23 +77,18 @@ const AddReceiptForm = ({
       transactionBranch: state.account as string,
       timeDate: {
         year: currentObj.years,
-        month: receipt?.timeDate.month ?? currentObj.months + 1,
-        date: receipt?.timeDate.date ?? currentObj.date,
+        month: update ? month : currentObj.months + 1,
+        date: update ? date : currentObj.date,
         hours: currentObj.hours,
         minutes: currentObj.minutes,
       },
+      spending:
+        state.group === '지출' ? Math.abs(state.amount as number) * -1 : null,
+      income:
+        state.group === '수입' ? Math.abs(state.amount as number) * 1 : null,
     };
 
-    if (state.group === '지출') {
-      responseObj.spending = Math.abs(state.amount as number) * -1; //(amount as unknown as number) * -1;
-      responseObj.income = null;
-    }
-    if (state.group === '수입') {
-      responseObj.spending = null;
-      responseObj.income = Math.abs(state.amount as number) * 1; //unknown as number) * 1;
-    }
-
-    if (receipt) {
+    if (update) {
       updateReceipt(receipt?.id as number, responseObj);
     } else {
       addReceipt(responseObj);
@@ -175,17 +175,7 @@ const AddReceiptForm = ({
           </tr>
           <tr>
             <th>날짜</th>
-            <td>
-              {update
-                ? moment(
-                    `${receipt?.timeDate.year}-
-                    ${receipt?.timeDate.month}-
-                    ${receipt?.timeDate.date}
-                    ${receipt?.timeDate.hours}:
-                    ${receipt?.timeDate.minutes}`,
-                  ).format('YYYY-MM-DD HH:mm:ss')
-                : currentTime.format('YYYY-MM-DD HH:mm:ss')}
-            </td>
+            <td>{state.date}</td>
           </tr>
           <tr>
             <th>결제수단</th>
