@@ -14,5 +14,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACCOUNTBOOK_5A92A }}'
-          firebaseToken: '${{ secrets.FIREBASE_TOKEN }}'
           projectId: accountbook-5a92a
