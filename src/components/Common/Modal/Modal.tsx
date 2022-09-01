@@ -1,9 +1,11 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useEffect, useLayoutEffect } from 'react';
 import { ModalInner, ModalWrapper } from './Modal.style';
 import ModalPortal from './ModalPortal';
 import { Keyframes } from 'styled-components';
 import { TModalTypes } from 'store/reducers/modal-Slice';
 import { useAppSelector } from 'store/store';
+import useBackgroundBlockScroll from 'hooks/useBackgroundBlockScroll';
+import ModalContent from './ModalInner';
 
 interface ModalProps {
   animationMs?: number;
@@ -25,11 +27,11 @@ const Modal = ({
   const { isOpen, isUnmount } = useAppSelector(
     state => state.modal[modalName as TModalTypes],
   );
-
   const handleClickInnerModal = (e: MouseEvent<HTMLDivElement>) => {
     // ModalWrapper로 이벤트 전파 방지
     e.stopPropagation();
   };
+
   return (
     <>
       {isOpen && (
@@ -42,7 +44,9 @@ const Modal = ({
               isUnmount={isUnmount}
               animatinoMs={animationMs}
             >
-              <div onClick={handleClickInnerModal}>{children}</div>
+              <ModalContent onClick={handleClickInnerModal}>
+                {children}
+              </ModalContent>
             </ModalInner>
           </ModalWrapper>
         </ModalPortal>
