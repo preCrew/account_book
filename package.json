@@ -38,7 +38,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:css": "stylelint './src/**/*.ts'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:ci": "npm run build && npm run scully:ci",
+    "scully:ci": "scully -- --host='0.0.0.0' --scanRoutes --serverTimeout=60000"
   },
   "browserslist": {
     "production": [
