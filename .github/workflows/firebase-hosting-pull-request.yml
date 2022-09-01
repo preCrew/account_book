@@ -19,4 +19,3 @@ jobs:
           projectId: accountbook-5a92a
         env: 
           FIREBASE_CLI_PREVIEWS: hostingchannels
-
