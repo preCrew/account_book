@@ -44,7 +44,6 @@ const MyPage = () => {
       changeName(user.userInfo.name);
       changeBudget(user.userInfo.budget);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChangeAmountSetting = (e: InputChangeEvent) => {
@@ -85,7 +84,7 @@ const MyPage = () => {
       getUserInfo();
       alert('저장되었습니다.');
     } else {
-      alert('빈값을 저장할수 없습니다.');
+      alert('이름을 입력해주세요.');
     }
   };
   const handleClickLogout = () => {
@@ -106,6 +105,7 @@ const MyPage = () => {
             <Input
               type={'text'}
               value={user.userInfo.name}
+              placeholder={'이름을 입력해주세요'}
               onChange={handleChangeNameSetting}
             />
           </Name>
@@ -117,6 +117,7 @@ const MyPage = () => {
               <Input
                 type={'number'}
                 value={user.userInfo.budget}
+                placeholder={'0'}
                 onChange={e => {
                   handleChangeAmountSetting(e);
                 }}
