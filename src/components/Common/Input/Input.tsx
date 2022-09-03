@@ -6,17 +6,18 @@ interface InputProps {
   value?: string | number | readonly string[];
   accept?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
 // eslint-disable-next-line react/display-name
 const Input = React.forwardRef(
   (
-    { type, value, accept, onChange }: InputProps,
+    { type, value, accept, onChange, placeholder }: InputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     //예외 처리
     // value 값으로 NaN이 들어올경우 text로 타입변환
-    if (!value) {
+    if (!value && type != 'text') {
       value = value + ' ';
     }
 
@@ -26,7 +27,7 @@ const Input = React.forwardRef(
         type={type}
         value={value}
         accept={accept}
-        placeholder={'0'}
+        placeholder={placeholder}
         onChange={onChange}
       ></InputField>
     );
