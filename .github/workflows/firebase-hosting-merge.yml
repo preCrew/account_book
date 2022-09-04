@@ -6,6 +6,15 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - master
+env:
+  REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
+  REACT_APP_FB_AUTH_DOMAIN: ${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}
+  REACT_APP_FB_PROJECT_ID: ${{ secrets.REACT_APP_FB_PROJECT_ID }}
+  REACT_APP_FB_STORAGE_BUCKET: ${{ secrets.REACT_APP_FB_STORAGE_BUCKET }}
+  REACT_APP_FB_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FB_MESSAGING_SENDER_ID }}
+  REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
+  REACT_APP_MEASUREMENT_ID: ${{ secrets.REACT_APP_MEASUREMENT_ID }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -18,11 +27,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ACCOUNTBOOK_5A92A }}'
           channelId: live
           projectId: accountbook-5a92a
-        env:
-          REACT_APP_FB_API_KEY: ${{ secrets.REACT_APP_FB_API_KEY }}
-          REACT_APP_FB_AUTH_DOMAIN: ${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}
-          REACT_APP_FB_PROJECT_ID: ${{ secrets.REACT_APP_FB_PROJECT_ID }}
-          REACT_APP_FB_STORAGE_BUCKET: ${{ secrets.REACT_APP_FB_STORAGE_BUCKET }}
-          REACT_APP_FB_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FB_MESSAGING_SENDER_ID }}
-          REACT_APP_FB_APP_ID: ${{ secrets.REACT_APP_FB_APP_ID }}
-          REACT_APP_MEASUREMENT_ID: ${{ secrets.REACT_APP_MEASUREMENT_ID }}
