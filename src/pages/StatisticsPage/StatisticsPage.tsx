@@ -3,107 +3,82 @@ import ApexChart, { Props } from 'react-apexcharts';
 import { useAppSelector } from '../../store/store';
 import Header from '../../components/Common/Layout/Header';
 import { SelectData } from '../../components/Common/Modal/ModalComponents/AddReceiptModal/AddReceiptModal';
+import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const StatisticsPage: React.FC<Props> = () => {
-  let spending1 = 0,
-    spending2 = 0,
-    spending3 = 0,
-    spending4 = 0,
-    spending5 = 0,
-    spending6 = 0,
-    spending7 = 0,
-    spending8 = 0,
-    spending9 = 0,
-    spending10 = 0;
+  const spending: number[] = [];
   const accountBook = useAppSelector(state => state.accountBook);
+
+  //지출 배열 초기화
+  spending.length = 10;
+  spending.fill(0);
 
   //category1
   const category1 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[0],
   );
 
-  for (let i = 0; i < category1.length; i++) {
-    spending1 += Math.abs(category1[i].spending as number);
-  }
-
   //category2
   const category2 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[1],
   );
-
-  for (let i = 0; i < category2.length; i++) {
-    spending2 += Math.abs(category2[i].spending as number);
-  }
 
   //category3
   const category3 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[2],
   );
 
-  for (let i = 0; i < category3.length; i++) {
-    spending3 += Math.abs(category3[i].spending as number);
-  }
-
   //category4
   const category4 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[3],
   );
-
-  for (let i = 0; i < category4.length; i++) {
-    spending4 += Math.abs(category4[i].spending as number);
-  }
 
   //category5
   const category5 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[4],
   );
 
-  for (let i = 0; i < category5.length; i++) {
-    spending5 += Math.abs(category5[i].spending as number);
-  }
-
   //category6
   const category6 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[5],
   );
-
-  for (let i = 0; i < category6.length; i++) {
-    spending6 += Math.abs(category6[i].spending as number);
-  }
 
   //category7
   const category7 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[6],
   );
 
-  for (let i = 0; i < category7.length; i++) {
-    spending7 += Math.abs(category7[i].spending as number);
-  }
-
   //category8
   const category8 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[7],
   );
 
-  for (let i = 0; i < category8.length; i++) {
-    spending8 += Math.abs(category8[i].spending as number);
-  }
   //category9
   const category9 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[8],
   );
 
-  for (let i = 0; i < category9.length; i++) {
-    spending9 += Math.abs(category9[i].spending as number);
-  }
   //category10
   const category10 = accountBook.receipts.filter(
     receipt => receipt.category === SelectData.category[9],
   );
 
-  for (let i = 0; i < category10.length; i++) {
-    spending10 += Math.abs(category10[i].spending as number);
-  }
+  const catgory_check = (category: TReceipt[], num: number) => {
+    for (let i = 0; i < category.length; i++) {
+      spending[num] += Math.abs(category[i].spending as number);
+    }
+  };
+
+  catgory_check(category1, 0);
+  catgory_check(category2, 1);
+  catgory_check(category3, 2);
+  catgory_check(category4, 3);
+  catgory_check(category5, 4);
+  catgory_check(category6, 5);
+  catgory_check(category7, 6);
+  catgory_check(category8, 7);
+  catgory_check(category9, 8);
+  catgory_check(category10, 9);
 
   const options = {
     series: [50, 10, 10],
@@ -136,16 +111,16 @@ const StatisticsPage: React.FC<Props> = () => {
   };
 
   const series = [
-    spending1,
-    spending2,
-    spending3,
-    spending4,
-    spending5,
-    spending6,
-    spending7,
-    spending8,
-    spending9,
-    spending10,
+    spending[0],
+    spending[1],
+    spending[2],
+    spending[3],
+    spending[4],
+    spending[5],
+    spending[6],
+    spending[7],
+    spending[8],
+    spending[9],
   ];
   return (
     <>
