@@ -20,6 +20,7 @@
   "rules": {
     "font-family-no-missing-generic-family-keyword": {
       "ignoreFontFamilies": ["appleR", "appleB"]
-    }
+    },
+    "property-no-vendor-prefix": true
   }
 }

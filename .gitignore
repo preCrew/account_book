@@ -24,3 +24,6 @@ yarn-error.log*
 
 
 .keep
+*.cache
+.env
+*.log

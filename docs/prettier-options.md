@@ -1,0 +1,22 @@
+
+# prettier options
+- `useTabs`: false 
+  - tab 사용하지 않음  
+- `trailingComma`: all
+  - 가능하면 콤마 붙이기  
+- `endOfLine`: lf 
+  - eol el로 설정  
+- `printWidth`: 80 
+  - 길이 80 넘으면 줄넘김  
+- `tabWidth`: 2  
+  - tab = 스페이스 2칸  
+- `singleQuote`: true  
+  - 작은따옴표만 사용가능  
+- `jsxSingleQuote`: false  
+  - jsx문법의 속성은 큰따옴표만 가능  
+- `semi`: true  
+  - 세미콜론 필수  
+- `singleAttributePerLine`: true  
+  - jsx 속성은 한줄에 하나만 입력  
+- `arrowParens`: avoid 
+  - 가능하면 함수 인자에 () 생략
