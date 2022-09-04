@@ -88,7 +88,7 @@ const AddReceiptForm = ({
       responseObj.income = Math.abs(state.amount as number) * 1; //unknown as number) * 1;
     }
 
-    if (receipt) {
+    if (update) {
       updateReceipt(receipt?.id as number, responseObj);
     } else {
       addReceipt(responseObj);
@@ -209,7 +209,7 @@ const AddReceiptForm = ({
         </tbody>
       </AddReceiptTable>
       <AddReceiptModalFooterContainer>
-        {receipt && (
+        {update && (
           <AddReceiptModalFooterButton onClick={handleClickDelete}>
             <AiFillDelete />
           </AddReceiptModalFooterButton>
