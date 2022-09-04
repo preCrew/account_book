@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+export const PayListBox = styled.ul``;
 
 export const PayListWrap = styled.ul`
   > li {

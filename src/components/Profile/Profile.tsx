@@ -4,12 +4,15 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
 import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
 import useModal from 'hooks/useModal';
+import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const Profile = () => {
   const { userInfo } = useAppSelector(state => state.user);
-  // const totalExpense = 0;
+  const { receipts } = useAppSelector(state => state.accountBook);
   const { Modal, showModal, closeModal } = useModal({ modalName: 'profile' });
-  // const [] = useState();
+  const MonthSpending = receipts
+    .map(receipt => receipt.spending)
+    .reduce((acc, current) => acc! + current!);
 
   return (
     <>
@@ -17,12 +20,12 @@ const Profile = () => {
         <Avatar />
         <ProfileInfo>
           <dl>
-            <dt>예산</dt>
+            <dt>총예산</dt>
             <dd>{userInfo.budget}</dd>
           </dl>
           <dl>
             <dt>지출</dt>
-            <dd>{0}</dd>
+            <dd>{MonthSpending}</dd>
           </dl>
         </ProfileInfo>
         <AddListButton onClick={showModal}>

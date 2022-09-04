@@ -1,4 +1,5 @@
 import PayItem from 'components/PayItem';
+import PayList from 'components/PayList';
 import useModal from 'hooks/useModal';
 import { useCallback, useMemo, useState } from 'react';
 import useAccountBook from 'store/hooks/useAccountBook';
@@ -78,17 +79,10 @@ const DayReceiptsModal = () => {
         </Header>
         <Body>
           <DayReceiptModalBody>
-            {seleceDateReceipts.map(receipt => (
-              <PayItem
-                key={receipt.id}
-                title={receipt.transactionBranch}
-                amount={
-                  (receipt.income as number) ?? (receipt.spending as number)
-                }
-                transactionBranch={receipt.paymentMethod}
-                onClick={() => handleClickPayItem(receipt.id as number)}
-              />
-            ))}
+            <PayList
+              receiptData={seleceDateReceipts}
+              date={{ month, date }}
+            />
             <PayItem
               title="추가하기"
               onClick={handleClickAddButton}
@@ -96,14 +90,6 @@ const DayReceiptsModal = () => {
           </DayReceiptModalBody>
         </Body>
       </Container>
-
-      <Modal>
-        <AddReceiptModal
-          onClose={closeModal}
-          update={isUpdateReceipt}
-          date={{ month, date }}
-        />
-      </Modal>
     </>
   );
 };

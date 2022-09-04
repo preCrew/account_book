@@ -20,7 +20,7 @@ const Sub = styled.div`
   } */
 `;
 
-export const DayReceiptModalBody = styled.ul`
+export const DayReceiptModalBody = styled.div`
   /* overflow-y: scroll; */
   width: 100%;
   height: 100%;
