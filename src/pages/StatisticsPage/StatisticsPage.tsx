@@ -2,98 +2,35 @@ import './StatisticsPage.style.ts';
 import ApexChart, { Props } from 'react-apexcharts';
 import { useAppSelector } from '../../store/store';
 import Header from '../../components/Common/Layout/Header';
-import { SelectData } from '../../components/Common/Modal/ModalComponents/AddReceiptModal/AddReceiptModal';
-import { TReceipt } from 'store/reducers/accoutBook-Slice';
 
 const StatisticsPage: React.FC<Props> = () => {
   const spending: number[] = [];
-  const accountBook = useAppSelector(state => state.accountBook);
+  const receipts = useAppSelector(state => state.accountBook.receipts);
+  const categories: string[] = [];
 
-  //지출 배열 초기화
-  spending.length = 10;
-  spending.fill(0);
-
-  //category1
-  const category1 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[0],
-  );
-
-  //category2
-  const category2 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[1],
-  );
-
-  //category3
-  const category3 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[2],
-  );
-
-  //category4
-  const category4 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[3],
-  );
-
-  //category5
-  const category5 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[4],
-  );
-
-  //category6
-  const category6 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[5],
-  );
-
-  //category7
-  const category7 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[6],
-  );
-
-  //category8
-  const category8 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[7],
-  );
-
-  //category9
-  const category9 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[8],
-  );
-
-  //category10
-  const category10 = accountBook.receipts.filter(
-    receipt => receipt.category === SelectData.category[9],
-  );
-
-  const catgory_check = (category: TReceipt[], num: number) => {
-    for (let i = 0; i < category.length; i++) {
-      spending[num] += Math.abs(category[i].spending as number);
-    }
+  const items: {
+    [idx: string]: number[];
+  } = {
+    식비: [10000, 21124, 123123, 1223123, 123, 123, 3123],
+    교통: [10000],
   };
 
-  catgory_check(category1, 0);
-  catgory_check(category2, 1);
-  catgory_check(category3, 2);
-  catgory_check(category4, 3);
-  catgory_check(category5, 4);
-  catgory_check(category6, 5);
-  catgory_check(category7, 6);
-  catgory_check(category8, 7);
-  catgory_check(category9, 8);
-  catgory_check(category10, 9);
+  receipts.forEach(receipt => {
+    receipt.spending && items[receipt.category]
+      ? items[receipt.category].push(receipt.spending)
+      : (items[receipt.category] = [receipt.spending as number]);
+  });
+  const getSum = (arr: number[]) => arr.reduce((sum, cur) => (sum += cur));
+
+  // eslint-disable-next-line array-callback-return
+  Object.keys(items).map(key => {
+    categories.push(key);
+    const sum = getSum(items[key]);
+    spending.push(Math.abs(sum));
+  });
 
   const options = {
-    series: [50, 10, 10],
-    labels: [
-      SelectData.category[0],
-      SelectData.category[1],
-      SelectData.category[2],
-      SelectData.category[3],
-      SelectData.category[4],
-      SelectData.category[5],
-      SelectData.category[6],
-      SelectData.category[7],
-      SelectData.category[8],
-      SelectData.category[9],
-    ],
+    labels: categories,
     plotOptions: {
       pie: {
         expandOnClick: false,
@@ -110,25 +47,13 @@ const StatisticsPage: React.FC<Props> = () => {
     },
   };
 
-  const series = [
-    spending[0],
-    spending[1],
-    spending[2],
-    spending[3],
-    spending[4],
-    spending[5],
-    spending[6],
-    spending[7],
-    spending[8],
-    spending[9],
-  ];
   return (
     <>
       <Header title="Statistics"></Header>
       <ApexChart
         type="donut"
         options={options}
-        series={series}
+        series={spending}
         height={500}
       />
     </>
