@@ -10,10 +10,7 @@ const StatisticsPage: React.FC<Props> = () => {
 
   const items: {
     [idx: string]: number[];
-  } = {
-    식비: [10000, 21124, 123123, 1223123, 123, 123, 3123],
-    교통: [10000],
-  };
+  } = {};
 
   receipts.forEach(receipt => {
     receipt.spending && items[receipt.category]
