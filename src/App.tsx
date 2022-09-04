@@ -27,10 +27,10 @@ const App = () => {
     // 만약 로그인된 상태면
     auth.onAuthStateChanged(user => {
       if (user) {
-        // userinfo 서버에서 불러옴
-        getUserInfo();
         // 새로고침 or 페이지 이동돼도 로그인 유지
         keepingLoginState(user.email as string, user.uid as string);
+        // userinfo 서버에서 불러옴
+        getUserInfo();
         // 서버에서 내역 읽어옴
         readReceipts({ year, month });
       }
