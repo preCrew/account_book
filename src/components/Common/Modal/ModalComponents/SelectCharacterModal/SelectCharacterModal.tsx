@@ -11,10 +11,11 @@ interface SelectCharacterModalProps {
 const SelectCharacterModal = ({ onClose }: SelectCharacterModalProps) => {
   const { Container, Header, Body } = ModalS;
   const { userInfo } = useAppSelector(state => state.user);
-  const { chageCaracter } = useUser();
+  const { chageCaracter, updateUserInfo } = useUser();
 
   const onClickCharacter = (index: number) => () => {
     chageCaracter(index);
+    updateUserInfo();
   };
 
   return (
