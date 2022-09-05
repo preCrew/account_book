@@ -8,22 +8,14 @@ import CalendarPage from 'pages/CalendarPage';
 import Mypage from 'pages/MyPage';
 import StatisticsPage from 'pages/StatisticsPage';
 
-import useAccountBook from 'store/hooks/useAccountBook';
-
 import { auth } from 'firebaseConfig';
 import useUser from 'store/hooks/useUser';
+import useGetCurrentDate from 'hooks/useGetCurrentDate';
 
 const App = () => {
   const { keepingLoginState, getUserInfo } = useUser();
-  const { changeSelectDate, readReceipts } = useAccountBook();
 
   useEffect(() => {
-    const nowDate = new Date();
-    const year = nowDate.getFullYear();
-    const month = nowDate.getMonth() + 1;
-
-    // 최초 렌더링시 현재 월을 변경
-    changeSelectDate({ year, month });
     // 만약 로그인된 상태면
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -32,14 +24,13 @@ const App = () => {
         // 새로고침 or 페이지 이동돼도 로그인 유지
         keepingLoginState(user.email as string, user.uid as string);
         // 서버에서 내역 읽어옴
-        readReceipts({ year, month });
+        //readReceipts({ year, month });
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const dev = true;
-
+  //현재 날짜 값
+  useGetCurrentDate();
   return (
     <>
       <Layout>
