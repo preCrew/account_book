@@ -3,10 +3,11 @@ import React, { useCallback } from 'react';
 import { changeSelectIdAction } from 'store/reducers/accoutBook-Slice';
 import {
   changeModalMount,
+  changeModalNew,
   changeModalOpen,
   TModalTypes,
 } from 'store/reducers/modal-Slice';
-import { useAppDispatch } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { Keyframes } from 'styled-components';
 import { Down100, Up100 } from 'styles/animations';
 import { VoidExpression } from 'typescript';
@@ -28,7 +29,7 @@ const useModal = ({
   onShow,
 }: useModalProps) => {
   const dispatch = useAppDispatch();
-
+  const { receipt } = useAppSelector(state => state.modal);
   const closeModal = useCallback(() => {
     dispatch(changeModalMount({ modal: modalName, state: true }));
 
@@ -36,6 +37,8 @@ const useModal = ({
       dispatch(changeModalOpen({ modal: modalName, state: false }));
       onClose && onClose();
     }, animeTimeMs);
+
+    if (receipt.isNew) dispatch(changeModalNew({ state: false }));
   }, [animeTimeMs, dispatch, modalName, onClose]);
 
   const showModal = useCallback(() => {

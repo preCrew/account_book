@@ -12,6 +12,7 @@ interface TModal2 {
     isOpen: boolean;
     isUnmount: boolean;
     isUpdate: boolean;
+    isNew: boolean;
   };
 }
 
@@ -20,6 +21,7 @@ const initiaModalState: TModal & TModal2 = {
     isOpen: false,
     isUnmount: false,
     isUpdate: false,
+    isNew: false,
   },
   receipts: {
     isOpen: false,
@@ -57,9 +59,19 @@ const modalSlice = createSlice({
     ) {
       state.receipt.isUpdate = action.payload.state;
     },
+    changeModalNew(
+      state: TModal & TModal2,
+      action: PayloadAction<{ state: boolean }>,
+    ) {
+      state.receipt.isNew = action.payload.state;
+    },
   },
 });
 
-export const { changeModalMount, changeModalOpen, changeModalUpdate } =
-  modalSlice.actions;
+export const {
+  changeModalMount,
+  changeModalOpen,
+  changeModalUpdate,
+  changeModalNew,
+} = modalSlice.actions;
 export default modalSlice.reducer;

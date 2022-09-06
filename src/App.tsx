@@ -15,6 +15,10 @@ import useGetCurrentDate from 'hooks/useGetCurrentDate';
 const App = () => {
   const { keepingLoginState, getUserInfo } = useUser();
 
+  const nowDate = new Date();
+  const year = nowDate.getFullYear();
+  const month = nowDate.getMonth() + 1;
+
   useEffect(() => {
     // 만약 로그인된 상태면
     auth.onAuthStateChanged(user => {
@@ -30,7 +34,8 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //현재 날짜 값
-  useGetCurrentDate();
+  useGetCurrentDate({ year, month });
+
   return (
     <>
       <Layout>

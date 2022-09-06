@@ -26,7 +26,7 @@ const MonthSelector = () => {
   const firstMonth = useAppSelector(state => state.accountBook.firstDate.month);
 
   //현재 날짜 값
-  useGetCurrentDate();
+  useGetCurrentDate({ year, month });
 
   const dates = useMemo(() => {
     const firstDate = new Date(firstYear, firstMonth);
