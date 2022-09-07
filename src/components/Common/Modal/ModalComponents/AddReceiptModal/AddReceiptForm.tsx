@@ -13,6 +13,7 @@ import { TReceipt } from 'store/reducers/accoutBook-Slice';
 import { AiFillDelete } from 'react-icons/ai';
 import { useAppSelector } from 'store/store';
 import { shallowEqual } from 'react-redux';
+
 interface AddReceiptFormProps {
   data: Tdata;
   onClose: () => void;
@@ -33,13 +34,17 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
       receipt => receipt.id === state.accountBook.selectId,
     ),
   );
+  const addReceiptCurrentState = useAppSelector(
+    state => state.modal.receipt.isNew,
+  );
 
   const currentTime = useMemo(() => {
     const time = moment();
-    if (date && month && !update) {
+    if (!update && !addReceiptCurrentState) {
       time.month((month as number) - 1);
       time.date(date as number);
     }
+
     return time;
   }, [date, month, update]);
 
@@ -95,6 +100,7 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
     } else {
       addReceipt(responseObj);
     }
+
     onClose();
   };
 

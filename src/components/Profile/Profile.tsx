@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
 import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
 import useModal from 'hooks/useModal';
-import { changeModalUpdate } from 'store/reducers/modal-Slice';
+import { changeModalUpdate, changeModalNew } from 'store/reducers/modal-Slice';
 import useAccountBook from 'store/hooks/useAccountBook';
 
 const Profile = () => {
@@ -24,14 +24,15 @@ const Profile = () => {
       .reduce((acc, current) => acc! + current!, 0);
 
   const onClickModal = useCallback(() => {
-    changeSelectDate({
-      year: 0,
-      month: 0,
-      date: 0,
-      hours: 0,
-      minutes: 0,
-    });
+    // changeSelectDate({
+    //   year: 0,
+    //   month: 0,
+    //   date: 0,
+    //   hours: 0,
+    //   minutes: 0,
+    // });
     dispatch(changeModalUpdate({ state: false }));
+    dispatch(changeModalNew({ state: true }));
     showModal();
   }, []);
 
