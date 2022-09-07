@@ -11,6 +11,7 @@ import Button from '../Button';
 import ArrowButton from '../Button/ArrowButton';
 import SelectMonthModal from '../Modal/ModalComponents/SelectMonthModal';
 import { StyledMonthSelector } from './MonthSelector.style';
+import useGetCurrentDate from 'hooks/useGetCurrentDate';
 
 const MonthSelector = () => {
   const { changeSelectDateOneMonth } = useAccountBook();
@@ -23,6 +24,9 @@ const MonthSelector = () => {
   const year = useAppSelector(state => state.accountBook.selectDate.year);
   const firstYear = useAppSelector(state => state.accountBook.firstDate.year);
   const firstMonth = useAppSelector(state => state.accountBook.firstDate.month);
+
+  //현재 날짜 값
+  useGetCurrentDate({ year, month });
 
   const dates = useMemo(() => {
     const firstDate = new Date(firstYear, firstMonth);

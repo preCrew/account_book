@@ -28,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
         </>
       ) : (
         <LoginBox>
-          <h1>(로고)가계부</h1>
+          <h1>📚가계부✏️</h1>
           <LoginBtn
             type="button"
             onClick={handleClickLogin}

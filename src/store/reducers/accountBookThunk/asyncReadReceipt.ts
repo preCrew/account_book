@@ -61,6 +61,7 @@ const asyncReadReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.read.loading = false;
   state.loadingState.read.error = true;
   state.loadingState.read.errorMsg = action.payload.data;
+  state.receipts = [];
 };
 
 export default asyncReadReceipt;
