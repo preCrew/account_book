@@ -1,4 +1,6 @@
 # 📚Account Book✏️
+![화면 기록 2022-09-12 오후 4 53 59](https://user-images.githubusercontent.com/43428643/189603995-b2edb260-be6d-40f0-8291-a867bdf79079.gif)
+
 
 ### 📍배포주소 
 https://accountbook-5a92a.web.app/  
