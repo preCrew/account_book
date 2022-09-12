@@ -8,10 +8,22 @@ https://accountbook-5a92a.web.app/
 ### 📆개발일정 
 2022.07.30 ~ 2022.09.07  
 
-### ⚙️기술스택 
-Typescript, React, Styled-Components, Redux-Toolkit, Firebase
+## ⚙️기술스택 
+### FrontEnd 
+- Typescript, React, Styled-Components, Redux-Toolkit
 
-### 🏞️사이트 이미지
+### BackEnd 
+- Firebase
+
+
+## ⚒️구현기능
+### FrontEnd
+- 작성예정 
+
+### BackEnd
+- 작성예정 
+
+## 🏞️사이트 이미지
 
 <img width="400" alt="스크린샷 2022-09-07 오후 7 19 39" src="https://user-images.githubusercontent.com/43428643/188854845-1b73dc84-e7b9-451c-a166-241135f01348.png">
 <img width="400" alt="스크린샷 2022-09-07 오후 7 19 47" src="https://user-images.githubusercontent.com/43428643/188854858-979ef034-e3c9-409c-bbea-1c76f12516ef.png">
@@ -20,7 +32,7 @@ Typescript, React, Styled-Components, Redux-Toolkit, Firebase
 
 
 
-# 📝 개발관련 문서
+## 📝 개발관련 문서
 - [vscode extention 설치](docs/install-extension.md)  
 - [code snappet](docs/code-snappet.md)  
 - [eslint options](docs/eslint-options.md)  
