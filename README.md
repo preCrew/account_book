@@ -6,7 +6,7 @@ https://accountbook-5a92a.web.app/
 ### 📆개발일정 
 2022.07.30 ~ 2022.09.07  
 
-### ⚙️사용스택 
+### ⚙️기술스택 
 Typescript, React, Styled-Components, Redux-Toolkit, Firebase
 
 ### 🏞️사이트 이미지
