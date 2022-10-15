@@ -18,10 +18,18 @@ https://accountbook-5a92a.web.app/
 
 ## ⚒️구현기능
 ### FrontEnd
-- 작성예정 
+- 모달 구현
+- 달력 구현
+- 비동기 통신 구현
+- 모든 상태는 redux로 관리
+
 
 ### BackEnd
-- 작성예정 
+- 유저별로 설정정보 저장 / 불러오기
+- 유저별로 영수증 내역을 저장 / 불러오기
+
+### DevOps
+- firebase를 통한 CI/CD 구현
 
 ## 🏞️사이트 이미지
 
