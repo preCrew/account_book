@@ -19,7 +19,12 @@ const PayList = () => {
   );
   const onClickModal = useCallback(
     (id: number) => () => {
-      dispatch(changeModalUpdate({ state: true }));
+      dispatch(
+        changeModalUpdate({
+          state: true,
+          modal: 'receipt',
+        }),
+      );
       changeSelectId(id);
       showModal();
       return;

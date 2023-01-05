@@ -35,7 +35,7 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
     ),
   );
   const addReceiptCurrentState = useAppSelector(
-    state => state.modal.receipt.isNew,
+    state => state.modal.receipt.isUpdate,
   );
 
   const currentTime = useMemo(() => {

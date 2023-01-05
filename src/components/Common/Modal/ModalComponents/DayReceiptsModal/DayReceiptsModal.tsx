@@ -1,7 +1,10 @@
-import PayItem from 'components/PayItem';
-import { useMemo } from 'react';
-import useAccountBook from 'store/hooks/useAccountBook';
+import React, { useMemo } from 'react';
+
 import { useAppSelector } from 'store/store';
+import useAccountBook from 'store/hooks/useAccountBook';
+
+import PayItem from 'components/PayItem';
+
 import { ModalS } from '../Modal_Inner.style';
 import {
   DayReceiptModalBody,
@@ -89,4 +92,4 @@ const DayReceiptsModal = ({
   );
 };
 
-export default DayReceiptsModal;
+export default React.memo(DayReceiptsModal);
