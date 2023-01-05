@@ -5,14 +5,14 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
 import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
 import useModal from 'hooks/useModal';
-import { changeModalUpdate, changeModalNew } from 'store/reducers/modal-Slice';
-import useAccountBook from 'store/hooks/useAccountBook';
+// import { changeModalUpdate, changeModalNew } from 'store/reducers/modal-Slice';
+// import useAccountBook from 'store/hooks/useAccountBook';
 
 const Profile = () => {
-  const { changeSelectDate } = useAccountBook();
+  // const { changeSelectDate } = useAccountBook();
   const { userInfo } = useAppSelector(state => state.user);
   const { receipts } = useAppSelector(state => state.accountBook);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { Modal, showModal, closeModal } = useModal({
     modalName: 'receipts',
   });
@@ -31,8 +31,18 @@ const Profile = () => {
     //   hours: 0,
     //   minutes: 0,
     // });
-    dispatch(changeModalUpdate({ state: false }));
-    dispatch(changeModalNew({ state: true }));
+    // dispatch(
+    //   changeModalUpdate({
+    //     state: false,
+    //     modal: 'receipt',
+    //   }),
+    // );
+    // dispatch(
+    //   changeModalNew({
+    //     state: true,
+    //     modal: 'receipt',
+    //   }),
+    // );
     showModal();
   }, []);
 

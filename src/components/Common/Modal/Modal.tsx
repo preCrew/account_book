@@ -13,7 +13,7 @@ interface ModalProps {
   closeAnimation?: Keyframes;
   onClose: () => void;
   children: React.ReactNode;
-  modalName?: TModalTypes;
+  modalName: TModalTypes;
 }
 
 const Modal = ({
@@ -24,9 +24,7 @@ const Modal = ({
   children,
   modalName,
 }: ModalProps) => {
-  const { isOpen, isUnmount } = useAppSelector(
-    state => state.modal[modalName as TModalTypes],
-  );
+  const { isOpen, isUnmount } = useAppSelector(state => state.modal[modalName]);
   const handleClickInnerModal = (e: MouseEvent<HTMLDivElement>) => {
     // ModalWrapper로 이벤트 전파 방지
     e.stopPropagation();

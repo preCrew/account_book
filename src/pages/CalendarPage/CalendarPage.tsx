@@ -12,6 +12,7 @@ import { changeModalUpdate } from 'store/reducers/modal-Slice';
 
 const CalendarPage = () => {
   // const [isUpdateReceipt, setIsUpdateReceipt] = useState(false);
+  console.log('calpage');
 
   const { changeSelectDate } = useAccountBook();
   const { changeSelectId } = useAccountBook();
@@ -27,28 +28,32 @@ const CalendarPage = () => {
     closeModal: closeModal2,
   } = useModal({ modalName: 'receipt' });
 
-  const handleClickCalendarDate = useCallback(
-    (date: number) => {
-      showModal();
-      changeSelectDate({ date });
-    },
-    [changeSelectDate, showModal],
-  );
+  const handleClickCalendarDate = useCallback((date: number) => {
+    showModal();
+    changeSelectDate({ date });
+  }, []);
 
   const handleClickAddButton = useCallback(() => {
-    dispatch(changeModalUpdate({ state: false }));
+    dispatch(
+      changeModalUpdate({
+        state: false,
+        modal: 'receipt',
+      }),
+    );
     showModal2();
-  }, [dispatch, showModal2]);
+  }, []);
 
-  const handleClickPayItem = useCallback(
-    (id: number, date: number) => {
-      changeSelectId(id);
-      changeSelectDate({ date });
-      dispatch(changeModalUpdate({ state: true }));
-      showModal2();
-    },
-    [changeSelectDate, changeSelectId, dispatch, showModal2],
-  );
+  const handleClickPayItem = useCallback((id: number, date: number) => {
+    changeSelectId(id);
+    // changeSelectDate({ date });
+    dispatch(
+      changeModalUpdate({
+        state: true,
+        modal: 'receipt',
+      }),
+    );
+    showModal2();
+  }, []);
 
   return (
     <>
