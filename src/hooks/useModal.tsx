@@ -1,11 +1,7 @@
 import ModalFrame from 'components/Common/Modal';
 import React, { useCallback } from 'react';
-import {
-  changeModalMount,
-  changeModalOpen,
-  TModalTypes,
-} from 'store/reducers/modal-Slice';
-import { useAppDispatch } from 'store/store';
+import { useSetRecoilState } from 'recoil';
+import modalAtom from 'recoil/modalAtom';
 import { Keyframes } from 'styled-components';
 import { Down100, Up100 } from 'styles/animations';
 
@@ -13,7 +9,7 @@ interface useModalProps {
   openAnime?: Keyframes;
   closeAnime?: Keyframes;
   animeTimeMs?: number;
-  modalName: TModalTypes;
+  modalName: string;
   onClose?: () => void;
   onShow?: () => void;
 }
@@ -25,23 +21,30 @@ const useModal = ({
   onClose,
   onShow,
 }: useModalProps) => {
-  const dispatch = useAppDispatch();
+  const setModalState = useSetRecoilState(modalAtom);
+
   const closeModal = useCallback(() => {
-    dispatch(changeModalMount({ modal: modalName, state: true }));
+    setModalState(prev =>
+      prev.map(modal =>
+        modal.name === modalName ? { ...modal, willUnmount: true } : modal,
+      ),
+    );
 
     setTimeout(() => {
-      dispatch(changeModalOpen({ modal: modalName, state: false }));
+      setModalState(prev => prev.filter(modal => modal.name !== modalName));
       onClose && onClose();
     }, animeTimeMs);
   }, []);
 
   const showModal = useCallback(() => {
-    dispatch(changeModalMount({ modal: modalName, state: false }));
-    dispatch(changeModalOpen({ modal: modalName, state: true }));
+    setModalState(prev => [
+      ...prev,
+      { name: modalName, willUnmount: false, isOpen: true },
+    ]);
     onShow && onShow();
   }, []);
 
-  const modal = ({ children }: { children: React.ReactNode }) => (
+  const Modal = ({ children }: { children: React.ReactNode }) => (
     <ModalFrame
       onClose={closeModal}
       openAnimation={openAnime}
@@ -51,7 +54,6 @@ const useModal = ({
       {children}
     </ModalFrame>
   );
-  const Modal = React.memo(modal);
 
   return { Modal, showModal, closeModal };
 };
