@@ -34,24 +34,11 @@ const CalendarPage = () => {
   }, []);
 
   const handleClickAddButton = useCallback(() => {
-    dispatch(
-      changeModalUpdate({
-        state: false,
-        modal: 'receipt',
-      }),
-    );
     showModal2();
   }, []);
 
   const handleClickPayItem = useCallback((id: number, date: number) => {
     changeSelectId(id);
-    // changeSelectDate({ date });
-    dispatch(
-      changeModalUpdate({
-        state: true,
-        modal: 'receipt',
-      }),
-    );
     showModal2();
   }, []);
 

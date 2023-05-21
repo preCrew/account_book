@@ -1,11 +1,10 @@
-import React, { MouseEvent, useEffect, useLayoutEffect } from 'react';
+import React, { MouseEvent } from 'react';
 import { ModalInner, ModalWrapper } from './Modal.style';
 import ModalPortal from './ModalPortal';
 import { Keyframes } from 'styled-components';
-import { TModalTypes } from 'store/reducers/modal-Slice';
-import { useAppSelector } from 'store/store';
-import useBackgroundBlockScroll from 'hooks/useBackgroundBlockScroll';
 import ModalContent from './ModalInner';
+import { useRecoilValue } from 'recoil';
+import modalAtom from 'recoil/modalAtom';
 
 interface ModalProps {
   animationMs?: number;
@@ -13,7 +12,7 @@ interface ModalProps {
   closeAnimation?: Keyframes;
   onClose: () => void;
   children: React.ReactNode;
-  modalName: TModalTypes;
+  modalName: string;
 }
 
 const Modal = ({
@@ -24,22 +23,23 @@ const Modal = ({
   children,
   modalName,
 }: ModalProps) => {
-  const { isOpen, isUnmount } = useAppSelector(state => state.modal[modalName]);
   const handleClickInnerModal = (e: MouseEvent<HTMLDivElement>) => {
     // ModalWrapper로 이벤트 전파 방지
     e.stopPropagation();
   };
+  const modalState = useRecoilValue(modalAtom);
+  const nowModal = modalState.find(modal => modal.name === modalName);
 
   return (
     <>
-      {isOpen && (
+      {nowModal?.isOpen && (
         <ModalPortal>
           <ModalWrapper onClick={onClose}>
             <ModalInner
               onClick={onClose}
               openAnimation={openAnimation}
               closeAnimation={closeAnimation}
-              isUnmount={isUnmount}
+              isUnmount={nowModal?.willUnmount || false}
               animatinoMs={animationMs}
             >
               <ModalContent onClick={handleClickInnerModal}>
