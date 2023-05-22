@@ -18,7 +18,6 @@ const SelectMonthModal = ({ onClose, dates }: SelectMonthModalProps) => {
   const { changeSelectDate } = useAccountBook();
 
   useEffect(() => {
-    console.log('달력모달');
     goRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 

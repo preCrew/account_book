@@ -40,7 +40,7 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
 
   const currentTime = useMemo(() => {
     const time = moment();
-    if (!update && !addReceiptCurrentState) {
+    if (update && addReceiptCurrentState) {
       time.month((month as number) - 1);
       time.date(date as number);
     }
@@ -63,8 +63,10 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
         ${receipt?.timeDate.date}
         ${receipt?.timeDate.hours}:
         ${receipt?.timeDate.minutes}`,
-        ).format('YYYY-MM-DD HH:mm:ss')
-      : currentTime.format('YYYY-MM-DD HH:mm:ss'),
+        )
+          .format('YYYY-MM-DD HH:mm:ss')
+          .replace(/-/g, '/')
+      : currentTime.format('YYYY-MM-DD HH:mm:ss').replace(/-/g, '/'),
   });
 
   const onSubmitReceipt = (e: React.FormEvent) => {

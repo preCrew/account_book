@@ -6,7 +6,6 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
-  console.log('heade!!!!!!!!!!!!!!!!!!!!!!!!r');
   return (
     <>
       <HeaderWrap>{title}</HeaderWrap>

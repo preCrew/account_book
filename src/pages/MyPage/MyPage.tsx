@@ -73,8 +73,6 @@ const MyPage = () => {
   };
 
   const handleClickSave = () => {
-    console.log(serverName.length);
-
     if (serverName.length !== 0) {
       //유저정보 Update
       changeName(user.userInfo.name as string);

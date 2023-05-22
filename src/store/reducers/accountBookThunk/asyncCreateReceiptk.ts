@@ -27,7 +27,6 @@ const asyncCreateReceipt = createAsyncThunk(
       id: timeStamp,
     };
 
-    // console.log(data);
     try {
       // 데이터를 씀
       await setDoc(doc(db, 'receipts', timeStamp.toString()), data);

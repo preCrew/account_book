@@ -9,7 +9,6 @@ const asyncReadReceipt = createAsyncThunk(
   async (yearMonth: TYearMonth, api) => {
     const { email, isLogin, uid } = (api.getState() as RootState).user;
 
-    console.log(isLogin, email, uid);
     // 로그인된 상태가 아닌데 생성하려고 시도하는경우
     if (!isLogin) {
       api.rejectWithValue({

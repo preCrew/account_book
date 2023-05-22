@@ -12,7 +12,6 @@ import { changeModalUpdate } from 'store/reducers/modal-Slice';
 
 const CalendarPage = () => {
   // const [isUpdateReceipt, setIsUpdateReceipt] = useState(false);
-  console.log('calpage');
 
   const { changeSelectDate } = useAccountBook();
   const { changeSelectId } = useAccountBook();

@@ -17,8 +17,6 @@ interface CalendarProps {
 const titles = ['일', '월', '화', '수', '목', '금', '토'];
 
 const Calendar = ({ year, month, handleClickCalendarDate }: CalendarProps) => {
-  console.log('calendar rendered', year, month);
-
   // 캘린더 아이템을 만들어주는 함수
   const calendar = useMemo(() => {
     const datas = calendarGenerator(year, month);
@@ -36,7 +34,6 @@ const Calendar = ({ year, month, handleClickCalendarDate }: CalendarProps) => {
           render: date ? (
             <Button
               onClick={() => {
-                console.log('!');
                 handleClickCalendarDate(date);
               }}
             >
