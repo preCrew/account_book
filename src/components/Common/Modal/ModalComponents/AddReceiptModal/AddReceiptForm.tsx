@@ -63,10 +63,8 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
         ${receipt?.timeDate.date}
         ${receipt?.timeDate.hours}:
         ${receipt?.timeDate.minutes}`,
-        )
-          .format('YYYY-MM-DD HH:mm:ss')
-          .replace(/-/g, '/')
-      : currentTime.format('YYYY-MM-DD HH:mm:ss').replace(/-/g, '/'),
+        ).format('YYYY/MM/DD HH:mm:ss')
+      : currentTime.format('YYYY/MM/DD HH:mm:ss'),
   });
 
   const onSubmitReceipt = (e: React.FormEvent) => {
