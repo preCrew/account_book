@@ -23,7 +23,6 @@ export const AmountInput = styled.div`
     margin: 0;
     display: inline-block;
     vertical-align: baseline;
-    height: ${inputHeight};
     border: 0;
     outline: 0;
     font-size: ${({ theme }) => theme.fonts.size.large};
