@@ -43,7 +43,6 @@ const asyncDeleteReceiptRejected: CaseReducer = (state, action) => {
   state.loadingState.delete.loading = false;
   state.loadingState.delete.error = true;
   state.loadingState.delete.errorMsg = action.payload.data;
-  console.log('fail');
 };
 
 export default asyncDeleteReceipt;

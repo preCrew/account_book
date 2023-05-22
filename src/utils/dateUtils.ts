@@ -19,7 +19,6 @@ export const dateGenerator = (inputDate: Date, firstDate: Date) => {
     });
     nowDate.setMonth(nowDate.getMonth() - 1);
   }
-  console.log(dates);
   return dates;
 };
 

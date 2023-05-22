@@ -63,7 +63,6 @@ const asyncLoginUserFulfilled: CaseReducer = (state, action) => {
   state.loadingState.loginUser.loading = false;
   state.loadingState.loginUser.success = true;
 
-  console.log(action.payload.data);
   state.uid = action.payload.data.uid as string;
   state.email = action.payload.data.email as string;
   state.isLogin = true;
