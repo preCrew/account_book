@@ -63,6 +63,7 @@ const AddReceiptForm = ({ data, onClose, update }: AddReceiptFormProps) => {
         ${receipt?.timeDate.date}
         ${receipt?.timeDate.hours}:
         ${receipt?.timeDate.minutes}`,
+          'YYYY-M-D H:mm',
         ).format('YYYY/MM/DD HH:mm:ss')
       : currentTime.format('YYYY/MM/DD HH:mm:ss'),
   });
