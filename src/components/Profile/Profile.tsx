@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'store/store';
 import Avatar from './Avatar';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { ProfileWrap, ProfileInfo, AddListButton } from './Profile.style';
 import AddReceiptModal from '../Common/Modal/ModalComponents/AddReceiptModal';
